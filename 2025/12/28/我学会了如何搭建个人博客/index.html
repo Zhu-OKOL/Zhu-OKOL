@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>我学会了如何搭建个人博客 | Hexo</title><meta name="author" content="Zhu-OLOK"><meta name="copyright" content="Zhu-OLOK"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="就在刚刚，我成功搭建了属于自己的个人博客，使用 Hexo + Butterfly 主题。下面是整个过程以及我遇到的一些阻碍和解决方法。  准备工作   我选择在本地 D 盘创建博客文件夹：D:\BlogProjects  mathematica  注意从 C 盘命令行切换到 D 盘时，需要执行：D:cd D:\BlogProjects  markdown  安装 Hexo 前确保已安装 Node.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我学会了如何搭建个人博客">
+<meta property="og:url" content="http://example.com/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="就在刚刚，我成功搭建了属于自己的个人博客，使用 Hexo + Butterfly 主题。下面是整个过程以及我遇到的一些阻碍和解决方法。  准备工作   我选择在本地 D 盘创建博客文件夹：D:\BlogProjects  mathematica  注意从 C 盘命令行切换到 D 盘时，需要执行：D:cd D:\BlogProjects  markdown  安装 Hexo 前确保已安装 Node.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-12-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-28T14:12:12.855Z">
+<meta property="article:author" content="Zhu-OLOK">
+<meta property="article:tag" content="博客, Hexo, Butterfly">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "我学会了如何搭建个人博客",
+  "url": "http://example.com/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-12-28T15:00:00.000Z",
+  "dateModified": "2025-12-28T14:12:12.855Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhu-OLOK",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '我学会了如何搭建个人博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">我学会了如何搭建个人博客</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">我学会了如何搭建个人博客</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-28T15:00:00.000Z" title="发表于 2025-12-28 23:00:00">2025-12-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-28T14:12:12.855Z" title="更新于 2025-12-28 22:12:12">2025-12-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>就在刚刚，我成功搭建了属于自己的个人博客，使用 Hexo + Butterfly 主题。下面是整个过程以及我遇到的一些阻碍和解决方法。</p>
+<ol>
+<li>准备工作</li>
+</ol>
+<ul>
+<li>我选择在本地 D 盘创建博客文件夹：<br>D:\BlogProjects</li>
+</ul>
+<p>mathematica</p>
+<ul>
+<li>注意从 C 盘命令行切换到 D 盘时，需要执行：<br>D:<br>cd D:\BlogProjects</li>
+</ul>
+<p>markdown</p>
+<ul>
+<li>安装 Hexo 前确保已安装 Node.js 和 npm。</li>
+</ul>
+<ol start="2">
+<li>初始化 Hexo</li>
+</ol>
+<ul>
+<li>在空目录下执行：<br>hexo init .<br>npm install<br>Hexo 会自动生成基础目录结构，包括 _config.yml、source、themes 等。</li>
+</ul>
+<p>如果目录不为空，hexo init 会报错，需要先清空文件夹或者备份重要内容。</p>
+<ol start="3">
+<li>安装 Butterfly 主题<br>进入 themes 文件夹：</li>
+</ol>
+<p>cd themes<br>克隆 Butterfly 主题：</p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly.git">https://github.com/jerryc127/hexo-theme-butterfly.git</a> butterfly<br>返回博客根目录，修改 _config.yml：</p>
+<p>yaml<br>复制代码<br>theme: butterfly<br>安装主题依赖：</p>
+<p>复制代码<br>npm install hexo-butterfly –save<br>npm install hexo-renderer-pug hexo-renderer-sass –save</p>
+<p>遇到的阻碍<br>1.EISDIR 错误</p>
+<p>每次运行 hexo clean 或 hexo server 时，都会提示：<br>ERROR Plugin load failed: hexo-butterfly<br>Error: EISDIR: illegal operation on a directory, read<br>经过测试，这个错误不会影响博客生成或本地预览，所以可以暂时忽略。</p>
+<p>2.插件版本不兼容</p>
+<p>一些 npm 包会有警告或弃用提示，例如 core-js、cuid 等。</p>
+<p>使用 npm install 后依赖仍可正常运行，只是提示存在潜在安全或兼容问题。</p>
+<p>3.跨盘符命令行问题</p>
+<p>初次在 C 盘命令行操作 Hexo 时，直接 cd D:\BlogProjects 并不会切换盘符，需要先输入 D:，然后再 cd。</p>
+<ol start="4">
+<li>新建第一篇文章<br>使用命令：</li>
+</ol>
+<p>hexo new “我学会了如何搭建个人博客”<br>Hexo 会在：<br>D:\BlogProjects\source_posts<br>生成 Markdown 文件：我学会了如何搭建个人博客.md</p>
+<ol start="5">
+<li>编辑文章内容<br>打开 Markdown 文件，写下博客搭建心得：</li>
+</ol>
+<p>安装 Hexo</p>
+<p>安装 Butterfly 主题</p>
+<p>本地预览博客</p>
+<p>写文章流程</p>
+<ol start="6">
+<li>本地生成与预览<br>执行：</li>
+</ol>
+<p>hexo clean<br>hexo generate<br>hexo server</p>
+<p>打开浏览器访问：<br><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a><br>可以在首页看到刚创建的文章。</p>
+<p>通过以上步骤，我成功搭建了自己的个人博客，并学会了使用 Hexo + Butterfly 主题展示内容。<br>在操作过程中遇到了一些插件版本和跨盘符的阻碍，但都可以通过命令行和配置调整顺利解决。</p>
+<p>搭建个人博客不仅让我掌握了 Hexo 的基本用法，也让我理解了主题安装、依赖管理和本地预览的重要流程。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Zhu-OLOK</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">http://example.com/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2-Hexo-Butterfly/">博客, Hexo, Butterfly</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Zhu-OLOK</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="我学会了如何搭建个人博客">我学会了如何搭建个人博客</a><time datetime="2025-12-28T15:00:00.000Z" title="发表于 2025-12-28 23:00:00">2025-12-28</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Zhu-OLOK</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
