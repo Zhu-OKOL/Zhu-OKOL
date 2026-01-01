@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>C语言程序设计实验03：选择结构程序设计</title>
+    <url>/Zhu-OKOL/2024/03/18/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C03%EF%BC%9A%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验03：选择结构程序设计
+完成时间：2024年3月14日
+二、实验目的
+1 理解 C 语言数据类型的概念，掌握如何定义整型、字符型和实型变量
+2 学会正确使用关系表达式
+3 熟练使用 if-else、if-else if-else 和 switch 语句
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 编写一个程序输入某人的身高（cm）和体重（kg），按下式判断体重是否标准、过胖或过瘦
+判断标准：标准体重 &#x3D; 身高 - 110超过标准体重 5kg 为过胖低于标准体重 5kg 为过瘦
+输入&#x2F;输出示例：第一次运行：输入 160 50 → 输出 标准第二次运行：输入 160 57 → 输出 过胖第三次运行：输入 160 44 → 输出 过瘦
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;int main(void)&#123;    int h, w, a;    scanf(&quot;%d%d&quot;, &amp;h, &amp;w);    a = h - 110 - w;    if(a &lt; -5)        printf(&quot;过胖&quot;);    else if(a &gt;= -5 &amp;&amp; h - 110 - w &lt;= 5)        printf(&quot;标准&quot;);    else        printf(&quot;过瘦&quot;);    return 0;&#125;
+
+程序及运行结果：
+2 输入 x，计算分段函数 y 的值y &#x3D; −5, x &lt; 0y &#x3D; x^2, 0 ≤ x ≤ 1y &#x3D; x&#x2F;2, x &gt; 1
+输入&#x2F;输出示例：第一次运行：输入 -4 → 输出 -5第二次运行：输入 0.5 → 输出 0.25第三次运行：输入 3 → 输出 1.5
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    double x, y;    scanf(&quot;%lf&quot;, &amp;x);    if(x &lt; 0)    &#123;        y = -5;        printf(&quot;%f&quot;, y);    &#125;    else if(x &gt; 1)    &#123;        y = x / 2;        printf(&quot;%f&quot;, y);    &#125;    else    &#123;        y = x * x;        printf(&quot;%f&quot;, y);    &#125;    return 0;&#125;
+
+程序及运行结果：
+3 输入一个字符（A、B、C 或其他字符），使用 switch 语句输出奖项
+输入&#x2F;输出示例：第一次运行：输入 A → 输出 一等奖第二次运行：输入 C → 输出 三等奖第三次运行：输入 0 → 输出 很遗憾，此次未中奖
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    char p;    scanf(&quot;%c&quot;, &amp;p);    switch (p)    &#123;    case &#x27;A&#x27;: printf(&quot;一等奖&quot;); break;    case &#x27;B&#x27;: printf(&quot;二等奖&quot;); break;    case &#x27;C&#x27;: printf(&quot;三等奖&quot;); break;    default: printf(&quot;很遗憾，此次未中奖！&quot;); break;    &#125;    return 0;&#125;
+
+程序及运行结果：
+4 改错题：输入两个整数 num1 和 num2，以及运算符（+、-、*、&#x2F;、%），输出计算结果，其他字符输出“运算符输入错误”
+输入&#x2F;输出示例：第一次运行：输入 5*4 → 输出 20第二次运行：输入 16%3 → 输出 1第三次运行：输入 6#8 → 输出 运算符输入错误
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    char sign;    int x, y;    printf(&quot;输入x运算符y：&quot;);    scanf(&quot;%d %c %d&quot;, &amp;x, &amp;sign, &amp;y);    if (sign == &#x27;*&#x27;)        printf(&quot;%d*%d = %d \n&quot;, x, y, x * y);    else if (sign == &#x27;/&#x27;)        printf(&quot;%d / %d = %d \n&quot;, x, y, x / y);    else if (sign == &#x27;%&#x27;)        printf(&quot;%d Mod %d = %d \n&quot;, x, y, x % y);    else        printf(&quot;运算符输入错误！\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+通过本次实验，我熟练掌握了选择结构的编程方法，能够灵活使用 if-else、if-else if-else 和 switch 语句处理各种判断问题。在实验过程中，我收获如下：
+数据类型与条件判断理解加深了对整型、字符型和实型变量的理解，掌握了关系表达式的使用。
+条件分支逻辑清晰化能够根据条件设计多分支程序，理解条件语句的执行顺序和逻辑关系。
+调试能力提升通过改错题练习，学会了识别运算符及语法错误，增强了调试能力。
+程序规范与记录将程序及截图完整记录，提高了实验报告规范性和可读性。
+本次实验为后续循环结构和函数设计奠定了基础，同时提升了实际编程能力和问题分析解决能力。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验02：顺序结构与单选择结构</title>
+    <url>/Zhu-OKOL/2024/03/10/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C02%EF%BC%9A%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8D%95%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[一、实验信息
+1. 课程名称：C语言程序设计
+2. 实验名称：实验02：顺序结构与单选择结构
+3. 完成时间：2024年3月10日
+二、实验目的
+1. 掌握 C 语言的顺序结构与单选择结构
+2. 掌握变量定义和基本数据处理
+3. 掌握输入&#x2F;输出函数的功能、格式及使用方法，设计简单的顺序结构程序和选择结构程序
+三、实验环境
+1. 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1.已知 a&#x3D;1.5，b&#x3D;5.3，c&#x3D;2.9，计算 s&#x3D;b^2-4ac 的结果并输出
+输出示例：s&#x3D;10.690000
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    double a, b, c, s;    a = 1.5;    b = 5.3;    c = 2.9;    s = b*b - 4*a*c;    printf(&quot;s=%lf\n&quot;, s);    return 0;&#125;
+
+程序及运行结果：
+2 输入某学生三个科目的期末考试成绩，计算总分和平均分
+输入示例：70 85 92输出示例：sum &#x3D; 247, average &#x3D; 82.333333
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int math, english, c_program, sum;    double average;    scanf(&quot;%d %d %d&quot;, &amp;math, &amp;english, &amp;c_program);    sum = math + english + c_program;    average = (double)sum / 3;    printf(&quot;sum = %d, average = %lf\n&quot;, sum, average);    return 0;&#125;
+
+程序及运行结果：
+3 输入两个数 a 和 b，将两数的值互换后输出新值
+输入示例：3 4输出示例：a&#x3D;4，b&#x3D;3
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a, b, temp;    scanf(&quot;%d %d&quot;, &amp;a, &amp;b);    temp = a;    a = b;    b = temp;    printf(&quot;a = %d, b = %d\n&quot;, a, b);    return 0;&#125;
+
+程序及运行结果：
+4 输入 x 的值计算分段函数 y 的值
+y &#x3D; x^2 + 2x, x &lt; 2y &#x3D; 2x - 1, x &gt;&#x3D; 2
+输入示例与输出：第一次运行：输入 x&#x3D;3 → 输出 y&#x3D;5.000000第二次运行：输入 x&#x3D;1.99 → 输出 y&#x3D;7.940100第三次运行：输入 x&#x3D;1 → 输出 y&#x3D;3.000000
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    double x, y;    scanf(&quot;%lf&quot;, &amp;x);    if (x &gt;= 2)        y = 2 * x - 1;    else        y = x * x + 2 * x;    printf(&quot;y=f(%lf)=%lf\n&quot;, x, y);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我进一步掌握了 C 语言中顺序结构与单选择结构的编程方法，同时巩固了变量定义、输入输出以及简单运算的使用技巧。在实验过程中，我有以下收获：
+顺序结构熟练度提升能够独立编写顺序执行的程序，并理解程序从上到下执行的逻辑。
+选择结构理解与应用学会使用 if-else 条件语句进行分支判断，理解条件语句的执行顺序和逻辑关系。
+输入输出技巧强化熟练掌握 scanf 和 printf 的格式化输入输出，能够处理整数与浮点数数据，并正确进行类型转换。
+程序调试能力增强通过实验发现并解决输入格式错误、运算优先级问题以及变量使用错误，提高了调试效率。
+实验记录规范化将程序及运行截图完整记录，有助于形成规范化实验报告的习惯。
+总体来说，实验二在实验一基础上增加了程序逻辑判断，提升了实际编程能力，为后续条件结构和循环结构的学习打下了坚实基础。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验04：循环结构程序设计</title>
+    <url>/Zhu-OKOL/2024/03/21/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C04%EF%BC%9A%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验04：循环结构程序设计
+完成时间：2024年3月21日
+二、实验目的
+1 理解循环程序的结构和执行流程
+2 掌握 for、while 和 do-while 语句的格式和功能
+3 熟练使用 for、while 和 do-while 语句实现循环程序设计
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 循环输入某学生八个科目的期末考试成绩，计算成绩总分和平均分
+输入示例：Input grade: 76 85 79 94 68 88 70 98
+输出示例：sum&#x3D;658average&#x3D;82.25
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int i, data, sum;    double average;    i = 0;    sum = 0;    while(i &lt;= 7)    &#123;        scanf(&quot;%d&quot;, &amp;data);        sum = sum + data;        i = i + 1;    &#125;    average = (double)sum / 8;    printf(&quot;sum=%d\naverage=%lf&quot;, sum, average);    return 0;&#125;
+
+程序及运行结果：
+2 计算 1+4+7+…+301
+输出示例：sum&#x3D;15251
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int i, sum;    i = 1;    sum = 0;    while(i &lt;= 301)    &#123;        sum = sum + i;        i = i + 3;    &#125;    printf(&quot;sum=%d&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+3 读入一批正整数（以零或负数为结束标志），求其中的偶数和
+输入示例：input integers: 1 2 6 10 21 0
+输出示例：the sum of even number is 18
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int data, sum;    sum = 0;    scanf(&quot;%d&quot;, &amp;data);    while(data &gt; 0)    &#123;        if(data % 2 == 0)            sum = sum + data;        scanf(&quot;%d&quot;, &amp;data);    &#125;    printf(&quot;sum=%d&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+4 输入一个正整数，输出是否为素数（使用 do-while 或 while 循环）
+第一次运行：输入：5 → 输出：5是素数
+第二次运行：输入：8 → 输出：8不是素数
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int a, b, c;    b = 2;    c = 0;    scanf(&quot;%d&quot;, &amp;a);    while(a &gt; b)    &#123;        if(a % b == 0)            c = 1;        b = b + 1;    &#125;    if(c == 1)        printf(&quot;%d不是素数&quot;, a);    else        printf(&quot;%d是素数&quot;, a);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+通过本次实验，我进一步掌握了 C 语言中循环结构的使用方法。实验中我收获如下：
+循环结构理解加深通过 while、do-while 的练习，理解了循环条件的判断和循环体的执行顺序。
+循环应用能力提升能够利用循环语句解决求和、均值计算、数据处理等问题。
+程序调试能力增强在处理输入数据和判断条件时，发现并解决了边界条件、初值及循环终止条件的问题。
+算法思维训练通过素数判断和奇偶数求和练习，提高了用循环分析问题、设计算法的能力。
+实验记录规范化保持程序代码和运行结果截图完整记录，有助于形成规范化实验报告的习惯。
+总体来说，实验四让循环语句的理论知识和实际应用得到了系统训练，为后续条件循环结合的复杂问题打下了基础。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验05：程序结构的综合练习1</title>
+    <url>/Zhu-OKOL/2024/04/06/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C05%EF%BC%9A%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%E7%9A%84%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A01/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验05：程序结构的综合练习1
+完成时间：2024年4月6日
+二、实验目的
+1 熟练掌握顺序结构、选择结构（if，switch）、循环结构（while，do-while，for）的综合应用
+2 熟练掌握 break 和 continue 控制语句的使用
+3 熟练掌握选择结构和循环结构的一些常用算法
+4 熟练掌握 C 语言集成开发环境中的程序调试方法
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 求前驱字符和后继字符
+输入示例：Input a character: a
+输出示例：z,b,a,122,98,97
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    char a, b, c;    printf(&quot;输入一个英文字母：&quot;);    scanf(&quot;%c&quot;, &amp;b);    if (b == 97)        a = 122, b = 98, c = 97, printf(&quot;%c,%c,%c,%d,%d,%d&quot;, a, b, c, a, b, c);    else if (b == 122)        a = 122, b = 121, c = 97, printf(&quot;%c,%c,%c,%d,%d,%d&quot;, a, b, c, a, b, c);    else        a = b + 1, c = b - 1, printf(&quot;%c,%c,%c,%d,%d,%d&quot;, a, b, c, a, b, c);    return 0;&#125;
+
+程序及运行结果：
+2 输入某个点 A 的平面坐标，判断在圆内、圆外还是圆周上
+圆心坐标：(2, 2)，半径&#x3D;1
+输入示例与输出：第一次运行：输入点坐标：2.0, 3.0 → 输出：圆周上第二次运行：输入点坐标：2.1, 2.2 → 输出：圆内第三次运行：输入点坐标：3.0, 3.0 → 输出：圆外
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;math.h&gt;int main(void)&#123;    double ax, ay, d;    printf(&quot;输入点坐标：&quot;);    scanf(&quot;%lf%lf&quot;, &amp;ax, &amp;ay);    d = sqrt((ax - 2) * (ax - 2) + (ay - 2) * (ay - 2));    if (d == 1)        printf(&quot;圆周上&quot;);    else if (d &lt; 1)        printf(&quot;圆内&quot;);    else        printf(&quot;圆外&quot;);    return 0;&#125;
+
+程序及运行结果：
+3 使用 do-while 控制结构，计算级数 s&#x3D;1+3+5+…，当累加到某项 s &gt; 100 时停止
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdio.h&gt;int main(void)&#123;    int a, s;    a = 1;    s = 0;    do        s = s + a, a = a + 2;    while (s &lt; 100);    printf(&quot;结束时总和为：%d, 此时该项为%d&quot;, s, a);    return 0;&#125;
+
+程序及运行结果：
+4 输入 10 个字符，统计其中的英文字母个数（不区分大小写）
+输入示例：A123bc55%D
+输出示例：英文字母个数为：4
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int n = 0, i = 0;    char ch;    printf(&quot;请输入10个字符:&quot;);    for (i = 0; i &lt;= 10; i++)    &#123;        scanf(&quot;%c&quot;, &amp;ch);        if ((ch &gt;= &#x27;A&#x27; &amp;&amp; ch &lt;= &#x27;Z&#x27;) || (ch &gt;= &#x27;a&#x27; &amp;&amp; ch &lt;= &#x27;z&#x27;))            n = n + 1;    &#125;    printf(&quot;有%d个英文字母&quot;, n);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+通过本次实验，我对 C 语言的程序结构综合应用有了更深入的理解：
+综合应用能力提升能够将顺序结构、选择结构和循环结构结合，解决复杂问题。
+控制语句熟练掌握学会了 break、continue 的使用方法，提高了循环控制的灵活性。
+算法设计思维加强通过前驱后继字符、圆内外判断和累加级数等练习，提高了用程序分析问题、设计算法的能力。
+调试能力增强在实验中发现逻辑错误和边界问题，学会了通过调试逐步定位问题。
+实验规范性训练保持程序代码和运行结果完整记录，有助于形成规范化实验报告的习惯。
+总体来说，实验五对程序结构的综合训练显著提升了我的实际编程能力，为后续更复杂的算法学习奠定了基础。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验01：C语言集成开发环境</title>
+    <url>/Zhu-OKOL/2024/02/29/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C01%EF%BC%9AC%E8%AF%AD%E8%A8%80%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[一、实验信息
+1. 课程名称：C语言程序设计
+2. 实验名称：实验01：C语言集成开发环境
+3. 完成时间：2024年2月29日
+二、实验目的
+1. 熟悉 Visual Studio 开发环境
+2. 熟悉 Visual C++ 6.0 开发环境
+3. 熟悉 Dev-C++ 开发环境
+4. 掌握 C 语言程序的编辑、调试及运行过程
+5. 熟悉集成开发环境中常见的错误提示信息
+三、实验环境
+1. 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 输出学生的学号和姓名
+输出示例：
+学号：06011126  
+姓名：王晨     （虚构，并非实际存在的人）
+程序代码：
+\#include &lt;stdio.h&gt;int main(void)&#123;&amp;nbsp;   printf(&quot;学号：06011126\\n&quot;);&amp;nbsp;   printf(&quot;姓名：王晨\\n&quot;);&amp;nbsp;   return 0;&#125;
+
+程序及运行结果：
+2 编程实现在屏幕上显示下列图形
+输出：
+
+
+
+**
+
+
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    printf(&quot;*\n&quot;);    printf(&quot;**\n&quot;);    printf(&quot;***\n&quot;);    printf(&quot;****\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+3 编程求 37+29 的值
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a,b,c;    a=37;    b=29;    c=a+b;    printf(&quot;%d+%d=%d\n&quot;,a,b,c);    return 0;&#125;
+
+程序及运行结果：
+4 上机实践分析输出结果
+a) 程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    char ch=&#x27;a&#x27;;    printf(&quot;%c对应的ASCII码是：%d\n&quot;, ch, ch);    return 0;&#125;
+
+程序及运行结果：
+b) 程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a=168;    float b=123.456;    float x=35.567, y;    printf(&quot;a=%5d\n&quot;, a);    printf(&quot;a=%-5d\n&quot;, a);    printf(&quot;b=%6.2f\n&quot;, b);    printf(&quot;b=%e\n&quot;, b);    y=(int)(x*100+0.5)/100.0;    printf(&quot;x=%f,y=%f\n&quot;,x,y);    return 0;&#125;
+
+程序及运行结果：
+c) 程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a=168;    printf(&quot;十进制数%d对应的八进制数是%o\n&quot;, a, a);    printf(&quot;十进制数%d对应的十六进制数是%x\n&quot;, a, a);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+通过本次实验，我对 C 语言的基础编程有了初步认识，同时熟悉了多种集成开发环境（Visual Studio、Visual C++ 6.0、Dev-C++）的使用流程。在实验过程中，我掌握了以下几个方面：
+程序编辑与运行流程熟悉了 C 语言程序从编辑、编译到运行的完整流程，理解了每条语句的作用以及编译器的工作原理。
+调试技巧在运行过程中遇到语法或逻辑错误，通过编译器的报错信息可以快速定位问题，提高了调试能力。
+数据类型与格式控制通过实验 4 的输出分析，掌握了字符、整数、浮点数的不同输出格式，以及如何进行数据类型转换和格式化输出。
+程序结构与思维训练通过图形打印和算术计算练习，增强了对程序结构的理解，包括顺序执行、变量定义、运算操作以及输出语句的使用。
+实验规范与记录习惯实验要求将程序及运行截图完整记录，使我养成了整理实验资料、形成实验报告的良好习惯。
+总体来说，实验一虽然内容基础，但为后续深入学习 C 语言打下了坚实基础，同时提高了实际操作能力和问题分析解决能力。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验06：程序结构的综合练习2</title>
+    <url>/Zhu-OKOL/2024/04/14/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C06%EF%BC%9A%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%E7%9A%84%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A02/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验06：程序结构的综合练习2
+完成时间：2024年4月14日
+二、实验目的
+熟练掌握顺序结构、选择结构（if，switch）、循环结构（while，do-while，for），嵌套选择循环结构的综合应用
+熟练掌握 break 和 continue 控制语句的使用
+熟练掌握选择结构和循环结构的一些常用算法
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 统计整数各位 0 的个数并求最大值
+输入示例：60089
+输出示例：count&#x3D;2, max&#x3D;9
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int num, count = 0, m = 0, n = 0;    printf(&quot;输入一个在0和99999之间的整数：&quot;);    scanf(&quot;%d&quot;, &amp;num);    while (num != 0)    &#123;        m = num % 10;        num = num / 10;        if (m == 0)            count++;        if (m &gt; n)            n = m;    &#125;    printf(&quot;count=%d,max=%d&quot;, count, n);    return 0;&#125;
+
+程序及运行结果：
+2 输出菱形图案
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int i;    printf(&quot;输入菱形的行数（奇数）：&quot;);    scanf(&quot;%d&quot;, &amp;i);    for (int m = 1; m &lt;= (i + 1) / 2; m++)    &#123;        for (int n = 1; n &lt;= (i + 1) / 2 - m; n++)            printf(&quot; &quot;);        for (int n = 1; n &lt;= m * 2 - 1; n++)            printf(&quot;*&quot;);        printf(&quot;\n&quot;);    &#125;    for (int m = (i + 1) / 2 + 1; m &lt;= i; m++)    &#123;        for (int n = 1; n &lt;= m - (i + 1) / 2; n++)            printf(&quot; &quot;);        for (int n = 1; n &lt;= (i - m) * 2 + 1; n++)            printf(&quot;*&quot;);        printf(&quot;\n&quot;);    &#125;    return 0;&#125;
+
+程序及运行结果：
+3 改错题：计算整数各位数字之和
+输入示例：2586
+输出示例：2+5+8+6&#x3D;21
+程序代码（修改后的正确版本）：
+#include &lt;stdio.h&gt;int main(void)&#123;    int temp, number;    int i, j, k;    int count, sum;    count = 0;    sum = 0;    printf(&quot;Please input a short type integer: &quot;);    scanf(&quot;%d&quot;, &amp;number);    temp = number;    do    &#123;        temp /= 10;        count++;    &#125; while (temp != 0);    k = 1;    for (i = count; i &gt; 1; i--)    &#123;        for (j = 1; j &lt; i; j++)            k = k * 10;        temp = number / k;        printf(&quot;%d%c&quot;, temp, &#x27;+&#x27;);        sum = sum + temp;        number = number - k * temp;        k = 1;    &#125;    sum = sum + number;    printf(&quot;%d=%d \n&quot;, number, sum);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+通过本次实验，我在程序结构的综合应用上有了更深入的理解和提升：
+嵌套结构掌握学会在循环中嵌套选择结构或在选择结构中使用循环，处理更复杂的逻辑问题。
+循环与条件结合应用通过统计数字 0 的个数、求最大值和输出菱形图案的练习，增强了循环与条件判断结合的能力。
+调试能力提高在改错题中发现原程序的逻辑错误和变量使用问题，并通过分析和修改，掌握了程序调试方法。
+算法思维锻炼理解了数字分解、累加计算、菱形图案生成等常用算法的实现思路，提升了算法设计能力。
+实验规范性保持程序代码、运行结果和截图完整记录，形成了良好的实验报告习惯。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验07：一维数组</title>
+    <url>/Zhu-OKOL/2024/04/21/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C07%EF%BC%9A%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验07：一维数组
+完成时间：2024年4月21日
+二、实验目的
+熟练掌握一维数组的定义、赋值和输入&#x2F;输出的方法
+熟练掌握与一维数组有关的操作和算法（如排序算法）
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 求最小值及下标
+输入示例：5 7 9 1 6
+输出示例：min&#x3D;1, index&#x3D;3
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int i, min=9, index, a[5];    printf(&quot;Input 5 integers:&quot;);    for (i = 0; i &lt; 5; i++)    &#123;        scanf(&quot;%d&quot;, &amp;a[i]);        if (a[i] &lt; min)            min = a[i], index = i;    &#125;    printf(&quot;min=%d,index=%d&quot;, min, index);    return 0;&#125;
+
+程序及运行结果：
+2 最大值与第一个数交换
+输入示例：75 7 2 8 9 3 1
+输出示例：After swapped: 9 7 2 8 5 3 1
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;corecrt_malloc.h&gt;int main(void)&#123;    int i, n, max = 0, index = 0;    printf(&quot;Input n:&quot;);    scanf(&quot;%d&quot;, &amp;n);    int* a = (int*)malloc(n * sizeof(int));    printf(&quot;Input %d integers:&quot;, n);    for (i = 0; i &lt; n; i++)    &#123;        scanf(&quot;%d&quot;, &amp;a[i]);        if (a[i] &gt; max)        &#123;            max = a[i];            index = i;        &#125;    &#125;    int b = a[0];    a[0] = a[index];    a[index] = b;    for (i = 0; i &lt; n; i++)        printf(&quot;%d &quot;, a[i]);    return 0;&#125;
+
+程序及运行结果：
+3 冒泡排序
+输入示例：58 6 9 11 3
+输出示例：After sorted: 11 9 8 6 3
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;corecrt_malloc.h&gt;int main(void) &#123;    int i, n, temp;    printf(&quot;Input n:&quot;);    scanf(&quot;%d&quot;, &amp;n);    int* a = (int*)malloc(n * sizeof(int));    printf(&quot;Input %d integers:&quot;, n);    for (i = 0; i &lt; n; i++)        scanf(&quot;%d&quot;, &amp;a[i]);    for (i = 0; i &lt; n - 1; i++) &#123;        for (int j = 0; j &lt; n - i - 1; j++) &#123;            if (a[j] &gt; a[j + 1])             &#123;                temp = a[j];                a[j] = a[j + 1];                a[j + 1] = temp;            &#125;        &#125;    &#125;    printf(&quot;After sorted:&quot;);    for (i = 0; i &lt; n; i++)        printf(&quot;%d &quot;, a[i]);    return 0;&#125;
+
+程序及运行结果：
+4 查找数组中与 x 相同的元素
+输入示例1：58 6 9 11 39
+输出示例1：和9相同的数组元素是a[2] &#x3D; 9
+输入示例2：58 6 9 11 312
+输出示例2：没有找到与12相等的元素！
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;corecrt_malloc.h&gt;int main(void) &#123;    int i, x, n;    printf(&quot;输入数组元素的个数：&quot;);    scanf(&quot;%d&quot;, &amp;n);    int* a = (int*)malloc(n * sizeof(int));    printf(&quot;输入数组 %d 个元素：&quot;, n);    for (i = 0; i &lt; n; i++)        scanf(&quot;%d&quot;, &amp;a[i]);    printf(&quot;输入x：&quot;);    scanf(&quot;%d&quot;, &amp;x);    for (i = 0; i &lt; n; i++)        if (a[i] == x) &#123;            printf(&quot;和%d相同的数组元素是a[%d] = %d\n&quot;, x, i, a[i]);            break;        &#125;    if (i == n)        printf(&quot;没有找到与%d相等的元素！\n&quot;, x);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+数组基本操作熟练能够灵活使用数组存储多个数据并进行访问与修改。
+算法应用能力提升通过冒泡排序和查找算法的实现，加深了对数组元素处理逻辑的理解。
+动态内存分配使用使用 malloc 动态申请数组空间，掌握了指针与数组结合的用法。
+调试和错误修改能力增强在查找数组元素的改错题中，学会分析逻辑错误并正确处理边界条件。
+程序规范与实验记录保持实验报告格式规范，截图清晰完整，有助于养成良好的实验习惯。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验09：函数1</title>
+    <url>/Zhu-OKOL/2024/05/11/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C09%EF%BC%9A%E5%87%BD%E6%95%B01/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验09：函数1
+完成时间：2024年5月11日
+二、实验目的
+熟练掌握函数的定义和调用
+熟练掌握使用函数编写程序
+掌握函数的实参、形参、返回值的概念及使用
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 计算整数阶乘
+输入示例：5
+输出示例：5!&#x3D;120
+程序代码：
+#include &lt;stdio.h&gt;int fun(int n) &#123;    if (n == 0 || n == 1)        return 1;    else        return n * fun(n - 1);&#125;int main(void) &#123;    int x;    printf(&quot;Input n: &quot;);    scanf(&quot;%d&quot;, &amp;x);    printf(&quot;%d!=%d\n&quot;, x, fun(x));    return 0;&#125;
+
+程序及运行结果：
+2 求奇数和
+输入示例：11 3 7 6 8 9 11 0
+输出示例：sum&#x3D;41
+程序代码：
+#include &lt;stdio.h&gt;int even(int n) &#123;    if (n % 2 == 0)        return 1;    else        return 0;&#125;int main(void)&#123;    int num, sum = 0;    printf(&quot;输入一批正整数（以零或负数为结束标志）：\n&quot;);    scanf(&quot;%d&quot;, &amp;num);    while (num &gt; 0)     &#123;        if (!even(num))            sum = sum + num;        scanf(&quot;%d&quot;, &amp;num);    &#125;    printf(&quot;sum=%d\n&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+3 统计素数个数及求和
+输入示例：2 10
+输出示例：count &#x3D; 4, sum&#x3D;17
+程序代码：
+#include &lt;stdio.h&gt;int isprime(int n) &#123;    if (n &lt;= 1)        return 0;    for (int i = 2; i * i &lt;= n; i++)     &#123;        if (n % i == 0)            return 0;    &#125;    return 1;&#125;int main(void) &#123;    int m, n, count = 0, sum = 0;    printf(&quot;Input m, n: &quot;);    scanf(&quot;%d %d&quot;, &amp;m, &amp;n);    if (m &gt; n)     &#123;        int temp = m;        m = n;        n = temp;    &#125;    for (int i = m; i &lt;= n; i++)     &#123;        if (isprime(i))         &#123;            count++;            sum = sum + i;        &#125;    &#125;    printf(&quot;count = %d, sum=%d\n&quot;, count, sum);    return 0;&#125;
+
+程序及运行结果：
+4 计算 1! + 2! + … + 10!
+输出示例：1! + 2! + … + 10! &#x3D; 4037913.000000
+程序代码：
+#include &lt;stdio.h&gt;double fact(int n) &#123;    int i;    double result = 1.0;    for (i = 1; i &lt;= n; i++)        result = result * i;    return result;&#125;int main(void) &#123;    int i;    double sum = 0;    for (i = 1; i &lt;= 10; i++)        sum = sum + fact(i);    printf(&quot;1! + 2! + ... + 10! = %.6f\n&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+函数调用熟练通过阶乘、奇数和、素数判断等实验掌握了函数的定义与调用方法。
+递归理解阶乘函数使用递归，理解了递归函数的执行流程与返回值传递。
+逻辑判断能力提升奇数和、素数统计程序中需要条件判断，进一步锻炼了逻辑分析能力。
+返回值类型注意计算大阶乘时使用 double 类型避免溢出，并掌握了函数返回不同类型值的方法。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>作业展示</tag>
+        <tag>函数</tag>
+        <tag>阶乘</tag>
+        <tag>素数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验08：字符串和二维数组</title>
+    <url>/Zhu-OKOL/2024/04/26/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C08%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验08：字符串和二维数组
+完成时间：2024年4月26日
+二、实验目的
+熟练掌握字符串的定义和使用
+熟练掌握二维数组的编程
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码 
+1 字符串中查找字符的最大下标
+输入示例1：programmingm
+输出示例1：index &#x3D; 7
+输入示例2：1234a
+输出示例2：Not found
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(void)&#123;    int i, l, index, j = 0;    char ch, c[80];    printf(&quot;Input a string:&quot;);    gets(c);    l = strlen(c);    printf(&quot;Input a character:&quot;);    scanf(&quot;%c&quot;, &amp;ch);    for (i = 0; i &lt; l; i++)        if (ch == c[i])            index = i, j = 1;    if (j == 0)        printf(&quot;Not found&quot;);    else         printf(&quot;index=%d&quot;, index);    return 0;&#125;
+
+程序及运行结果：
+2 按相反顺序输出字母和数字
+输入示例：1+2&#x3D;3abc&#x2F;ABC.
+输出示例：CBAcba321
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;int main(void) &#123;    char* str = NULL;    int length = 0, i = 0;    char c, ch;    printf(&quot;Input a string:&quot;);    while ((ch = getchar()) != &#x27;.&#x27; &amp;&amp; ch != EOF)     &#123;         length++;        str = (char*)realloc(str, length * sizeof(char));        str[length - 1] = ch;    &#125;    str = (char*)realloc(str, (length + 1) * sizeof(char));    str[length] = &#x27;\0&#x27;;       for (i = 0; i &lt;= length; i++)    &#123;        c = str[length - i];        if ((c &gt;= &#x27;A&#x27; &amp;&amp; c &lt;= &#x27;Z&#x27;) || (c &gt;= &#x27;a&#x27; &amp;&amp; c &lt;= &#x27;z&#x27;) || (c &gt;= &#x27;0&#x27; &amp;&amp; c &lt;= &#x27;9&#x27;))            printf(&quot;%c&quot;, c);    &#125;    return 0;&#125;
+
+程序及运行结果：
+3 计算矩阵主对角线和副对角线元素和
+输入示例：42 3 4 15 6 1 17 1 8 11 1 1 1
+输出示例：sum&#x3D;21
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;int main(void)&#123;    int n, i = 0, j = 0, sum = 0;    int** a;    printf(&quot;Input n：&quot;);    scanf(&quot;%d&quot;, &amp;n);    a = (int**)malloc(n * sizeof(int*));    for (i = 0; i &lt; n; i++)         a[i] = (int*)malloc(n * sizeof(int));    printf(&quot;Input array:\n&quot;);    for (i = 0; i &lt; n; i++)         for (j = 0; j &lt; n; j++)             scanf(&quot;%d&quot;, &amp;a[i][j]);    for (i = 0; i &lt; n; i++)        sum = sum + a[i][i];    for (i = 0; i &lt; n; i++)        sum = sum + a[n - i - 1][i];    printf(&quot;sum=%d&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+4 去掉非数字字符，将字符串数字转为整数
+输入示例：3a5b6abc
+输出示例：356
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(void) &#123;    int i, s = 0;    char str[80];    i = 0;    while ((str[i] = getchar()) != &#x27;\n&#x27; &amp;&amp; i &lt; 79)        i++;    str[i] = &#x27;\0&#x27;;    for (i = 0; i &lt; strlen(str); i++)         if (str[i] &gt;= &#x27;0&#x27; &amp;&amp; str[i] &lt;= &#x27;9&#x27;)             s = s * 10 + (str[i] - &#x27;0&#x27;);    printf(&quot;%d&quot;, s);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+字符串操作熟练掌握了 gets、strlen、字符数组的操作以及字符判断条件。
+动态内存管理理解通过 malloc 与 realloc 动态申请二维数组和字符串的空间，学会处理不同长度数据。
+二维数组操作能力增强熟练输入、遍历二维数组，计算矩阵主副对角线元素和。
+字符过滤与数据转换通过遍历字符数组，将符合条件的数字提取并转换为整数，掌握字符与整数的转换方法。
+程序调试能力提升改错题帮助理解逻辑错误及边界条件处理，提高调试能力。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>作业展示</tag>
+        <tag>字符串</tag>
+        <tag>二维数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我学会了如何搭建个人博客</title>
+    <url>/Zhu-OKOL/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[就在刚刚，我成功搭建了属于自己的个人博客，使用的是 Hexo + Butterfly 主题。这个过程并不算顺利，但正因为踩了很多坑，也让我对 Hexo 博客系统、本地构建以及 GitHub Pages 的部署流程有了更深入的理解。下面记录的是从零开始搭建博客的全过程，以及过程中遇到的各种问题与解决思路。
+一、准备工作
+我选择在本地 D 盘创建博客项目文件夹，路径如下：
+D:\BlogProjects
+在 Windows 系统中，命令行默认位于 C 盘，因此在执行 Hexo 相关命令前，必须先手动切换盘符，否则所有操作都会在错误路径下执行。正确的步骤是：
+D:cd D:\BlogProjects
+在安装 Hexo 之前，需要确保已经正确安装 Node.js 和 npm，并且版本能够正常使用。
+二、初始化 Hexo
+在一个空目录中执行以下命令：
+hexo init .npm install
+Hexo 会自动生成基础目录结构，包括配置文件、文章目录、主题目录等。如果当前目录不为空，hexo init 会直接报错，因此需要提前清空文件夹，或将原有内容备份。
+三、安装 Butterfly 主题
+进入 themes 目录：
+cd themes
+克隆 Butterfly 主题仓库：
+git clone https://github.com/jerryc127/hexo-theme-butterfly.git butterfly
+返回博客根目录，修改 _config.yml，将主题设置为：
+theme: butterfly
+随后安装主题依赖：
+npm install hexo-renderer-pug hexo-renderer-sass –save
+在后续实践中发现，hexo-butterfly 插件并不是必须安装的，否则可能引发插件加载错误。
+四、新建第一篇文章
+使用 Hexo 提供的命令创建文章：
+hexo new “我学会了如何搭建个人博客”
+Hexo 会在以下路径生成 Markdown 文件：
+D:\BlogProjects\source_posts\我学会了如何搭建个人博客.md
+五、编辑文章内容
+打开生成的 Markdown 文件，开始编写内容，主要包括：
+
+博客搭建的整体流程
+Hexo 的基本使用方式
+主题配置与本地预览
+实际遇到的问题和解决过程
+
+六、本地生成与预览
+在博客根目录执行以下命令：
+hexo cleanhexo generatehexo server
+随后在浏览器中访问：
+http://localhost:4000/
+如果项目配置了 root（例如 &#x2F;Zhu-OKOL&#x2F;），则访问地址会变为：
+http://localhost:4000/Zhu-OKOL/
+此时可以在本地完整预览博客的样式和内容。
+七、部署到 GitHub Pages
+为了让博客可以在公网访问，需要将生成的静态文件部署到 GitHub Pages。
+首先安装部署插件：
+npm install hexo-deployer-git –save
+然后在 _config.yml 中配置部署信息：
+deploy:  type: git  repo: https://github.com/用户名/仓库名.git  branch: main
+对于项目页形式的 GitHub Pages，还需要额外配置：
+url: https://username.github.ioroot: &#x2F;仓库名&#x2F;
+完成配置后，执行：
+hexo cleanhexo generatehexo deploy
+部署完成后，即可通过：
+https://username.github.io/仓库名/
+访问博客。
+八、后续更新博客的正确流程
+以后每次更新博客，只需要：
+
+编写或修改 source&#x2F;_posts 下的 Markdown 文件
+在博客根目录执行：
+
+hexo cleanhexo generatehexo deploy
+本地电脑只负责生成和上传，网页本身会由 GitHub Pages 自动托管，不需要电脑一直开着。
+九、自动部署脚本（deploy.bat）
+为了减少重复输入命令的麻烦，可以在博客根目录创建 deploy.bat 文件，内容如下：
+@echo offecho &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Hexo Deploy Start &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;hexo cleanhexo generatehexo deployecho &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Hexo Deploy Finished &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;pause
+以后只需要双击该文件，就可以一键完成清理、生成和部署。
+
+搭建个人博客过程中遇到的挫折整理
+一、Hexo 主题插件加载失败（EISDIR 报错）
+在执行 hexo clean、hexo generate 或 hexo deploy 时，控制台频繁出现：
+ERROR Plugin load failed: hexo-butterflyError: EISDIR: illegal operation on a directory, read
+这个错误并不会中断生成流程，但会在每一步操作前反复出现，严重影响使用体验。最终发现原因是误安装了 hexo-butterfly 插件，而 Butterfly 实际上是主题而非标准 Hexo 插件。卸载该插件后问题彻底消失。
+二、跨盘符操作不熟悉
+最初在 C 盘打开命令行，却在 D 盘存放博客项目，忘记先输入 D:，导致多次在错误目录下执行 Hexo 命令，引发路径相关错误。
+三、版本兼容与依赖问题
+Node.js、Hexo 以及主题依赖之间存在版本兼容问题，一些报错信息并不直观，只能通过不断尝试和查阅文档解决。
+四、文章显示为“无标题”
+创建文章后页面显示“无标题”，最终确认是 Markdown 文件 front-matter 格式不规范，或者主题未正确读取标题字段。
+五、默认作者信息未修改
+Hexo 默认作者名为 John Doe，头像为默认图片，需要手动修改 _config.yml 才能显示个人信息。
+六、本地正常但 GitHub Pages 显示异常
+本地 hexo server 显示完全正常，但部署后 CSS 和 JS 丢失，所有链接 404。根本原因是未配置 root，导致资源路径与项目页地址不匹配。
+七、GitHub Pages 初次部署失败
+首次部署时 Git 提示未设置用户信息，必须手动配置：
+git config –global user.namegit config –global user.email
+否则无法完成推送。
+八、页面部署成功但无任何美化
+即使 Pages 显示部署成功，页面依然是纯文本样式。需要修正 root 配置并重新 clean、generate、deploy 才能解决。
+九、License 选择的困惑
+创建仓库时不清楚 MIT、CC 等许可证的区别，虽然可以后期修改，但仍需要额外学习相关概念。
+十、LF &#x2F; CRLF 警告干扰判断
+部署过程中出现大量换行符警告，虽然不影响使用，但在初期容易被误认为是严重错误。
+十一、deploy.bat 黑框一闪而过
+最初双击 deploy.bat 后窗口瞬间关闭，无法看到报错信息。通过添加 pause 才能正常观察执行过程。
+十二、本地 server 地址变化导致误判
+在配置 root 后，本地 server 地址变为 &#x2F;Zhu-OKOL&#x2F;，如果仍访问根路径，会误以为博客无法启动。
+
+心得体会
+这次博客搭建过程让我深刻体会到，技术实践中最耗费时间的并不是“写代码”，而是理解工具的工作方式并解决各种环境与配置问题。从 Hexo 初始化到主题安装，再到 GitHub Pages 部署，每一步都可能因为一个细节而出错。
+通过不断排查问题，我逐渐理解了 Hexo 的生成逻辑、主题与插件的区别、本地路径与线上路径的关系，也掌握了使用 Git 管理和部署静态网站的完整流程。虽然过程曲折，但每一次问题被解决之后，都会带来明显的成长和成就感。
+最终，这个博客不仅是一个展示平台，更是一段完整的学习记录。它让我意识到，技术能力正是在一次次踩坑、修复和总结中慢慢积累起来的。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>Hexo</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验10：函数与指针</title>
+    <url>/Zhu-OKOL/2024/05/20/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C10%EF%BC%9A%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[一、实验信息
+课程名称：C语言程序设计
+实验名称：实验10：函数与指针
+完成时间：2024年5月20日
+二、实验目的
+熟练掌握使用函数编写程序
+掌握函数的实参、形参、返回值的概念及使用
+掌握指针的概念及指针的定义、使用方法
+熟悉指针的运算（取地址运算 &amp;、取内容运算 *、指针移动等）
+三、实验环境
+1 中文 Windows 11 操作系统
+四、实验要求
+请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码
+1 求小于 lim 的素数并存入数组
+输入示例：lim &#x3D; 30
+输出示例：小于 30 的素数共有 10 个：2 3 5 7 11 13 17 19 23 29
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdbool.h&gt;#define MAX 1000int fun(int lim, int aa[MAX]) &#123;    if (lim &lt;= 2)         return 0;    bool a[30];    for (int i = 0; i &lt; lim; i++)         a[i] = true;    a[0] = a[1] = false;    for (int i = 2; i * i &lt; lim; i++)         if (a[i])            for (int j = i * i; j &lt; lim; j += i)                a[j] = false;    int count = 0;    for (int i = 2; i &lt; lim; i++)        if (a[i])            aa[count++] = i;    return count;&#125;int main(void) &#123;    int lim = 30;    int aa[MAX];    int b = fun(lim, aa);    printf(&quot;小于 %d 的素数共有 %d 个：\n&quot;, lim, b);    for (int i = 0; i &lt; b; i++)        printf(&quot;%d &quot;, aa[i]);    printf(&quot;\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+2 字符串中间五个字符降序排序
+输入示例：CEAedca
+输出示例：排序后字符串：CedcEAa
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;string.h&gt;void sort_descending(char* a, int length) &#123;    for (int i = 0; i &lt; length - 1; i++)         for (int j = i + 1; j &lt; length; j++)             if (a[i] &lt; a[j])             &#123;                char temp = a[i];                a[i] = a[j];                a[j] = temp;            &#125;&#125;void fun(char str[]) &#123;    if (strlen(str) != 7)     &#123;        printf(&quot;输入的字符串长度不是7个字符\n&quot;);        return;    &#125;    char middle[6];    for (int i = 1; i &lt; 6; i++)        middle[i - 1] = str[i];    middle[5] = &#x27;\0&#x27;;    sort_descending(middle, 5);    for (int i = 1; i &lt; 6; i++)         str[i] = middle[i - 1];&#125;int main(void) &#123;    char str[] = &quot;CEAedca&quot;;    printf(&quot;原字符串: %s\n&quot;, str);    fun(str);    printf(&quot;排序后字符串: %s\n&quot;, str);    return 0;&#125;
+
+程序及运行结果：
+3 华氏温度转摄氏温度（使用指针）
+输出示例：
+华氏温度	摄氏温度0	-17.7820	-6.6740	4.4460	15.5680	26.67100	37.78
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int fahr;    double celsius;    int* pf;    double* pc;    pf = &amp;fahr;    pc = &amp;celsius;    printf(&quot;华氏温度    摄氏温度\n&quot;);    for (*pf = 0; *pf &lt;= 100; *pf += 20)     &#123;        *pc = (*pf - 32) * 5.0 / 9.0;        printf(&quot;%d\t      %.2f\n&quot;, *pf, *pc);    &#125;    return 0;&#125;
+
+程序及运行结果：
+六、实验心得
+指针运算理解通过华氏温度转换实验掌握了取地址（&amp;）和取内容（*）的指针基本操作，并理解了指针作为函数参数的使用方法。
+数组与函数结合素数求解实验中，将函数返回值与数组结合，理解了函数返回值作为计数及数组存储的实践方法。
+字符串处理能力提升中间五个字符降序排序实验熟悉了字符串下标操作、子数组提取和自定义排序函数的实现方法。
+综合运用能力增强实验涉及指针、函数、数组、字符串等多种知识点，增强了对 C 语言综合应用的能力。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>作业展示</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>作业展示</tag>
+        <tag>函数</tag>
+        <tag>素数</tag>
+        <tag>指针</tag>
+        <tag>排序</tag>
+        <tag>温度转换</tag>
+      </tags>
+  </entry>
+</search>
