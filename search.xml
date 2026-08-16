@@ -1,0 +1,1854 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>我学会了如何搭建个人博客</title>
+    <url>/Zhu-OKOL/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[就在刚刚，我成功搭建了属于自己的个人博客，使用的是 Hexo + Butterfly 主题。这个过程并不算顺利，但正因为踩了很多坑，也让我对 Hexo 博客系统、本地构建以及 GitHub Pages 的部署流程有了更深入的理解。下面记录的是从零开始搭建博客的全过程，以及过程中遇到的各种问题与解决思路。
+一、准备工作
+我选择在本地 D 盘创建博客项目文件夹，路径如下：
+D:\BlogProjects
+在 Windows 系统中，命令行默认位于 C 盘，因此在执行 Hexo 相关命令前，必须先手动切换盘符，否则所有操作都会在错误路径下执行。正确的步骤是：
+D:cd D:\BlogProjects
+在安装 Hexo 之前，需要确保已经正确安装 Node.js 和 npm，并且版本能够正常使用。
+二、初始化 Hexo
+在一个空目录中执行以下命令：
+hexo init .npm install
+Hexo 会自动生成基础目录结构，包括配置文件、文章目录、主题目录等。如果当前目录不为空，hexo init 会直接报错，因此需要提前清空文件夹，或将原有内容备份。
+三、安装 Butterfly 主题
+进入 themes 目录：
+cd themes
+克隆 Butterfly 主题仓库：
+git clone https://github.com/jerryc127/hexo-theme-butterfly.git butterfly
+返回博客根目录，修改 _config.yml，将主题设置为：
+theme: butterfly
+随后安装主题依赖：
+npm install hexo-renderer-pug hexo-renderer-sass –save
+在后续实践中发现，hexo-butterfly 插件并不是必须安装的，否则可能引发插件加载错误。
+四、新建第一篇文章
+使用 Hexo 提供的命令创建文章：
+hexo new “我学会了如何搭建个人博客”
+Hexo 会在以下路径生成 Markdown 文件：
+D:\BlogProjects\source_posts\我学会了如何搭建个人博客.md
+五、编辑文章内容
+打开生成的 Markdown 文件，开始编写内容，主要包括：
+
+博客搭建的整体流程
+Hexo 的基本使用方式
+主题配置与本地预览
+实际遇到的问题和解决过程
+
+六、本地生成与预览
+在博客根目录执行以下命令：
+hexo cleanhexo generatehexo server
+随后在浏览器中访问：
+http://localhost:4000/
+如果项目配置了 root（例如 &#x2F;Zhu-OKOL&#x2F;），则访问地址会变为：
+http://localhost:4000/Zhu-OKOL/
+此时可以在本地完整预览博客的样式和内容。
+七、部署到 GitHub Pages
+为了让博客可以在公网访问，需要将生成的静态文件部署到 GitHub Pages。
+首先安装部署插件：
+npm install hexo-deployer-git –save
+然后在 _config.yml 中配置部署信息：
+deploy:  type: git  repo: https://github.com/用户名/仓库名.git  branch: main
+对于项目页形式的 GitHub Pages，还需要额外配置：
+url: https://username.github.ioroot: &#x2F;仓库名&#x2F;
+完成配置后，执行：
+hexo cleanhexo generatehexo deploy
+部署完成后，即可通过：
+https://username.github.io/仓库名/
+访问博客。
+八、后续更新博客的正确流程
+以后每次更新博客，只需要：
+
+编写或修改 source&#x2F;_posts 下的 Markdown 文件
+在博客根目录执行：
+
+hexo cleanhexo generatehexo deploy
+本地电脑只负责生成和上传，网页本身会由 GitHub Pages 自动托管，不需要电脑一直开着。
+九、自动部署脚本（deploy.bat）
+为了减少重复输入命令的麻烦，可以在博客根目录创建 deploy.bat 文件，内容如下：
+@echo offecho &#x3D;&#x3D;&#x3D; Hexo Deploy Start &#x3D;&#x3D;&#x3D;hexo cleanhexo generatehexo deployecho &#x3D;&#x3D;&#x3D; Hexo Deploy Finished &#x3D;&#x3D;&#x3D;pause
+以后只需要双击该文件，就可以一键完成清理、生成和部署。
+
+搭建个人博客过程中遇到的挫折整理
+一、Hexo 主题插件加载失败（EISDIR 报错）
+在执行 hexo clean、hexo generate 或 hexo deploy 时，控制台频繁出现：
+ERROR Plugin load failed: hexo-butterflyError: EISDIR: illegal operation on a directory, read
+这个错误并不会中断生成流程，但会在每一步操作前反复出现，严重影响使用体验。最终发现原因是误安装了 hexo-butterfly 插件，而 Butterfly 实际上是主题而非标准 Hexo 插件。卸载该插件后问题彻底消失。
+二、跨盘符操作不熟悉
+最初在 C 盘打开命令行，却在 D 盘存放博客项目，忘记先输入 D:，导致多次在错误目录下执行 Hexo 命令，引发路径相关错误。
+三、版本兼容与依赖问题
+Node.js、Hexo 以及主题依赖之间存在版本兼容问题，一些报错信息并不直观，只能通过不断尝试和查阅文档解决。
+四、文章显示为“无标题”
+创建文章后页面显示“无标题”，最终确认是 Markdown 文件 front-matter 格式不规范，或者主题未正确读取标题字段。
+五、默认作者信息未修改
+Hexo 默认作者名为 John Doe，头像为默认图片，需要手动修改 _config.yml 才能显示个人信息。
+六、本地正常但 GitHub Pages 显示异常
+本地 hexo server 显示完全正常，但部署后 CSS 和 JS 丢失，所有链接 404。根本原因是未配置 root，导致资源路径与项目页地址不匹配。
+七、GitHub Pages 初次部署失败
+首次部署时 Git 提示未设置用户信息，必须手动配置：
+git config –global user.namegit config –global user.email
+否则无法完成推送。
+八、页面部署成功但无任何美化
+即使 Pages 显示部署成功，页面依然是纯文本样式。需要修正 root 配置并重新 clean、generate、deploy 才能解决。
+九、License 选择的困惑
+创建仓库时不清楚 MIT、CC 等许可证的区别，虽然可以后期修改，但仍需要额外学习相关概念。
+十、LF &#x2F; CRLF 警告干扰判断
+部署过程中出现大量换行符警告，虽然不影响使用，但在初期容易被误认为是严重错误。
+十一、deploy.bat 黑框一闪而过
+最初双击 deploy.bat 后窗口瞬间关闭，无法看到报错信息。通过添加 pause 才能正常观察执行过程。
+十二、本地 server 地址变化导致误判
+在配置 root 后，本地 server 地址变为 &#x2F;Zhu-OKOL&#x2F;，如果仍访问根路径，会误以为博客无法启动。
+
+心得体会
+这次博客搭建过程让我深刻体会到，技术实践中最耗费时间的并不是“写代码”，而是理解工具的工作方式并解决各种环境与配置问题。从 Hexo 初始化到主题安装，再到 GitHub Pages 部署，每一步都可能因为一个细节而出错。
+通过不断排查问题，我逐渐理解了 Hexo 的生成逻辑、主题与插件的区别、本地路径与线上路径的关系，也掌握了使用 Git 管理和部署静态网站的完整流程。虽然过程曲折，但每一次问题被解决之后，都会带来明显的成长和成就感。
+最终，这个博客不仅是一个展示平台，更是一段完整的学习记录。它让我意识到，技术能力正是在一次次踩坑、修复和总结中慢慢积累起来的。
+更新说明（2026-07）博客工程现已整合进 Obsidian 库（Zhu-OKOL-vault&#x2F;Blog）。笔记写好后，在 frontmatter 中加上 published: true，运行 Blog 目录下的“发布到博客.bat”即可一键发布，不再需要手动改格式和图片路径。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>Hexo</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第1章：硬件介绍</title>
+    <url>/Zhu-OKOL/2026/01/11/%E7%AC%AC1%E7%AB%A0%EF%BC%9A%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[200smart产品介绍产品分类
+CPU
+扩展模块：扩展cpu的io点数，通常为8个io点数及以上，体积大
+信号板：扩展cpu的io点数，通常为数字量2个，模拟量1个，体积小
+
+
+
+
+产品特点
+机型丰富，更多选择：单体I&#x2F;O点数最高可达60点；分标准型和经济型
+
+选件扩展，精确定制：信号板可扩展通讯接口（485）；不额外占用电控柜空间；降低用户拓展成本
+
+高速芯片，性能卓越：基本指令执行时间可达0.15us
+
+以太互联，经济便携：本体标配以太网接口；普通网线即可进行程序下载；可以与其他CPU模块、触摸屏、计算机进行通讯
+
+三轴脉冲，运动自如： 最多集成3路高速脉冲输出，频率高达100kHz，支持PWM&#x2F;PTO输出方式及多种运动模式；有向导设置功能
+
+通用SD卡，快速更新：使用通用Micro SD卡实现程序更新和PLC固件升级：方便远程服务支持
+
+软件友好，编程高效：小巧精干，更多向导，无缝集成
+
+完美整合，无缝集成：即以上内容
+
+
+
+
+
+CPUCPU硬件简介
+CPU类别
+R-继电器（Relays）
+T-晶体管（Transistor）
+
+
+
+
+CPU支持的功能
+
+PS：最多支持6个扩展模块
+PS：只有晶体管输出型（T）支持高速脉冲输出（控制步进电机）
+
+
+
+
+CPU型号命名介绍
+输出类型比较
+CPU相关数据
+标准型CPU接线
+注：以上内容都是为了CPU选型而服务，有需要可以直接查询选型手册
+
+
+扩展模块扩展模块总览
+数字量（Digital）：1或0，断开或闭合，只有两种状态
+
+数字量输入（支持源型&#x2F;漏型）
+数字量输出（仅支持源型）
+数字量输入&#x2F;输出
+
+
+模拟量（Analog）：在一个连续范围内变化的信号，常见的有电压型和电流型，工业常用电流型，抗干扰强，断线能判断
+
+模拟量输入
+模拟量输出
+模拟量输入&#x2F;输出
+
+
+温度测量
+
+电阻&#x2F;电偶
+
+
+通信扩展
+
+
+
+
+
+模拟量输入接线注意，应将未使用的输入通道短路
+模拟量输出接线
+热电阻模块
+热电阻模块接线  
+热电偶模块接线
+
+
+
+信号板信号板总览
+数字量输入输出板接线
+模拟量输入板
+模拟量输入板接线
+模拟量输出板
+电池板
+串行通信板
+串行通信板接线
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>硬件结构</tag>
+        <tag>CPU</tag>
+        <tag>IO扩展</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第4章：软件介绍</title>
+    <url>/Zhu-OKOL/2026/01/16/%E7%AC%AC4%E7%AB%A0%EF%BC%9A%E8%BD%AF%E4%BB%B6%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[CPU配置
+勾选“IP地址数据固定为下面的值，不能通过其他方式更改”，则CPU的IP地址只能通过下载程序的方式修改
+不勾选，则使用CPU原有的IP地址，可以在“通讯”等窗口任意修改CPU的IP地址
+
+
+
+
+项目下载下载步骤
+用网线连接电脑与PLC
+选择网卡驱动
+搜索PLC的IP地址
+将电脑的IP地址设置成与PLC的IP地址相同网段（IP地址的前三位必须相同，最后一位不相同）
+
+
+以下为程序内图片（双击“系统块按钮”）：
+
+配置好网卡驱动ip地址后，双击“通信“按钮后的界面：
+
+
+注：若在“系统块”中勾选“IP地址数据固定为下面的值，不能通过其它方式更改”，则无法在“通信”面板中进行更改
+数字量输入配置
+滤波时间：信号在指定时间内必须保持状态不变，才会认为信号有效
+当需要捕捉很短时间的信号脉冲时需要勾选“脉冲捕捉”
+
+
+
+
+数字量输出配置
+勾选“将输出冻结在最后一个状态”，指的是状态变更之前的输出状态
+勾选指定状态后，CPU处于STOP模式时，选定通道会输出信号
+
+
+
+
+断电保持配置
+用于实现CPU断电，数据依然保持断电之前的数值
+
+
+
+
+CPU安全配置
+密码设置可以实现知识产权的保护，防止他人窃取程序
+“通信写访问”用于显示通信方式下对CPU数据写入的权限（PID向导生成的V存储区应该在此范围）
+
+
+
+
+CPU启动配置
+“CPU模式”指的是重启后，CPU工作在指定的模式下
+勾选“允许缺少硬件”：当系统块中配置了模块，但是实际PLC中没有此模块，那么CPU依然处于运行模式
+勾选“允许硬件配置错误”：当系统块配置的模块信息与实际PLC配置的模块信息不符时，那么CPU依然处于运行模式
+
+
+
+
+模拟量输入配置
+抑制频率越大，采样时间越短
+滤波周期越多，更新时间越长
+超出上限（值&gt;32511）
+超出下限（值&lt;-32512）
+
+
+
+
+模拟量输出配置
+超出上限（值&gt;32511）
+超出下限（值&lt;-32512）
+
+
+
+
+热电阻模块配置
+电阻类型只能采集电阻的阻值
+热敏电阻可以直接采集温度
+
+
+
+
+热电偶模块配置
+电池板配置
+当I7.0信号导通时，代表电量低
+
+
+
+
+程序下载步骤
+系统块配置
+软件编写&#x2F;编译且无错误
+通信参数配置
+选择网卡驱动
+搜索PLC
+设置PLC的IP地址和电脑的IP地址
+
+
+程序下载
+程序监控
+程序上传
+
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>软件配置</tag>
+        <tag>系统块</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第10章：PWM输出</title>
+    <url>/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/</url>
+    <content><![CDATA[PWM基础介绍
+PWM：脉冲宽度调制，是一种周期固定、宽度可调的方波
+
+
+
+
+PWM配置向导1、选择脉冲发生
+
+PWM0，用于在Q0.0上产生脉冲
+PWM1，用于在Q0.1上产生脉冲
+PWM2，用于在Q0.3上产生脉冲注：ST20只有两路高速脉冲输出
+
+
+
+
+2、更改PWM通过名称
+3、组态PWM通道输出时基
+4、生成项目组件
+PWM指令
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>PWM</tag>
+        <tag>高速脉冲输出</tag>
+        <tag>向导配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第2章：编程基础介绍</title>
+    <url>/Zhu-OKOL/2026/01/12/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[编程语言
+
+
+类型
+名称
+使用情况
+
+
+
+LAD
+梯形图
+最多
+
+
+FBD
+功能块
+一般
+
+
+STL
+语句表
+很少
+
+
+
+
+
+
+
+存储器类型
+数据格式
+三种数据格式：二进制，十进制，十六进制
+
+注意：200smart的浮点数精确到小数点后6位。因此输入浮点常数时，最多只能指定6位小数。计算高精度数据时，计算结果可能不准确。
+
+数据访问三种指令操作数寻址方式：
+
+直接：使用存储区标识符、数据大小、地址来访问数据 （I0.0）
+符号：使用字母数字字符组合来访问数据 （启动按钮）
+间接：间接寻址使用指针访问存储器中的数据
+
+
+
+
+数据访问_直接
+数据访问_符号
+数据类型关系
+CPU IO地址
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>编程基础</tag>
+        <tag>数据类型</tag>
+        <tag>IO地址</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第7章：程序调试</title>
+    <url>/Zhu-OKOL/2026/01/28/%E7%AC%AC7%E7%AB%A0%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95/</url>
+    <content><![CDATA[固件更新固件更新_软件
+SD存储卡简介
+SD存储卡_固件更新
+程序调试强制IO点
+交叉引用
+程序比较
+掉电保持
+数据块设置
+CPU加密
+CPU初始化
+SD卡传输程序
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>程序调试</tag>
+        <tag>固件更新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第5章：入门指令</title>
+    <url>/Zhu-OKOL/2026/01/26/%E7%AC%AC5%E7%AB%A0%EF%BC%9A%E5%85%A5%E9%97%A8%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[位逻辑存储器
+位逻辑主要涉及三种存储器：数字量输入 I、数字量输出 Q、标志存储 M
+存储器范围
+
+
+
+
+类别
+存储器符号
+范围
+
+
+
+外部数字量输入存储器
+I
+I0.0 到 I31.7
+
+
+外部数字量输出存储器
+Q
+Q0.0 到 Q31.7
+
+
+内部位存储器
+M
+M0.0 到 M31.7
+
+
+
+CPU SR20&#x2F;ST20 技术规范
+
+
+
+
+位逻辑指令
+常开指令用于检测连接变量信号是否导通，接通的话，常开指令就接通
+常闭指令用于检测连接变量信号是否断开，断开的话，常闭指令就接通
+输出指令用于控制连接变量是否导通
+取反指令启动按钮I0.0导通时，灯泡1:Q0.3不亮：启动按钮I0.0断开时，灯泡1Q:0.3亮。
+置位指令启动按钮I0.0导通，指示灯Q0.0点亮；启动按钮I0.0断开，指示灯状态不变。最多255个
+复位指令停止按钮I0.1导通，指示灯Q0.0灭；停止按钮I0.1断开，指示灯状态不变。
+置位复位指令按钮1导通，指示灯1亮；按钮2导通，指示灯1灭；按钮1和按钮2同时导通，指示灯1亮。
+复位置位指令按钮1导通，指示灯1亮；按钮2导通，指示灯1灭；按钮1和按钮2同时导通，指示灯1灭。
+注意:使用输出指令时，同一个变量不能放置在多个输出后。虽然不会报错，但这样程序会输出异常。使用置位、复位指令时，可以把同一个变量放在不同置位、复位后，但对调试程序不利。虽然置位、复位指令更加方便，但在设计程序时应尽量使用输出，以方便进行调试。
+上升沿指令
+下降沿指令
+定时器存储器范围
+定时器介绍同一个定时器编号不能同时用于TON和TOF定时器。例如，不能同时使用TON 32和TOF 32、
+定时器_延时接通
+定时器_延时断开
+定时器_保持性接通延时
+计数器计数器范围
+计数器介绍
+计数器案例注意：直接修改计数值，不会使标志位发生变化，必须是输入信号触发才行
+传送指令存储器范围
+传送指令案例
+数学运算指令存储器范围
+整数运算
+双整数运算
+乘法运算&amp;除法运算
+
+
+
+整数运算_异常检测
+
+SM0.0，Always_On，当CPU在运行时SM0.0的值始终为TRUE
+SM0.4，Clock_60s，针对60s的周期时间，时间脉冲30s为TRUE，断开30s。SM0.5，Clock_1s，针对1s的周期时间，时间脉冲0.5s为TRUE，断开0.5s。注意：Clock_60s或Clock_1s时，最好使用上升沿&#x2F;下降沿指令
+SM1.1，Overflow_Illegal，特定指令指定结果溢出或非法时，置位为TRUE。注意：使用Overflow_Illegal时，只能检测在Overflow_Illegal上一个触发的运算，中间不能有其他程序。
+SM1.3，Divide_By_0，尝试除以0时，设置为TRUE。注意：Divide_By_0的使用方式和Overflow_Illegal一致，需要放置在被测运算之后且中间不能有其他程序。
+
+
+
+
+递增&#x2F;递减指令
+临时变量先赋值，再使用例如要计算数据1+数据2+数据3，需要先使用数据1+数据2对临时变量赋值，再使用临时变量+数据3，得到结果。
+
+
+
+浮点数运算
+三角函数
+特殊函数
+
+
+
+比较指令
+指令介绍
+
+
+
+转换指令存储器范围
+
+
+
+字节与整数转换
+整数与双整数转换
+
+
+
+双整数与实数转换
+
+
+
+模拟量输入设置系统块
+以下为采集温度传感器输入的公式示例
+模拟量输出设置系统块以下为使用模拟量输出控制转速的公式示例
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>入门指令</tag>
+        <tag>位逻辑</tag>
+        <tag>定时器</tag>
+        <tag>计数器</tag>
+        <tag>传送指令</tag>
+        <tag>数学运算指令</tag>
+        <tag>比较指令</tag>
+        <tag>转换指令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第3章：学习箱介绍</title>
+    <url>/Zhu-OKOL/2026/01/12/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[步进电机线性模组
+脉冲相关测试组件
+按钮、指示灯组件
+其他接口组件
+PLC系统组件
+学习箱IO符号表
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>学习箱</tag>
+        <tag>IO映射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第8章：进阶基础</title>
+    <url>/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[子程序_不带参数
+注意事项
+子程序_带参数局部存储器
+注意事项
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>子程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>200smart学习 第9章：进阶指令</title>
+    <url>/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[时钟指令实时时钟
+转换指令
+程序控制指令顺序控制继电器
+案例
+中断指令
+
+IO中断
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>200SMART</category>
+      </categories>
+      <tags>
+        <tag>200SMART</tag>
+        <tag>转换指令</tag>
+        <tag>进阶指令</tag>
+        <tag>时钟指令</tag>
+        <tag>程序控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>西门子 PLC 编程资料整理（官方/权威来源）</title>
+    <url>/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[西门子 PLC 编程资料整理（官方&#x2F;权威来源）
+整理时间：2026-07-26用途：作为后续”西门子PLC编程指导”任务的权威资料库。所有核心条目均来自西门子官方（Siemens Industry Online Support &#x2F; 西门子（中国）工业支持中心）或其官方发布的 PDF 文档。
+
+
+一、官方资料总入口
+
+
+入口
+网址
+说明
+
+
+
+西门子工业在线支持（全球站）
+https://support.industry.siemens.com
+手册、下载、FAQ、应用示例、官方库的唯一权威来源；按”条目号（Entry ID）”检索最准确
+
+
+西门子（中国）工业支持中心
+https://www.ad.siemens.com.cn
+中文门户：找答案、学习平台、下载中心、专题视频课程（权威中文一手资料）
+
+
+中国支持中心·PLC 编程专题
+https://www.ad.siemens.com.cn/topicportal/index_44.html
+官方解读《S7-1200 编程指南》《S7-1200 安全编程指南》、TIA 博途库、可复用程序编写等专题
+
+
+中国支持中心·S7-1200 学习专题
+https://www.ad.siemens.com.cn/topicportal/index_46.html
+“S7-1200 跟我学”（基于 TIA Portal V17 + 固件 V4.5）、安全编程介绍、博途新特性
+
+
+技术支持请求
+https://www.siemens.com/industry/supportrequest
+官方技术支持中心
+
+
+SITRAIN 工业培训
+https://www.siemens.com/sitrain
+西门子全球官方培训课程
+
+
+检索技巧：在 support.industry.siemens.com 直接搜索下表中的 Entry ID（如 81318674），可直达文档页并选择中英文版本下载。
+
+二、核心官方文档（编程类，按重要度排序）2.1 编程规范类（最重要的两份纲领性文件）
+
+
+文档
+Entry ID &#x2F; 链接
+说明
+
+
+
+《S7-1200&#x2F;1500 编程指南》（Programming Guideline）
+https://support.industry.siemens.com/cs/ww/en/view/81318674 （中文：…&#x2F;81318674&#x2F;zh）
+官方编程”圣经”：优化块、符号寻址、程序结构化、可复用块、数据类型与指令、库、性能建议、SCL 技巧。V1.0(2013) 起持续更新
+
+
+《S7-1200&#x2F;1500 编程风格指南》（Programming Styleguide）
+https://support.industry.siemens.com/cs/ww/en/view/109478084
+统一命名规范（变量&#x2F;块命名）、SCL 代码格式标准，使程序统一、易读、易维护
+
+
+《S7-1200&#x2F;1500 安全编程指南》（Safety Programming Guideline，故障安全&#x2F;F-CPU）
+https://assets.new.siemens.com/siemens/assets/api/uuid:1a7ce755-79a1-494e-ae14-5e5f72c29205/safety-programming-guideline-for-simatic-s7-1200-and-1500.pdf
+上述两份指南在故障安全（F 程序）方面的补充：F-CPU 选型、PROFIsafe、安全程序运行时间优化、钝化等
+
+
+2.2 系统手册与入门指南（硬件 + 软件基础）
+
+
+文档
+Entry ID &#x2F; 编号
+说明
+
+
+
+S7-1200 使用入门（Getting Started）
+https://support.industry.siemens.com/cs/ww/en/view/39644875
+第一个项目：建项目、硬件组态、基础编程
+
+
+S7-1500 使用入门（Getting Started）
+https://support.industry.siemens.com/cs/ww/en/view/78027451
+同上，面向 S7-1500
+
+
+S7-1200 系统手册
+编号 6ES7298-8FA30-8BH0（在支持站检索）
+CPU 规格、存储区、I&#x2F;O、通信、技术数据
+
+
+S7-1500 系统手册
+编号 6ES7590-1AF30-0AA0 系列
+硬件与 CPU 规格
+
+
+STEP 7 (TIA Portal) 手册合集
+https://support.industry.siemens.com/cs/ww/en/ps/14673/man
+TIA Portal 全部手册的产品页
+
+
+S7-1200(F) 手册合集
+https://support.industry.siemens.com/cs/ww/en/ps/13683/man
+
+
+
+S7-1500(F) 手册合集
+https://support.industry.siemens.com/cs/ww/en/ps/13716/man
+
+
+
+ET 200SP CPU 手册合集
+https://support.industry.siemens.com/cs/ww/en/ps/13888/man
+分布式控制器
+
+
+TIA Portal 最重要文档与链接总览
+https://support.industry.siemens.com/cs/ww/en/view/65601780
+官方维护的”文档导航页”，找资料先查这里
+
+
+S7-1200&#x2F;S7-1500 编程语言对照表（国际助记符）
+https://support.industry.siemens.com/cs/ww/en/view/86630375
+指令在不同语言&#x2F;助记符下的对照
+
+
+2.3 SCL（结构化文本）专项
+
+
+文档
+编号&#x2F;出处
+说明
+
+
+
+《使用 SCL 编程》（Programming with SCL）
+出版物编号 67157426（支持站检索 “SCL programming”）
+SCL 完整语言参考：语法、运算符、示例
+
+
+《S7-SCL for S7-300&#x2F;400》
+编号 6ES7811-2CC04-0BA5
+经典 STEP 7 V5.x 时代 SCL 手册（16 章），概念同样适用于博途
+
+
+TIA Portal 在线帮助
+软件内 F1 &#x2F; https://docs.tia.siemens.cloud
+S7-1200&#x2F;1500 的 SCL 以博途帮助系统为准
+
+
+
+三、官方程序库（直接复用，站在巨人肩膀上）
+
+
+库
+Entry ID
+说明
+
+
+
+LGF — 通用函数库（Library of General Functions）
+https://support.industry.siemens.com/cs/ww/en/view/109479728
+官方通用功能块（位逻辑、定时、计数、比较之外的常用函数）
+
+
+LPD — PLC 数据类型库
+https://support.industry.siemens.com/cs/ww/en/view/109482396
+官方预定义 PLC 数据类型（UDT）
+
+
+LBC — 基本控制库
+https://support.industry.siemens.com/cs/ww/en/view/109792175
+CM（控制模块）层级标准化程序块
+
+
+LBP — 基本过程库
+https://support.industry.siemens.com/cs/ww/en/view/109749508
+过程控制方向标准块
+
+
+使用建议：开发程序块时遵守《编程指南》+《风格指南》，优先复用 LBC&#x2F;LBP&#x2F;LGF 中的 CM 级块，可显著提升标准化程度和开发效率。
+
+四、官方编程核心建议速览（摘自《S7-1200&#x2F;1500 编程指南》）
+使用优化的块（Optimized blocks）：S7-1200&#x2F;1500 默认优化块访问，存储效率与访问速度更优。
+符号化编程：用符号寻址替代绝对地址，提高可读性与可维护性。
+程序结构清晰化：合理使用 OB&#x2F;FB&#x2F;FC&#x2F;DB；用多个循环 Main OB 对工厂部件分组。
+多重实例：定时器&#x2F;计数器（TON、TOF 等）以多重实例方式调用，减少实例 DB 数量。
+块的可复用性：把块视为封装的功能，只通过接口参数交换数据；避免在块内访问全局 DB、全局变量、单一背景 DB。
+数据用 ARRAY 和 STRUCT&#x2F;PLC 数据类型（UDT）组织，避免使用 ANY 指针——改用 VARIANT、ARRAY 和结构体（VARIANT 带类型检查，可早期发现错误）。
+不用位存储器（M），改用全局数据块（S7-1200 的 M 区默认非保持，上传&#x2F;下载会丢失）。
+用库存储程序元素：项目库&#x2F;全局库 + 类型概念，配合版本控制。
+“下载而不重新初始化”：仅适用于优化块，RUN 模式下扩展块接口且保留现有变量实际值（内存预留默认 100 字节，最大 2 MB）。
+新指令优先：MOVE_BLK_VARIANT、Serialize&#x2F;Deserialize（S7-1500 及 S7-1200 FW4.1+）。
+
+SCL 技巧（同文档）：使用调用模板、REGION 关键字结构化代码、正确使用 FOR&#x2F;WHILE&#x2F;REPEAT 循环、不手动操作 FOR 循环计数器、善用 CASE。
+
+五、编程语言概览（IEC 61131-3）
+
+
+语言
+缩写
+适用场景
+学习曲线
+
+
+
+梯形图
+LAD
+电气工程师、布尔逻辑、安全回路、顺控
+低（推荐入门）
+
+
+功能块图
+FBD
+过程控制、信号流
+中
+
+
+结构化控制语言
+SCL（&#x3D;ST）
+复杂算法、数组&#x2F;数据处理、数学运算、可复用 FB
+中高
+
+
+语句表
+STL（AWL）
+维护 S7-300&#x2F;400 旧项目；不支持部分 S7-1500 新特性（优化块等），新项目不建议
+高
+
+
+顺序功能图
+GRAPH（≈SFC）
+顺序控制、状态机（比自己写逻辑更可靠）
+中
+
+
+CEM &#x2F; CFC
+—
+TIA V17+ 新编辑器（因果矩阵&#x2F;连续功能图）
+中
+
+
+语言支持要点：SCL 需固件支持——S7-1200 自 V2.0+（博途 V11 SP2+）、S7-1500 自博途 V12 起；同一项目可混用语言，但单个块只能用一种语言；块间可互相调用。
+
+六、软件与版本
+
+
+项目
+说明
+
+
+
+TIA Portal（博途）
+统一工程平台，集成 STEP 7（PLC）+ WinCC（HMI）+ 驱动配置；V13 起取代经典 STEP 7 V5.x
+
+
+当前主流版本
+V17（CEM&#x2F;CFC、OPC UA 增强）→ V18 → V19（AI 集成、边缘连接）；S7-1200 固件最新 V4.5+
+
+
+版本选择原则
+Basic 版仅支持 S7-1200（LAD&#x2F;FBD）；SCL、S7-1500、GRAPH 需 Professional 版
+
+
+试用
+官网注册可下载 21 天全功能试用（建议用企业邮箱注册）
+
+
+PLCSIM
+随 TIA Portal 提供的软件仿真 PLC，无硬件即可离线测试程序（学习必备）
+
+
+经典 STEP 7 V5.6&#x2F;V5.7
+仅用于维护 S7-300&#x2F;400 旧系统；与博途是不同平台，项目需用迁移工具转换（参见应用说明 109748788）
+
+
+S7-200 SMART
+用独立软件 STEP 7-Micro&#x2F;WIN SMART，不属于博途体系
+
+
+
+七、初学者常见坑（官方 FAQ 与社区高频问题）
+忘记给 PLC 和编程电脑（PG&#x2F;PC）分配同一网段 IP 地址。
+未做硬件组态就下载程序。
+数据类型混用（Bool 与 Int 混淆）。
+M 存储区默认非保持——上传&#x2F;下载或断电后 M 值丢失，需用全局 DB 或设置保持区。
+输入信号抖动：软件加 10 ms 滤波，必要时硬件并联电容。
+调试三件套：强制表（模拟现场信号）、交叉引用（查信号关联）、诊断缓冲区（故障定位）。
+
+
+八、学习路径建议（基于官方资源）
+入门：S7-1200 使用入门（39644875）+ 中国支持中心”S7-1200 跟我学”视频课 → 完成第一个项目（启保停、正反转互锁）。
+基础指令：定时器（TON&#x2F;TOF&#x2F;TP）、计数器（CTU&#x2F;CTD&#x2F;CTUD）、边沿检测（P&#x2F;N）、置位&#x2F;复位、MOV、比较、NORM_X&#x2F;SCALE_X 模拟量标定。
+结构化：OB&#x2F;FB&#x2F;FC&#x2F;DB、多重实例、接口参数、UDT、ARRAY。
+规范：通读《编程指南》（81318674）+《风格指南》（109478084）。
+进阶：SCL、GRAPH 顺控、模拟量与 PID、通信（PROFINET&#x2F;OPC UA&#x2F;Modbus）、HMI 集成、运动控制（PTO&#x2F;工艺对象）。
+复用与工程化：官方库（LGF&#x2F;LPD&#x2F;LBC&#x2F;LBP）、项目库&#x2F;全局库、版本控制。
+安全（可选）：《安全编程指南》+ F-CPU、PROFIsafe。
+
+
+九、来源可靠性说明
+本资料以西门子官方站点（support.industry.siemens.com、assets.new.siemens.com、cache.industry.siemens.com、www.ad.siemens.com.cn）发布的文档与页面为准，权威等级最高。
+部分背景信息（版本对比、学习建议）参考了行业知识库（如 Industrial Monitor Direct）与官方文档中的引用关系，已在正文中标注区分。
+第三方下载站（如 CSDN 文库、技成培训 FTP）存在的官方 PDF 镜像（如《S7-1200&#x2F;1500 编程指南》中文版）内容真实但非官方渠道，建议最终以上述官方链接下载的版本为准。
+文档与软件均有版本演进，使用时请核对自己所用 TIA Portal 版本（V13–V19）与 CPU 固件版本对应的文档版本。
+
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>资料整理</category>
+      </categories>
+      <tags>
+        <tag>西门子</tag>
+        <tag>PLC</tag>
+        <tag>资料整理</tag>
+        <tag>S7-1200</tag>
+        <tag>S7-1500</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>西门子PLC编程：数制与基本数据类型 — 学习笔记</title>
+    <url>/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[西门子PLC编程：数制与基本数据类型 — 学习笔记
+📚 课程主题：数制与基本数据类型（整数数据类型）🏭 适用平台：西门子 S7-1200 &#x2F; S7-1500（TIA Portal）📅 整理时间：2026-07-21
+
+
+一、核心问题：位序列与整数的区别在西门子PLC编程中，位序列（Bit String）和整数（Integer）是两类本质不同的数据类型。虽然它们在底层都以二进制形式存储，但使用目的、操作指令和表示方式截然不同。
+
+
+
+对比维度
+位序列（Bit String）
+整数（Integer）
+
+
+
+用途
+位的集合，用于控制字、状态字、错误代码、标志位等
+用于数学计算（计数、运算、标定等）
+
+
+操作指令
+与（AND）、或（OR）、异或（XOR）、取反（NOT）、移位（SHL&#x2F;SHR）等
+加（+）、减（-）、乘（*）、除（&#x2F;）、取模（MOD）等
+
+
+拆分合并
+作为位的集合，通常需要拆分&#x2F;合并使用（如提取某一位状态）
+位的拆分合并没有数学意义
+
+
+表示方式
+一般使用**二进制（2#）或十六进制（16#）**表示
+一般使用十进制表示
+
+
+
+二、位序列数据类型详解2.1 位序列类型族位序列（Bit String）是一组无符号的定长数据类型，用于表示位模式而非数值。TIA Portal 中主要包括以下类型：
+
+
+
+数据类型
+关键字
+大小
+范围（无符号）
+典型用途
+
+
+
+布尔
+BOOL
+1 位
+0 或 1
+单个数字量 I&#x2F;O 点（如 I0.0, Q0.1）
+
+
+字节
+BYTE
+8 位
+0 ~ 255
+压缩的标志字节、串行协议字符
+
+
+字
+WORD
+16 位
+0 ~ 65,535
+位模式寄存器、状态字、无符号计数器
+
+
+双字
+DWORD
+32 位
+0 ~ 4,294,967,295
+状态字对、大型位模式寄存器
+
+
+长字
+LWORD
+64 位
+0 ~ 2⁶⁴ - 1
+时间戳、大型计数器（仅 S7-1500）
+
+
+
+💡 关键理解：位序列的本质是”位的容器”，关注的是每一位的独立状态，而非整体数值大小。
+
+2.2 内存映射与字节序西门子PLC采用小端（Little-Endian）、面向字节的内存约定：
+
+低字节 占用等于字地址的地址
+高字节 占用下一个地址
+
+示例：WORD 在 MW20 的位映射
+
+
+
+字位
+位地址
+所属字节
+意义
+
+
+
+%X0
+M20.0
+低字节（MB20）
+整个 WORD 的 LSB
+
+
+%X1
+M20.1
+低字节
+—
+
+
+…
+…
+低字节
+—
+
+
+%X7
+M20.7
+低字节
+低字节的 MSB
+
+
+%X8
+M21.0
+高字节（MB21）
+高字节的 LSB
+
+
+%X9
+M21.1
+高字节
+—
+
+
+…
+…
+高字节
+—
+
+
+%X15
+M21.7
+高字节
+整个 WORD 的 MSB
+
+
+
+⚠️ 注意：MW20 由 MB20（低字节）和 MB21（高字节）组成。若 VW100 &#x3D; 2（二进制 00000000 00000010），则 VB100 &#x3D; 0（高字节），VB101 &#x3D; 2（低字节）。
+
+2.3 位访问语法S7-1500 &#x2F; S7-1200（固件 V4.0+）支持直接的结构化位片（Bit-Slice）访问：
+// 读取位bReady := &quot;StatusWord&quot;.%X0;   // 读取第0位（LSB）bFault := &quot;StatusWord&quot;.%X7;   // 读取第7位bBit9  := &quot;StatusWord&quot;.%X8;   // 读取第8位（高字节LSB）// 写入位&quot;StatusWord&quot;.%X15 := TRUE;    // 设置最高位（MSB）作为故障标志
+
+旧固件替代方案（S7-1200 V1.0~V3.x）
+直接位内存地址：若绑定到 %MW20，直接读写 %M20.0 ~ %M21.7
+AT 覆盖：在 DB 中声明 AT 覆盖结构
+
+// 使用 AT 覆盖TYPE &quot;UDT_BitView16&quot;  STRUCT    bits : ARRAY[0..15] OF BOOL;  // bit 0 = LSB  END_STRUCT;END_TYPEDATA_BLOCK &quot;DB_BitView&quot;  STRUCT    rawWord : WORD;    bitView AT rawWord : &quot;UDT_BitView16&quot;;  END_STRUCT;END_DATA_BLOCK// 使用&quot;DB_BitView&quot;.bitView.bits[3] := TRUE;  // 修改第3位
+
+2.4 位操作指令（字逻辑）// 置位第5位（不触动其他位）&quot;StatusWord&quot; := &quot;StatusWord&quot; OR 16#0020;// 清零第5位&quot;StatusWord&quot; := &quot;StatusWord&quot; AND (WORD#16#FFFF XOR 16#0020);// 翻转第5位&quot;StatusWord&quot; := &quot;StatusWord&quot; XOR 16#0020;// 测试第5位bBit5 := (&quot;StatusWord&quot; AND 16#0020) &lt;&gt; 16#0;
+
+
+三、整数数据类型详解3.1 整数类型族整数类型用于数学运算，分为有符号和无符号两类：
+
+
+
+数据类型
+关键字
+大小
+范围（有符号）
+范围（无符号）
+典型用途
+
+
+
+短整数
+SINT
+8 位
+-128 ~ +127
+—
+状态标志、小计数器
+
+
+无符号短整数
+USINT
+8 位
+—
+0 ~ 255
+ASCII字符、布尔数组
+
+
+整数
+INT
+16 位
+-32,768 ~ +32,767
+—
+通用计数器、模拟量标定（原始值0-27648）
+
+
+无符号整数
+UINT
+16 位
+—
+0 ~ 65,535
+定时器预设值、内存指针
+
+
+双整数
+DINT
+32 位
+-2,147,483,648 ~ +2,147,483,647
+—
+高速计数器、大型累加器
+
+
+无符号双整数
+UDINT
+32 位
+—
+0 ~ 4,294,967,295
+时间戳（毫秒）、滴答计数
+
+
+长整数
+LINT
+64 位
+-9,223,372,036,854,775,808 ~ +9,223,372,036,854,775,807
+—
+系统诊断（仅 S7-1500）
+
+
+
+💡 关键理解：有符号整数的最高位为符号位（0&#x3D;正，1&#x3D;负），负数采用二进制补码表示（正数取反再加1）。
+
+3.2 INT 的结构（16位有符号整数）位 15  | 位 14 ~ 位 0 符号位  |   数值位（15位）   0/1   |  0 ~ 32767
+
+
+位 15 &#x3D; 0：正数（0 ~ 32767）
+位 15 &#x3D; 1：负数（-32768 ~ -1，补码表示）
+
+3.3 数学运算指令整数支持标准算术运算：
+nResult := nValue1 + nValue2;   // 加法nResult := nValue1 - nValue2;   // 减法nResult := nValue1 * nValue2;   // 乘法nResult := nValue1 / nValue2;   // 除法（整数除法）nRemainder := nValue1 MOD nValue2;  // 取模（余数）
+
+
+四、位序列 vs 整数：深入对比4.1 核心区别总结
+
+
+特性
+位序列（WORD&#x2F;DWORD）
+整数（INT&#x2F;DINT）
+
+
+
+语义
+“将此视为位模式”
+“将此视为有符号&#x2F;无符号数值”
+
+
+最高位含义
+普通数据位（无符号）
+符号位（有符号）
+
+
+适用场景
+状态字、控制字、错误代码、通信数据包
+计数、测量值、PID运算、数学公式
+
+
+位拆分
+有意义（提取单个标志位）
+无意义（破坏数值语义）
+
+
+进制表示
+十六进制（16#）或二进制（2#）
+十进制
+
+
+类型转换
+需显式转换（WORD_TO_INT等）
+需显式转换（INT_TO_WORD等）
+
+
+4.2 类型转换注意事项TIA Portal 不会自动转换位序列和整数类型，必须显式转换：
+nSigned : INT;wRaw    : WORD;// ❌ 错误：隐式转换不被允许nSigned := wRaw;   // 编译错误！// ✅ 正确：显式转换nSigned := WORD_TO_INT(wRaw);   // WORD → INTwRaw    := INT_TO_WORD(nSigned); // INT → WORD
+
+
+⚠️ 陷阱：当 WORD 值 &gt; 16#7FFF（32767）时，转换为 INT 会得到负数（因为最高位被解释为符号位）。例如：WORD#16#8000 → INT &#x3D; -32768。
+
+4.3 WORD vs UINT 的区别
+
+
+特性
+WORD
+UINT
+
+
+
+大小
+16位
+16位
+
+
+范围
+0 ~ 65535
+0 ~ 65535
+
+
+语义
+“位模式&#x2F;寄存器”
+“非负整数”
+
+
+用途
+状态字、原始寄存器值
+算术运算中的非负计数器
+
+
+
+💡 在 TIA Portal 中，WORD 和 UINT 是不同类型，编译器在某些严格模式下会标记类型不匹配。选择依据：表示位模式用 WORD，表示非负整数用 UINT。
+
+
+五、数制表示法TIA Portal 支持多种数制字面量：
+
+
+
+表示法
+前缀
+示例
+十进制值
+
+
+
+二进制
+2#
+2#1010
+10
+
+
+十进制
+无前缀
+10
+10
+
+
+十六进制
+16#
+16#A
+10
+
+
+八进制
+8#
+8#12
+10
+
+
+BCD
+BCD#
+BCD#10
+10（用于旧式BCD I&#x2F;O）
+
+
+
+📝 注意：TIA Portal 不支持 C 风格的 0x 前缀。十六进制请始终使用 16#。
+
+
+六、实际应用示例6.1 位序列应用：状态字解析VAR    StatusWord : WORD;          // 设备状态字（位序列）    bReady     : BOOL;          // 就绪标志（位0）    bRunning   : BOOL;          // 运行标志（位1）    bFault     : BOOL;          // 故障标志（位7）    bEmergency : BOOL;          // 急停标志（位15）END_VAR// 读取状态位bReady     := &quot;StatusWord&quot;.%X0;bRunning   := &quot;StatusWord&quot;.%X1;bFault     := &quot;StatusWord&quot;.%X7;bEmergency := &quot;StatusWord&quot;.%X15;// 设置运行标志（不影响其他位）&quot;StatusWord&quot; := &quot;StatusWord&quot; OR 16#0002;  // 置位bit1
+
+6.2 整数应用：计数与运算VAR    nCounter   : INT;           // 计数器（整数）    nSetpoint  : INT := 100;    // 设定值    nActual    : INT;           // 实际值    nError     : INT;           // 误差END_VAR// 数学运算nCounter := nCounter + 1;       // 计数器递增nError   := nSetpoint - nActual; // 计算误差// 比较运算IF nError &gt; 10 THEN    // 误差过大，报警处理END_IF;
+
+6.3 混合使用：从模拟量读取VAR    wRawInput  : WORD;          // 模拟量原始输入（位序列，0-27648）    nScaled    : INT;           // 标定后的工程值（整数）END_VAR// 将位序列转换为整数进行数学运算nScaled := WORD_TO_INT(wRawInput);// 进行线性标定（如 0-27648 → 0-100°C）nScaled := (nScaled * 100) / 27648;
+
+
+七、常见错误与避坑指南7.1 错误类型对照表
+
+
+错误现象
+根本原因
+解决方法
+
+
+
+编译错误：无法将 WORD 赋值给 INT
+类型不匹配，无隐式转换
+使用 WORD_TO_INT() 显式转换
+
+
+HMI 读取无符号值显示为负数
+HMI 将有符号&#x2F;无符号类型混淆
+将 HMI 标签配置为无符号类型，或在PLC中转换
+
+
+位片访问返回错误值
+字节序不匹配（大端 vs 小端）
+使用 SWAP 指令交换字节序
+
+
+WORD 值 &gt; 32767 转 INT 变负数
+补码解释导致符号翻转
+语义上非负时使用 UINT，而非 INT
+
+
+地址交叉（如 DW0 与 DW2）
+双字由连续字组成，地址重叠
+确保地址间隔至少为数据类型大小
+
+
+7.2 字节序与通信当 WORD 通过 PROFINET、Modbus TCP 等通信时，线缆上的字节序可能是大端（Big-Endian），而西门子内存是小端。在位片访问前需使用 SWAP 指令规范化：
+// 接收到的 Modbus 数据（大端）wReceived : WORD := 16#A5B6;// 交换字节序后位片才正确wSwapped := SWAP(wReceived);  // 结果：16#B6A5
+
+7.3 地址不重叠原则MB0  →  BYTE（占用 MB0）MW0  →  WORD（占用 MB0, MB1）MD0  →  DWORD（占用 MB0, MB1, MB2, MB3）❌ 错误：MD0 和 MW2 存在地址交叉（MB2, MB3 重叠）✅ 正确：MD0 和 MW4 无交叉
+
+
+八、思维导图：数据类型选择决策需要存储数据？    ├── 是单个开关量？ → BOOL（1位）    ├── 是多位标志集合？    │       ├── 8位  → BYTE    │       ├── 16位 → WORD    │       ├── 32位 → DWORD    │       └── 64位 → LWORD（S7-1500）    └── 是数值用于计算？            ├── 需要负数？            │       ├── 8位  → SINT            │       ├── 16位 → INT            │       ├── 32位 → DINT            │       └── 64位 → LINT（S7-1500）            └── 仅非负数？                    ├── 8位  → USINT                    ├── 16位 → UINT                    ├── 32位 → UDINT                    └── 64位 → ULINT（S7-1500）
+
+
+九、参考资源
+西门子 TIA Portal 帮助文档 — 数据类型
+西门子 S7-1500 系统手册（位片访问章节）
+西门子 S7-1200&#x2F;1500 编程指南
+
+
+
+🎯 学习要点回顾：
+
+位序列 &#x3D; 位的容器，关注每一位的独立状态；整数 &#x3D; 数值，关注整体大小和数学运算
+位序列用二进制&#x2F;十六进制表示，整数用十进制表示
+位序列支持位操作指令（AND&#x2F;OR&#x2F;XOR&#x2F;移位），整数支持算术指令（加减乘除）
+位序列可以拆分合并（有意义），整数的位拆分无意义
+TIA Portal 类型检查严格，位序列与整数之间必须显式转换
+
+
+
+本笔记基于西门子官方文档及课程资料整理，供学习参考使用。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>PLC</category>
+        <category>1200</category>
+      </categories>
+      <tags>
+        <tag>数据类型</tag>
+        <tag>PLC</tag>
+        <tag>1200</tag>
+        <tag>数制</tag>
+        <tag>SCL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言程序设计实验（校内课程）</title>
+    <url>/Zhu-OKOL/2024/02/29/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C%EF%BC%88%E6%A0%A1%E5%86%85%E8%AF%BE%E7%A8%8B%EF%BC%89/</url>
+    <content><![CDATA[实验01：C语言集成开发环境一、实验信息1. 课程名称：C语言程序设计
+2. 实验名称：实验01：C语言集成开发环境
+3. 完成时间：2024年2月29日
+二、实验目的1. 熟悉 Visual Studio 开发环境
+2. 熟悉 Visual C++ 6.0 开发环境
+3. 熟悉 Dev-C++ 开发环境
+4. 掌握 C 语言程序的编辑、调试及运行过程
+5. 熟悉集成开发环境中常见的错误提示信息
+三、实验环境1. 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 输出学生的学号和姓名
+输出示例：
+学号：06011126  
+姓名：王晨     （虚构，并非实际存在的人）
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    printf(&quot;学号：06011126\n&quot;);    printf(&quot;姓名：王晨\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+2 编程输出图形
+输出：
+
+
+
+**
+
+
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    printf(&quot;*\n&quot;);    printf(&quot;**\n&quot;);    printf(&quot;***\n&quot;);    printf(&quot;****\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+3 编程计算 37+29 的值并输出程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a, b, c;    a=37;    b=29;    c=a+b;    printf(&quot;%d+%d=%d\n&quot;,a,b,c);    return 0;&#125;
+
+程序及运行结果：
+4 上机实践分析输出结果程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    char c;    printf(&quot;请输入一个字符：&quot;);    scanf(&quot;%c&quot;, &amp;c);    printf(&quot;%c对应的ASCII码是：%d\n&quot;, c, c);    return 0;&#125;
+
+程序及运行结果：程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a = 100;    float b = 123.456;    float x=35.567, y;    printf(&quot;a=%d\n&quot;, a);    printf(&quot;a=%-5d\n&quot;, a);    printf(&quot;b=%6.2f\n&quot;, b);    printf(&quot;b=%e\n&quot;, b);    y=(int)(x*100+0.5)/100.0;    printf(&quot;x=%f,y=%f\n&quot;,x,y);    return 0;&#125;
+
+程序及运行结果：程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a=168;    printf(&quot;十进制数%d对应的八进制数是%o\n&quot;, a, a);    printf(&quot;十进制数%d对应的十六进制数是%x\n&quot;, a);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我对 C 语言的基础编程有了初步认识，同时熟悉了多种集成开发环境（Visual Studio、Visual C++ 6.0、Dev-C++）的使用流程。在实验过程中，我有以下收获：
+程序编辑与运行流程熟悉了 C 语言程序从编辑、编译到运行的完整流程，理解了每条语句的作用以及编译器的工作原理。
+调试技巧在运行过程中遇到语法或逻辑错误时，可以快速定位问题，提高了调试能力。
+数据类型与格式控制通过实验 4 的输出分析，掌握了字符、整数、浮点数的不同输出格式，以及如何进行数据类型转换和格式化输出。
+程序结构与思维训练通过图形打印和算术计算练习，增强了对程序结构的理解，包括顺序执行、变量定义、运算操作以及输出语句的使用。
+实验规范与记录习惯实验要求将程序及运行截图完整记录，使我养成了整理实验资料、形成实验报告的良好习惯。
+总体来说，实验一虽然内容基础，但为后续深入学习 C 语言打下了坚实基础，同时提高了实际操作能力和问题分析解决能力。
+实验02：顺序结构与单选择结构一、实验信息1. 课程名称：C语言程序设计
+2. 实验名称：实验02：顺序结构与单选择结构
+3. 完成时间：2024年3月10日
+二、实验目的1. 掌握 C 语言的顺序结构与单选择结构
+2. 掌握变量定义和基本数据处理
+3. 掌握输入&#x2F;输出函数的功能、格式及使用方法，设计简单的顺序结构程序和选择结构程序
+三、实验环境1. 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1.已知 a&#x3D;1.5，b&#x3D;5.3，c&#x3D;2.9，计算 s&#x3D;b^2-4ac 的结果并输出
+输出示例：s&#x3D;10.690000
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    double a, b, c, s;    a = 1.5;    b = 5.3;    c = 2.9;    s = b*b - 4*a*c;    printf(&quot;s=%lf\n&quot;, s);    return 0;&#125;
+
+程序及运行结果：
+2 输入某学生三个科目的期末考试成绩，计算总分和平均分
+输入示例：70 85 92输出示例：sum &#x3D; 247, average &#x3D; 82.333333
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int math, english, c_program, sum;    double average;    scanf(&quot;%d %d %d&quot;, &amp;math, &amp;english, &amp;c_program);    sum = math + english + c_program;    average = (double)sum / 3;    printf(&quot;sum = %d, average = %lf\n&quot;, sum, average);    return 0;&#125;
+
+程序及运行结果：
+3 输入两个数 a 和 b，将两数的值互换后输出新值
+输入示例：a&#x3D;4，b&#x3D;3
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int a, b, temp;    scanf(&quot;%d %d&quot;, &amp;a, &amp;b);    temp = a;    a = b;    b = temp;    printf(&quot;a = %d, b = %d\n&quot;, a, b);    return 0;&#125;
+
+程序及运行结果：
+4 输入 x 的值计算分段函数 yy &#x3D; x^2 + 2x, x &lt; 2y &#x3D; 2x - 1, x &gt;&#x3D; 2输入示例：第一次运行：输入 x&#x3D;3 → 输出 y&#x3D;5.000000第二次运行：输入 x&#x3D;1.99 → 输出 y&#x3D;7.940100第三次运行：输入 x&#x3D;1 → 输出 y&#x3D;3.000000
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    double x, y;    scanf(&quot;%lf&quot;, &amp;x);    if (x &gt;= 2)        y = 2 * x - 1;    else        y = x * x + 2 * x;    printf(&quot;y=f(%lf)=%lf\n&quot;, x, y);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我进一步掌握了 C 语言中顺序结构与单选择结构的编程方法，同时巩固了变量定义、输入输出以及简单运算的使用技巧。在实验过程中，我有以下收获：
+顺序结构熟练度提升能够独立编写顺序执行的程序，并理解程序从上到下执行的逻辑。
+选择结构理解与应用学会使用 if-else 条件语句进行分支判断，理解条件语句的执行顺序和逻辑关系。
+输入输出技巧强化熟练掌握 scanf 和 printf 的格式化输入输出，能够处理整数与浮点数数据，并正确进行类型转换。
+程序调试能力增强通过实验发现并解决输入格式错误、运算优先级问题以及变量使用错误，提高了调试效率。
+实验记录规范化将程序及运行截图完整记录，有助于形成规范化实验报告的习惯。
+总体来说，实验二在实验一基础上增加了程序逻辑判断，提升了实际编程能力，为后续条件结构和循环结构的学习打下了坚实基础。
+实验03：选择结构程序设计一、实验信息课程名称：C语言程序设计
+实验名称：实验03：选择结构程序设计
+完成时间：2024年3月14日
+二、实验目的1 理解 C 语言数据类型的概念，掌握如何定义整型、字符型和实型变量
+2 学会正确使用关系表达式
+3 熟练使用 if-else、if-else if-else 和 switch 语句
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 编写一个程序输入某人的身高（cm）和体重（kg），按下式判断体重是否标准、过胖或过瘦
+判断标准：标准体重 &#x3D; 身高 - 110超过标准体重 5kg 为过胖低于标准体重 5kg 为过瘦
+输入&#x2F;输出示例：第一次运行：输入 160 50 → 输出 标准第二次运行：输入 160 56 → 输出 过胖第三次运行：输入 160 44 → 输出 过瘦
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;int main(void)&#123;    int h, w, a;    scanf(&quot;%d%d&quot;, &amp;h, &amp;w);    a = h - 110 - w;    if(a &lt; -5)        printf(&quot;过胖&quot;);    else if(a &gt;= -5 &amp;&amp; h - 110 - w &lt;= 5)        printf(&quot;标准&quot;);    else        printf(&quot;过瘦&quot;);    return 0;&#125;
+
+程序及运行结果：
+2 输入 x，计算分段函数 y 的值y &#x3D; −5, x &lt; 0y &#x3D; x^2, 0 ≤ x ≤ 1y &#x3D; x&#x2F;2, x &gt; 1
+输入&#x2F;输出示例：第一次运行：输入 -4 → 输出 -5第二次运行：输入 0.5 → 输出 0.25第三次运行：输入 3 → 输出 1.5
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    double x, y;    scanf(&quot;%lf&quot;, &amp;x);    if(x &lt; 0)    &#123;        y = -5;        printf(&quot;%f&quot;, y);    &#125;    else if(x &gt; 1)    &#123;        y = x / 2;        printf(&quot;%f&quot;, y);    &#125;    else    &#123;        y = x * x;        printf(&quot;%f&quot;, y);    &#125;    return 0;&#125;
+
+程序及运行结果：
+3 输入一个字符（A、B、C 或其他字符），使用 switch 语句输出奖项
+输入&#x2F;输出示例：第一次运行：输入 A → 输出 一等奖第二次运行：输入 C → 输出 三等奖第三次运行：输入 0 → 输出 很遗憾，此次未中奖
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    char p;    scanf(&quot;%c&quot;, &amp;p);    switch (p)    &#123;    case &#x27;A&#x27;: printf(&quot;一等奖&quot;); break;    case &#x27;B&#x27;: printf(&quot;二等奖&quot;); break;    case &#x27;C&#x27;: printf(&quot;三等奖&quot;); break;    default: printf(&quot;很遗憾，此次未中奖！&quot;); break;    &#125;    return 0;&#125;
+
+程序及运行结果：
+4 改错题：输入两个整数 num1 和 num2，以及运算符（+、-、*、&#x2F;、%），输出计算结果，其他字符输出“运算符输入错误”
+输入&#x2F;输出示例：第一次运行：输入 5*4 → 输出 20第二次运行：输入 16%3 → 输出 1第三次运行：输入 6#8 → 输出 运算符输入错误
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    char sign;    int x, y;    printf(&quot;输入x运算符y：&quot;);    scanf(&quot;%d %c %d&quot;, &amp;x, &amp;sign, &amp;y);    if (sign == &#x27;*&#x27;)        printf(&quot;%d*%d = %d \n&quot;, x, y, x * y);    else if (sign == &#x27;/&#x27;)        printf(&quot;%d / %d = %d \n&quot;, x, y, x / y);    else if (sign == &#x27;%&#x27;)        printf(&quot;%d Mod %d = %d \n&quot;, x, y, x % y);    else        printf(&quot;运算符输入错误！\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我熟练掌握了选择结构的编程方法，能够灵活使用 if-else、if-else if-else 和 switch 语句处理各种判断问题。在实验过程中，我收获如下：
+数据类型与条件判断理解加深了对整型、字符型和实型变量的理解，掌握了关系表达式的使用。
+条件分支逻辑清晰化能够根据条件设计多分支程序，理解条件语句的执行顺序和逻辑关系。
+调试能力提升通过改错题练习，学会了识别运算符及语法错误，增强了调试能力。
+程序规范与记录将程序及截图完整记录，提高了实验报告规范性和可读性。
+本次实验为后续循环结构和函数设计奠定了基础，同时提升了实际编程能力和问题分析解决能力。
+实验04：循环结构程序设计一、实验信息课程名称：C语言程序设计
+实验名称：实验04：循环结构程序设计
+完成时间：2024年3月28日
+二、实验目的1 理解循环程序的结构和执行流程
+2 掌握 for、while 和 do-while 语句的格式和功能
+3 熟练使用 for、while 和 do-while 语句实现循环程序设计
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 输入某学生八个科目的期末考试成绩，计算成绩总分和平均分
+输入示例：Input grade: 76 85 79 94 68 78 80 98
+输出示例：sum&#x3D;658average&#x3D;82.25
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int i, data, sum;    double average;    i = 0;    sum = 0;    while(i &lt;= 7)    &#123;        scanf(&quot;%d&quot;, &amp;data);        sum = sum + data;        i = i + 1;    &#125;    average = (double)sum / 8;    printf(&quot;sum=%d\naverage=%lf&quot;, sum, average);    return 0;&#125;
+
+程序及运行结果：
+2 计算 1+4+7+…+301
+输出示例：sum&#x3D;15251
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int i, sum;    i = 1;    sum = 0;    while(i &lt;= 301)    &#123;        sum = sum + i;        i = i + 3;    &#125;    printf(&quot;sum=%d&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+3 读入一批正整数（以零或负数为结束标志），求其中的偶数和
+输入示例：input integers: 1 2 6 10 21 0
+输出示例：the sum of even number is 18
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int data, sum;    sum = 0;    scanf(&quot;%d&quot;, &amp;data);    while(data &gt; 0)    &#123;        if(data % 2 == 0)            sum = sum + data;        scanf(&quot;%d&quot;, &amp;data);    &#125;    printf(&quot;sum=%d&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+4 输入一个正整数，输出是否为素数（使用 do-while 或 while 循环）
+第一次运行：输入：5 → 输出：5是素数
+第二次运行：输入：8 → 输出：8不是素数
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int a, b, c;    b = 2;    c = 0;    scanf(&quot;%d&quot;, &amp;a);    while(a &gt; b)    &#123;        if(a % b == 0)            c = 1;        b = b + 1;    &#125;    if(c == 1)        printf(&quot;%d不是素数&quot;, a);    else        printf(&quot;%d是素数&quot;, a);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我进一步掌握了 C 语言中循环结构的使用方法。实验中我收获如下：
+循环结构理解加深通过 while、do-while 的练习，理解了循环条件的判断和循环体的执行顺序。
+循环应用能力提升能够利用循环语句解决求和、均值计算、数据处理等问题。
+程序调试能力增强在处理输入数据和判断条件时，发现并解决了边界条件、初值及循环终止条件的问题。
+算法思维训练通过素数判断和奇偶数求和练习，提高了用循环分析问题、设计算法的能力。
+实验记录规范化保持程序代码和运行结果截图完整记录，有助于形成规范化实验报告的习惯。
+总体来说，实验四让循环语句的理论知识和实际应用得到了系统训练，为后续条件循环结合的复杂问题打下了基础。
+实验05：程序结构的综合练习1一、实验信息课程名称：C语言程序设计
+实验名称：实验05：程序结构的综合练习1
+完成时间：2024年4月6日
+二、实验目的1 熟练掌握顺序结构、选择结构（if，switch）、循环结构（while，do-while，for）的综合应用
+2 熟练掌握 break 和 continue 控制语句的使用
+3 熟练掌握选择结构和循环结构的一些常用算法
+4 熟练掌握 C 语言集成开发环境中的程序调试方法
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 求前驱字符和后继字符
+输入示例：Input a character: a
+输出示例：z,b,a,122,98,97
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    char a, b, c;    printf(&quot;输入一个英文字母：&quot;);    scanf(&quot;%c&quot;, &amp;b);    if (b == 97)        a = 122, b = 98, c = 97, printf(&quot;%c,%c,%c,%d,%d,%d&quot;, a, b, c, a, b, c);    else if (b == 122)        a = 122, b = 121, c = 97, printf(&quot;%c,%c,%c,%d,%d,%d&quot;, a, b, c, a, b, c);    else        a = b + 1, c = b - 1, printf(&quot;%c,%c,%c,%d,%d,%d&quot;, a, b, c, a, b, c);    return 0;&#125;
+
+程序及运行结果：
+2 输入某个点 A 的平面坐标，判断在圆内、圆外还是圆周上
+圆心坐标：(2, 2)，半径&#x3D;1
+输入示例与输出：第一次运行：输入点坐标：2.0, 3.0 → 输出：圆周上第二次运行：输入点坐标：2.1, 2.2 → 输出：圆内第三次运行：输入点坐标：3.0, 3.0 → 输出：圆外
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;math.h&gt;int main(void)&#123;    double ax, ay, d;    printf(&quot;输入点坐标：&quot;);    scanf(&quot;%lf%lf&quot;, &amp;ax, &amp;ay);    d = sqrt((ax - 2) * (ax - 2) + (ay - 2) * (ay - 2));    if (d == 1)        printf(&quot;圆周上&quot;);    else if (d &lt; 1)        printf(&quot;圆内&quot;);    else        printf(&quot;圆外&quot;);    return 0;&#125;
+
+程序及运行结果：
+3 使用 do-while 控制结构，计算级数 s&#x3D;1+3+5+…，当累加到某项 s &gt; 100 时停止
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdio.h&gt;int main(void)&#123;    int a, s;    a = 1;    s = 0;    do        s = s + a, a = a + 2;    while (s &lt; 100);    printf(&quot;结束时总和为：%d, 此时该项为%d&quot;, s, a);    return 0;&#125;
+
+程序及运行结果：
+4 输入 10 个字符，统计其中的英文字母个数（不区分大小写）
+输入示例：A123bc55%D
+输出示例：英文字母个数为：4
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int n = 0, i = 0;    char ch;    printf(&quot;请输入10个字符:&quot;);    for (i = 0; i &lt;= 10; i++)    &#123;        scanf(&quot;%c&quot;, &amp;ch);        if ((ch &gt;= &#x27;A&#x27; &amp;&amp; ch &lt;= &#x27;Z&#x27;) || (ch &gt;= &#x27;a&#x27; &amp;&amp; ch &lt;= &#x27;z&#x27;))            n = n + 1;    &#125;    printf(&quot;有%d个英文字母&quot;, n);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我对 C 语言的程序结构综合应用有了更深入的理解：
+综合应用能力提升能够将顺序结构、选择结构和循环结构结合，解决复杂问题。
+控制语句熟练掌握学会了 break 和 continue 的使用方法，提高了循环控制的灵活性。
+算法设计思维加强通过前驱后继字符、圆内外判断和累加级数等练习，提高了用程序分析问题、设计算法的能力。
+调试能力增强在实验中发现逻辑错误和边界问题，学会了通过调试逐步定位问题。
+实验规范性训练保持程序代码和运行结果完整记录，有助于形成规范化实验报告的习惯。
+总体来说，实验五对程序结构的综合训练显著提升了我的实际编程能力，为后续更复杂的算法学习奠定了基础。
+实验06：程序结构的综合练习2一、实验信息课程名称：C语言程序设计
+实验名称：实验06：程序结构的综合练习2
+完成时间：2024年4月14日
+二、实验目的熟练掌握顺序结构、选择结构（switch）、循环结构（while，do-while，for），嵌套选择循环结构的综合应用
+熟练掌握 break 和 continue 控制语句的使用
+熟练掌握选择结构和循环结构的一些常用算法
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 统计整数各位 0 的个数并求最大值
+输入示例：60089
+输出示例：count&#x3D;2, max&#x3D;9
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int num, count = 0, m = 0, n = 0;    printf(&quot;输入一个在0和99999之间的整数：&quot;);    scanf(&quot;%d&quot;, &amp;num);    while (num != 0)    &#123;        m = num % 10;        num = num / 10;        if (m == 0)            count++;        if (m &gt; n)            n = m;    &#125;    printf(&quot;count=%d,max=%d&quot;, count, n);    return 0;&#125;
+
+程序及运行结果：
+2 输出菱形图案
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int i;    printf(&quot;输入菱形的行数（奇数）：&quot;);    scanf(&quot;%d&quot;, &amp;i);    for (int m = 1; m &lt;= (i + 1) / 2; m++)    &#123;        for (int n = 1; n &lt;= (i + 1) / 2 - m; n++)            printf(&quot; &quot;);        for (int n = 1; n &lt;= 2 * m - 1; n++)            printf(&quot;*&quot;);        printf(&quot;\n&quot;);    &#125;    for (int m = (i + 1) / 2 + 1; m &lt;= i; m++)    &#123;        for (int n = 1; n &lt;= m - (i + 1) / 2; n++)            printf(&quot; &quot;);        for (int n = 1; n &lt;= (i - m) * 2 + 1; n++)            printf(&quot;*&quot;);        printf(&quot;\n&quot;);    &#125;    return 0;&#125;
+
+程序及运行结果：
+3 改错题：计算整数各位数之和
+输入示例：2586
+输出示例：2+5+8+6&#x3D;21
+程序代码（修改后的正确版本）：
+#include &lt;stdio.h&gt;int main(void)&#123;    int temp, number;    int i, j, k;    int count, sum;    count = 0;    sum = 0;    printf(&quot;Please input a short type integer: &quot;);    scanf(&quot;%d&quot;, &amp;number);    temp = number;    do    &#123;        temp /= 10;        count++;    &#125; while (temp != 0);    k = 1;    for (i = count; i &gt; 1; i--)    &#123;        for (j = 1; j &lt; i; j++)            k = k * 10;        temp = number / k;        printf(&quot;%d%c&quot;, temp, &#x27;+&#x27;);        sum = sum + temp;        number = number - k * temp;        k = 1;    &#125;    sum = sum + number;    printf(&quot;%d=%d \n&quot;, number, sum);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得通过本次实验，我在程序结构的综合应用上有了更深入的理解和提升：
+嵌套结构掌握学会在循环中嵌套选择结构或在选择结构中使用循环，处理更复杂的逻辑问题。
+循环与条件结合应用通过统计数字 0 的个数、求最大值和输出菱形图案的练习，增强了循环与条件判断结合的能力。
+调试能力提高在改错题中发现原程序的逻辑错误和变量使用问题，并通过分析和修改，掌握了程序调试方法。
+算法思维锻炼理解了数字分解、累加计算、菱形图案生成等常用算法的实现思路，提升了算法设计能力。
+实验规范性保持程序代码、运行结果和截图完整记录，形成了良好的实验报告习惯。
+实验07：一维数组一、实验信息课程名称：C语言程序设计
+实验名称：实验07：一维数组
+完成时间：2024年4月21日
+二、实验目的熟练掌握一维数组的定义、赋值和输入&#x2F;输出的方法
+熟练掌握与一维数组有关的操作和算法（如排序算法）
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 求最小值
+输入示例：5 7 9 1 6
+输出示例：min&#x3D;1, index&#x3D;3
+程序代码：
+#include &lt;stdio.h&gt;int main(void)&#123;    int i, min=9, index, a[5];    printf(&quot;Input 5 integers:&quot;);    for (i = 0; i &lt; 5; i++)    &#123;        scanf(&quot;%d&quot;, &amp;a[i]);        if (a[i] &lt; min)            min = a[i], index = i;    &#125;    printf(&quot;min=%d,index=%d&quot;, min, index);    return 0;&#125;
+
+程序及运行结果：
+2 最大值与第一个数交换
+输入示例：75 7 2 8 9 3 1
+输出示例：After swapped: 9 7 2 8 5 3 1
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;corecrt_malloc.h&gt;int main(void)&#123;    int i, n, max = 0, index = 0;    printf(&quot;Input n:&quot;);    scanf(&quot;%d&quot;, &amp;n);    int* a = (int*)malloc(n * sizeof(int));    printf(&quot;Input %d integers:&quot;, n);    for (i = 0; i &lt; n; i++)    &#123;        scanf(&quot;%d&quot;, &amp;a[i]);        if (a[i] &gt; max)        &#123;            max = a[i];            index = i;        &#125;    &#125;    int b = a[0];    a[0] = a[index];    a[index] = b;    for (i = 0; i &lt; n; i++)        printf(&quot;%d &quot;, a[i]);    return 0;&#125;
+
+程序及运行结果：
+3 冒泡排序
+输入示例：58 6 9 11 3
+输出示例：After sorted: 11 9 8 6 3
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;corecrt_malloc.h&gt;int main(void) &#123;    int i, n, temp;    printf(&quot;Input n:&quot;);    scanf(&quot;%d&quot;, &amp;n);    int* a = (int*)malloc(n * sizeof(int));    printf(&quot;Input %d integers:&quot;, n);    for (i = 0; i &lt; n; i++)        scanf(&quot;%d&quot;, &amp;a[i]);    for (i = 0; i &lt; n - 1; i++) &#123;        for (int j = 0; j &lt; n - i - 1; j++) &#123;            if (a[j] &gt; a[j + 1])             &#123;                temp = a[j];                a[j] = a[j + 1];                a[j + 1] = temp;            &#125;        &#125;    &#125;    printf(&quot;After sorted: &quot;);    for (i = 0; i &lt; n; i++)        printf(&quot;%d &quot;, a[i]);    return 0;&#125;
+
+程序及运行结果：
+4 查找数组中与 x 相同的元素
+输入示例1：58 6 9 11 39
+输出示例1：和9相同的数组元素是a[2] &#x3D; 9
+输入示例2：58 6 9 11 312
+输出示例2：没有找到与12相等的元素！
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;corecrt_malloc.h&gt;int main(void) &#123;    int i, x, n;    printf(&quot;输入数组元素的个数：&quot;);    scanf(&quot;%d&quot;, &amp;n);    int* a = (int*)malloc(n * sizeof(int));    printf(&quot;输入数组 %d 个元素：&quot;, n);    for (i = 0; i &lt; n; i++)        scanf(&quot;%d&quot;, &amp;a[i]);    printf(&quot;输入x：&quot;);    scanf(&quot;%d&quot;, &amp;x);    for (i = 0; i &lt; n; i++)        if (a[i] == x) &#123;            printf(&quot;和%d相同的数组元素是a[%d] = %d\n&quot;, x, i, a[i]);            break;        &#125;    if (i == n)        printf(&quot;没有找到与%d相等的元素！\n&quot;, x);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得数组基本操作熟练能够灵活使用数组存储多个数据并进行访问与修改。
+算法应用能力提升通过冒泡排序和查找算法的实现，加深了对数组元素处理逻辑的理解。
+动态内存分配使用使用 malloc 动态申请数组空间，掌握了指针与数组结合的用法。
+调试和错误修改能力增强在查找数组元素的改错练习中，学会分析逻辑错误并正确处理边界条件。
+程序规范与实验记录保持实验报告格式规范，截图清晰完整，有助于养成良好的实验习惯。
+实验08：字符串和二维数组一、实验信息课程名称：C语言程序设计
+实验名称：实验08：字符串和二维数组
+完成时间：2024年4月26日
+二、实验目的熟练掌握字符串的定义和使用
+熟练掌握二维数组的编程
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 字符串中查找字符的最大下标
+输入示例1：programmingm输出示例1：index &#x3D; 7
+输入示例2：1234a
+输出示例2：Not found
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(void)&#123;    int i, l, index, j = 0;    char ch, c[80];    printf(&quot;Input a string:&quot;);    gets(c);    l = strlen(c);    printf(&quot;Input a character:&quot;);    scanf(&quot;%c&quot;, &amp;ch);    for (i = 0; i &lt; l; i++)        if (ch == c[i])            index = i, j = 1;    if (j == 0)        printf(&quot;Not found&quot;);    else         printf(&quot;index=%d&quot;, index);    return 0;&#125;
+
+程序及运行结果：
+2 按相反顺序输出字母和数字
+输入示例：1+2&#x3D;3abc&#x2F;ABC.
+输出示例：CBAcba321
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;int main(void)&#123;    char* str = NULL;    int length = 0, i = 0;    char c, ch;    printf(&quot;Input a string:&quot;);    while ((ch = getchar()) != &#x27;.&#x27; &amp;&amp; ch != EOF)     &#123;        length++;        str = (char*)realloc(str, length * sizeof(char));        str[length - 1] = ch;    &#125;    str = (char*)realloc(str, (length + 1) * sizeof(char));    str[length] = &#x27;\0&#x27;;    for (i = 0; i &lt;= length; i++)    &#123;        c = str[length - i];        if ((c &gt;= &#x27;A&#x27; &amp;&amp; c &lt;= &#x27;Z&#x27;) || (c &gt;= &#x27;a&#x27; &amp;&amp; c &lt;= &#x27;z&#x27;) || (c &gt;= &#x27;0&#x27; &amp;&amp; c &lt;= &#x27;9&#x27;))            printf(&quot;%c&quot;, c);    &#125;    return 0;&#125;
+
+程序及运行结果：
+3 计算矩阵主对角线和副对角线元素和
+输入示例：42 3 4 15 6 1 17 1 8 11 1 1 1
+输出示例：sum&#x3D;21
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;int main(void)&#123;    int n, i = 0, j = 0, sum = 0;    int** a;    printf(&quot;Input n：&quot;);    scanf(&quot;%d&quot;, &amp;n);    a = (int**)malloc(n * sizeof(int*));    for (i = 0; i &lt; n; i++)         a[i] = (int*)malloc(n * sizeof(int));    printf(&quot;Input array:\n&quot;);    for (i = 0; i &lt; n; i++)         for (j = 0; j &lt; n; j++)             scanf(&quot;%d&quot;, &amp;a[i][j]);    for (i = 0; i &lt; n; i++)        sum = sum + a[i][i];    for (i = 0; i &lt; n; i++)        sum = sum + a[n - i - 1][i];    printf(&quot;sum=%d&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+4 去掉非数字字符，将字符串数字转为整数
+输入示例：3a5b6abc
+输出示例：356
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(void) &#123;    int i, s = 0;    char str[80];    i = 0;    while ((str[i] = getchar()) != &#x27;\n&#x27; &amp;&amp; i &lt; 79)        i++;    str[i] = &#x27;\0&#x27;;    for (i = 0; i &lt; strlen(str); i++)         if (str[i] &gt;= &#x27;0&#x27; &amp;&amp; str[i] &lt;= &#x27;9&#x27;)             s = s * 10 + (str[i] - &#x27;0&#x27;);    printf(&quot;%d&quot;, s);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得字符串操作熟练掌握了 gets、strlen、字符数组的操作以及字符判断条件。
+动态内存管理理解通过 malloc 与 realloc 动态申请二维数组和字符串的空间，学会处理不同长度数据。
+二维数组操作能力增强熟练输入、遍历二维数组，计算矩阵主副对角线元素和。
+字符过滤与数据转换通过遍历字符数组，将符合条件的数字提取并转换为整数，掌握字符与整数的转换方法。
+程序调试能力提升改错题帮助理解逻辑错误及边界条件处理，提高调试能力。
+实验09：函数1一、实验信息课程名称：C语言程序设计
+实验名称：实验09：函数1
+完成时间：2024年5月11日
+二、实验目的熟练掌握函数的定义与调用
+熟练掌握使用函数编写程序
+掌握函数的实参、形参、返回值的概念及使用
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 计算整数阶乘
+输入示例：5
+输出示例：5!&#x3D;120
+程序代码：
+#include &lt;stdio.h&gt;int fun(int n)&#123;    if (n == 0 || n == 1)        return 1;    else        return n * fun(n - 1);&#125;int main(void) &#123;    int x;    printf(&quot;Input n: &quot;);    scanf(&quot;%d&quot;, &amp;x);    printf(&quot;%d!=%d\n&quot;, x, fun(x));    return 0;&#125;
+
+程序及运行结果：
+2 求奇数和
+输入示例：11 3 7 6 8 9 11 0
+输出示例：sum&#x3D;41
+程序代码：
+#include &lt;stdio.h&gt;int even(int n) &#123;    if (n % 2 == 0)        return 1;    else        return 0;&#125;int main(void)&#123;    int num, sum = 0;    printf(&quot;输入一批正整数（以零或负数为结束标志）：\n&quot;);    scanf(&quot;%d&quot;, &amp;num);    while (num &gt; 0)     &#123;        if (!even(num))            sum = sum + num;        scanf(&quot;%d&quot;, &amp;num);    &#125;    printf(&quot;sum=%d\n&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+3 统计素数个数及求和
+输入示例：2 10
+输出示例：count &#x3D; 4, sum&#x3D;17
+程序代码：
+#include &lt;stdio.h&gt;int isprime(int n) &#123;    if (n &lt;= 1)        return 0;    for (int i = 2; i * i &lt;= n; i++)    &#123;        if (n % i == 0)            return 0;    &#125;    return 1;&#125;int main(void) &#123;    int m, n, count = 0, sum = 0;    printf(&quot;Input m, n: &quot;);    scanf(&quot;%d %d&quot;, &amp;m, &amp;n);    if (m &gt; n)     &#123;        int temp = m;        m = n;        n = temp;    &#125;    for (int i = m; i &lt;= n; i++)     &#123;        if (isprime(i))         &#123;            count++;            sum = sum + i;        &#125;    &#125;    printf(&quot;count = %d, sum=%d\n&quot;, count, sum);    return 0;&#125;
+
+程序及运行结果：
+4 计算 1! + 2! + … + 10!
+输出示例：1! + 2! + … + 10! &#x3D; 4037913.000000
+程序代码：
+#include &lt;stdio.h&gt;double fact(int n) &#123;    int i;    double result = 1.0;    for (i = 1; i &lt;= n; i++)        result = result * i;    return result;&#125;int main(void) &#123;    int i;    double sum = 0;    for (i = 1; i &lt;= 10; i++)        sum = sum + fact(i);    printf(&quot;1! + 2! + ... + 10! = %.6f\n&quot;, sum);    return 0;&#125;
+
+程序及运行结果：
+六、实验心得函数调用熟练通过阶乘、奇数和、素数判断等实验掌握了函数的定义与调用方法。
+递归理解阶乘函数使用递归，理解了递归函数的执行流程与返回值传递。
+逻辑判断能力提升奇数和、素数统计程序中需要条件判断，进一步锻炼了逻辑分析能力。
+返回值类型注意计算大阶乘时使用 double 类型避免溢出，并掌握了函数返回不同类型值的方法。
+实验10：函数与指针一、实验信息课程名称：C语言程序设计
+实验名称：实验10：函数与指针
+完成时间：2024年5月20日
+二、实验目的熟练掌握使用函数编写程序
+掌握函数的实参、形参、返回值的概念及使用
+掌握指针的概念及指针的定义、使用方法
+熟悉指针的运算（取地址运算 &amp;、取内容运算 *、指针移动等）
+三、实验环境1 中文 Windows 11 操作系统
+四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。
+五、实验内容与代码1 求小于 lim 的素数并存入数组
+输入示例：lim &#x3D; 30
+输出示例：小于 30 的素数共有 10 个：2 3 5 7 11 13 17 19 23 29
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;stdbool.h&gt;#define MAX 1000int fun(int lim, int aa[MAX])&#123;    if (lim &lt;= 2)         return 0;    bool a[30];    for (int i = 0; i &lt; lim; i++)         a[i] = true;    a[0] = a[1] = false;    for (int i = 2; i * i &lt; lim; i++)         if (a[i])            for (int j = i * i; j &lt; lim; j += i)                a[j] = false;    int count = 0;    for (int i = 2; i &lt; lim; i++)        if (a[i])            aa[count++] = i;    return count;&#125;int main(void) &#123;    int lim = 30;    int aa[MAX];    int b = fun(lim, aa);    printf(&quot;小于 %d 的素数共有 %d 个：\n&quot;, lim, b);    for (int i = 0; i &lt; b; i++)        printf(&quot;%d &quot;, aa[i]);    printf(&quot;\n&quot;);    return 0;&#125;
+
+程序及运行结果：
+2 字符串中间五个字符降序排序
+输入示例：CEAedca
+输出示例：排序后字符串：CedcEAa
+程序代码：
+#include &lt;stdio.h&gt;#include &lt;string.h&gt;void sort_descending(char* a, int length) &#123;    for (int i = 0; i &lt; length - 1; i++)         for (int j = i + 1; j &lt; length; j++)             if (a[i] &lt; a[j])             &#123;                char temp = a[i];                a[i] = a[j];                a[j] = temp;            &#125;&#125;void fun(char str[]) &#123;    if (strlen(str) != 7)     &#123;        printf(&quot;输入的字符串长度不是7个字符\n&quot;);        return;    &#125;    char middle[6];    for (int i = 1; i &lt; 6; i++)        middle[i - 1] = str[i];    middle[5] = &#x27;\0&#x27;;    sort_descending(middle, 5);    for (int i = 1; i &lt; 6; i++)         str[i] = middle[i - 1];&#125;int main(void) &#123;    char str[] = &quot;CEAedca&quot;;    printf(&quot;原字符串: %s\n&quot;, str);    fun(str);    printf(&quot;排序后字符串: %s\n&quot;, str);    return 0;&#125;
+
+程序及运行结果：
+3 华氏温度转摄氏温度（使用指针）
+输出示例：
+华氏温度    摄氏温度0    -17.7820    -6.6740    4.4460    15.5680    26.67100    37.78
+程序代码：
+#include &lt;stdio.h&gt;int main(void) &#123;    int fahr;    double celsius;    int* pf;    double* pc;    pf = &amp;fahr;    pc = &amp;celsius;    printf(&quot;华氏温度    摄氏温度\n&quot;);    for (*pf = 0; *pf &lt;= 100; *pf += 20)     &#123;        *pc = (*pf - 32) * 5.0 / 9.0;        printf(&quot;%d\t      %.2f\n&quot;, *pf, *pc);    &#125;    return 0;&#125;
+
+程序及运行结果：
+六、实验心得指针运算理解通过华氏温度转换实验掌握了取地址（&amp;）和取内容（*）的指针基本操作，并理解了指针作为函数参数的使用方法。
+数组与函数结合素数求解实验中，将函数返回值与数组结合，理解了函数返回值作为计数及数组存储的实践方法。
+字符串处理能力提升中间五个字符降序排序实验熟悉了字符串下标操作、子数组提取和自定义排序函数的实现方法。
+综合运用能力增强实验涉及指针、函数、数组、字符串等多种知识点，增强了对 C 语言综合应用的能力。
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>编程</category>
+        <category>c语言</category>
+        <category>课程作业</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>实验</tag>
+        <tag>程序设计</tag>
+        <tag>作业展示</tag>
+      </tags>
+  </entry>
+</search>

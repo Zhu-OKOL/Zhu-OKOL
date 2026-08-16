@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>200smart学习 第3章：学习箱介绍 | Zhu-OKOL的个人博客</title><meta name="author" content="Zhu-OKOL"><meta name="copyright" content="Zhu-OKOL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="步进电机线性模组 脉冲相关测试组件 按钮、指示灯组件 其他接口组件 PLC系统组件 学习箱IO符号表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="200smart学习 第3章：学习箱介绍">
+<meta property="og:url" content="https://zhu-okol.github.io/2026/01/12/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Zhu-OKOL的个人博客">
+<meta property="og:description" content="步进电机线性模组 脉冲相关测试组件 按钮、指示灯组件 其他接口组件 PLC系统组件 学习箱IO符号表">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zhu-okol.github.io/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png">
+<meta property="article:published_time" content="2026-01-12T14:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-16T06:01:35.422Z">
+<meta property="article:author" content="Zhu-OKOL">
+<meta property="article:tag" content="200SMART">
+<meta property="article:tag" content="IO映射">
+<meta property="article:tag" content="学习箱">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhu-okol.github.io/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "200smart学习 第3章：学习箱介绍",
+  "url": "https://zhu-okol.github.io/2026/01/12/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/",
+  "image": "https://zhu-okol.github.io/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png",
+  "datePublished": "2026-01-12T14:00:00.000Z",
+  "dateModified": "2026-08-16T06:01:35.422Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhu-OKOL",
+      "url": "https://zhu-okol.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/Zhu-OKOL/img/favicon.png"><link rel="canonical" href="https://zhu-okol.github.io/2026/01/12/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/Zhu-OKOL/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/Zhu-OKOL/',
+  algolia: undefined,
+  localSearch: {"path":"/Zhu-OKOL/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '200smart学习 第3章：学习箱介绍',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/Zhu-OKOL/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/Zhu-OKOL/"><span class="site-name">Zhu-OKOL的个人博客</span></a><a class="nav-page-title" href="/Zhu-OKOL/"><span class="site-name">200smart学习 第3章：学习箱介绍</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">200smart学习 第3章：学习箱介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-12T14:00:00.000Z" title="发表于 2026-01-12 22:00:00">2026-01-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-16T06:01:35.422Z" title="更新于 2026-08-16 14:01:35">2026-08-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/PLC/">PLC</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/PLC/200SMART/">200SMART</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="步进电机线性模组"><a href="#步进电机线性模组" class="headerlink" title="步进电机线性模组"></a>步进电机线性模组</h1><p><img src="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170653330.png"><br><br></p>
+<h1 id="脉冲相关测试组件"><a href="#脉冲相关测试组件" class="headerlink" title="脉冲相关测试组件"></a>脉冲相关测试组件</h1><p><img src="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170737056.png"><br><br></p>
+<h1 id="按钮、指示灯组件"><a href="#按钮、指示灯组件" class="headerlink" title="按钮、指示灯组件"></a>按钮、指示灯组件</h1><p><img src="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170810090.png"><br><br></p>
+<h1 id="其他接口组件"><a href="#其他接口组件" class="headerlink" title="其他接口组件"></a>其他接口组件</h1><p><img src="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170843135.png"><br><br></p>
+<h1 id="PLC系统组件"><a href="#PLC系统组件" class="headerlink" title="PLC系统组件"></a>PLC系统组件</h1><p><img src="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png"><br><br></p>
+<h1 id="学习箱IO符号表"><a href="#学习箱IO符号表" class="headerlink" title="学习箱IO符号表"></a>学习箱IO符号表</h1><p><img src="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170944999.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io">Zhu-OKOL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io/2026/01/12/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/">https://zhu-okol.github.io/2026/01/12/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhu-okol.github.io" target="_blank">Zhu-OKOL的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/Zhu-OKOL/tags/200SMART/">200SMART</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/%E5%AD%A6%E4%B9%A0%E7%AE%B1/">学习箱</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/IO%E6%98%A0%E5%B0%84/">IO映射</a></div><div class="post-share"><div class="social-share" data-image="/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Zhu-OKOL/2026/01/16/%E7%AC%AC4%E7%AB%A0%EF%BC%9A%E8%BD%AF%E4%BB%B6%E4%BB%8B%E7%BB%8D/" title="200smart学习 第4章：软件介绍"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC4%E7%AB%A0%EF%BC%9A%E8%BD%AF%E4%BB%B6%E4%BB%8B%E7%BB%8D/file-20260116200341312.png" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">200smart学习 第4章：软件介绍</div></div><div class="info-2"><div class="info-item-1">CPU配置 勾选“IP地址数据固定为下面的值，不能通过其他方式更改”，则CPU的IP地址只能通过下载程序的方式修改 不勾选，则使用CPU原有的IP地址，可以在“通讯”等窗口任意修改CPU的IP地址     项目下载下载步骤 用网线连接电脑与PLC 选择网卡驱动 搜索PLC的IP地址 将电脑的IP地址设置成与PLC的IP地址相同网段（IP地址的前三位必须相同，最后一位不相同）   以下为程序内图片（双击“系统块按钮”）：  配置好网卡驱动ip地址后，双击“通信“按钮后的界面：   注：若在“系统块”中勾选“IP地址数据固定为下面的值，不能通过其它方式更改”，则无法在“通信”面板中进行更改 数字量输入配置 滤波时间：信号在指定时间内必须保持状态不变，才会认为信号有效 当需要捕捉很短时间的信号脉冲时需要勾选“脉冲捕捉”     数字量输出配置 勾选“将输出冻结在最后一个状态”，指的是状态变更之前的输出状态 勾选指定状态后，CPU处于STOP模式时，选定通道会输出信号     断电保持配置 用于实现CPU断电，数据依然保持断电之前的数值     CPU安全配置 密码设置可以实现知识产权的...</div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/12/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" title="200smart学习 第2章：编程基础介绍"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/file-20260111173535596.png" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">200smart学习 第2章：编程基础介绍</div></div><div class="info-2"><div class="info-item-1">编程语言   类型 名称 使用情况    LAD 梯形图 最多   FBD 功能块 一般   STL 语句表 很少        存储器类型 数据格式 三种数据格式：二进制，十进制，十六进制  注意：200smart的浮点数精确到小数点后6位。因此输入浮点常数时，最多只能指定6位小数。计算高精度数据时，计算结果可能不准确。  数据访问三种指令操作数寻址方式：  直接：使用存储区标识符、数据大小、地址来访问数据 （I0.0） 符号：使用字母数字字符组合来访问数据 （启动按钮） 间接：间接寻址使用指针访问存储器中的数据     数据访问_直接 数据访问_符号 数据类型关系 CPU IO地址 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/file-20260312173417780.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-23</div><div class="info-item-2">200smart学习 第10章：PWM输出</div></div><div class="info-2"><div class="info-item-1">PWM基础介绍 PWM：脉冲宽度调制，是一种周期固定、宽度可调的方波     PWM配置向导1、选择脉冲发生  PWM0，用于在Q0.0上产生脉冲 PWM1，用于在Q0.1上产生脉冲 PWM2，用于在Q0.3上产生脉冲注：ST20只有两路高速脉冲输出     2、更改PWM通过名称 3、组态PWM通道输出时基 4、生成项目组件 PWM指令 </div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/12/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" title="200smart学习 第2章：编程基础介绍"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/file-20260111173535596.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-12</div><div class="info-item-2">200smart学习 第2章：编程基础介绍</div></div><div class="info-2"><div class="info-item-1">编程语言   类型 名称 使用情况    LAD 梯形图 最多   FBD 功能块 一般   STL 语句表 很少        存储器类型 数据格式 三种数据格式：二进制，十进制，十六进制  注意：200smart的浮点数精确到小数点后6位。因此输入浮点常数时，最多只能指定6位小数。计算高精度数据时，计算结果可能不准确。  数据访问三种指令操作数寻址方式：  直接：使用存储区标识符、数据大小、地址来访问数据 （I0.0） 符号：使用字母数字字符组合来访问数据 （启动按钮） 间接：间接寻址使用指针访问存储器中的数据     数据访问_直接 数据访问_符号 数据类型关系 CPU IO地址 </div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/file-20260129171637182.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-30</div><div class="info-item-2">200smart学习 第8章：进阶基础</div></div><div class="info-2"><div class="info-item-1">子程序_不带参数 注意事项 子程序_带参数局部存储器 注意事项 </div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/28/%E7%AC%AC7%E7%AB%A0%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95/" title="200smart学习 第7章：程序调试"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC7%E7%AB%A0%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95/file-20260127172816811.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-28</div><div class="info-item-2">200smart学习 第7章：程序调试</div></div><div class="info-2"><div class="info-item-1">固件更新固件更新_软件 SD存储卡简介 SD存储卡_固件更新 程序调试强制IO点 交叉引用 程序比较 掉电保持 数据块设置 CPU加密 CPU初始化 SD卡传输程序 </div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/11/%E7%AC%AC1%E7%AB%A0%EF%BC%9A%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/" title="200smart学习 第1章：硬件介绍"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC1%E7%AB%A0%EF%BC%9A%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/file-20260111165450153.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-11</div><div class="info-item-2">200smart学习 第1章：硬件介绍</div></div><div class="info-2"><div class="info-item-1">200smart产品介绍产品分类 CPU 扩展模块：扩展cpu的io点数，通常为8个io点数及以上，体积大 信号板：扩展cpu的io点数，通常为数字量2个，模拟量1个，体积小     产品特点 机型丰富，更多选择：单体I&#x2F;O点数最高可达60点；分标准型和经济型  选件扩展，精确定制：信号板可扩展通讯接口（485）；不额外占用电控柜空间；降低用户拓展成本  高速芯片，性能卓越：基本指令执行时间可达0.15us  以太互联，经济便携：本体标配以太网接口；普通网线即可进行程序下载；可以与其他CPU模块、触摸屏、计算机进行通讯  三轴脉冲，运动自如： 最多集成3路高速脉冲输出，频率高达100kHz，支持PWM&#x2F;PTO输出方式及多种运动模式；有向导设置功能  通用SD卡，快速更新：使用通用Micro SD卡实现程序更新和PLC固件升级：方便远程服务支持  软件友好，编程高效：小巧精干，更多向导，无缝集成  完美整合，无缝集成：即以上内容      CPUCPU硬件简介 CPU类别 R-继电器（Relays） T-晶体管（Transistor）     CPU支持的功能 ...</div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/26/%E7%AC%AC5%E7%AB%A0%EF%BC%9A%E5%85%A5%E9%97%A8%E6%8C%87%E4%BB%A4/" title="200smart学习 第5章：入门指令"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC5%E7%AB%A0%EF%BC%9A%E5%85%A5%E9%97%A8%E6%8C%87%E4%BB%A4/file-20260119154828035%201.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="info-item-2">200smart学习 第5章：入门指令</div></div><div class="info-2"><div class="info-item-1">位逻辑存储器 位逻辑主要涉及三种存储器：数字量输入 I、数字量输出 Q、标志存储 M 存储器范围     类别 存储器符号 范围    外部数字量输入存储器 I I0.0 到 I31.7   外部数字量输出存储器 Q Q0.0 到 Q31.7   内部位存储器 M M0.0 到 M31.7    CPU SR20&#x2F;ST20 技术规范     位逻辑指令 常开指令用于检测连接变量信号是否导通，接通的话，常开指令就接通 常闭指令用于检测连接变量信号是否断开，断开的话，常闭指令就接通 输出指令用于控制连接变量是否导通 取反指令启动按钮I0.0导通时，灯泡1:Q0.3不亮：启动按钮I0.0断开时，灯泡1Q:0.3亮。 置位指令启动按钮I0.0导通，指示灯Q0.0点亮；启动按钮I0.0断开，指示灯状态不变。最多255个 复位指令停止按钮I0.1导通，指示灯Q0.0灭；停止按钮I0.1断开，指示灯状态不变。 置位复位指令按钮1导通，指示灯1亮；按钮2导通，指示灯1灭；按钮1和按钮2同时导通，指示灯1亮。 复位置位指令按钮1导通，指示灯1亮；按钮2导通，指示灯1灭；按钮1和按钮2同时...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Zhu-OKOL</div><div class="author-info-description"></div><div class="site-data"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhu-OKOL"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA%E7%BA%BF%E6%80%A7%E6%A8%A1%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">步进电机线性模组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%84%89%E5%86%B2%E7%9B%B8%E5%85%B3%E6%B5%8B%E8%AF%95%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">脉冲相关测试组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%89%E9%92%AE%E3%80%81%E6%8C%87%E7%A4%BA%E7%81%AF%E7%BB%84%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">按钮、指示灯组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8E%A5%E5%8F%A3%E7%BB%84%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">其他接口组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PLC%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">PLC系统组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%AE%B1IO%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-number">6.</span> <span class="toc-text">学习箱IO符号表</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子 PLC 编程资料整理（官方/权威来源）"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）">西门子 PLC 编程资料整理（官方/权威来源）</a><time datetime="2026-07-26T04:00:00.000Z" title="发表于 2026-07-26 12:00:00">2026-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子PLC编程：数制与基本数据类型 — 学习笔记"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记">西门子PLC编程：数制与基本数据类型 — 学习笔记</a><time datetime="2026-07-21T04:00:00.000Z" title="发表于 2026-07-21 12:00:00">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出"><img src="/Zhu-OKOL/assets/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/file-20260312173417780.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第10章：PWM输出"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出">200smart学习 第10章：PWM输出</a><time datetime="2026-03-23T08:00:00.000Z" title="发表于 2026-03-23 16:00:00">2026-03-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令"><img src="/Zhu-OKOL/assets/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/file-20260203145138761.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第9章：进阶指令"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令">200smart学习 第9章：进阶指令</a><time datetime="2026-02-23T07:00:00.000Z" title="发表于 2026-02-23 15:00:00">2026-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础"><img src="/Zhu-OKOL/assets/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/file-20260129171637182.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第8章：进阶基础"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础">200smart学习 第8章：进阶基础</a><time datetime="2026-01-30T07:00:00.000Z" title="发表于 2026-01-30 15:00:00">2026-01-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/Zhu-OKOL/assets/%E7%AC%AC3%E7%AB%A0%EF%BC%9A%E5%AD%A6%E4%B9%A0%E7%AE%B1%E4%BB%8B%E7%BB%8D/file-20260126170911151.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Zhu-OKOL</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/Zhu-OKOL/js/utils.js?v=5.5.3"></script><script src="/Zhu-OKOL/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/Zhu-OKOL/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

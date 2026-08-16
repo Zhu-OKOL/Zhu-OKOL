@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>我学会了如何搭建个人博客 | Zhu-OKOL的个人博客</title><meta name="author" content="Zhu-OKOL"><meta name="copyright" content="Zhu-OKOL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="就在刚刚，我成功搭建了属于自己的个人博客，使用的是 Hexo + Butterfly 主题。这个过程并不算顺利，但正因为踩了很多坑，也让我对 Hexo 博客系统、本地构建以及 GitHub Pages 的部署流程有了更深入的理解。下面记录的是从零开始搭建博客的全过程，以及过程中遇到的各种问题与解决思路。 一、准备工作 我选择在本地 D 盘创建博客项目文件夹，路径如下： D:\BlogProject">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我学会了如何搭建个人博客">
+<meta property="og:url" content="https://zhu-okol.github.io/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Zhu-OKOL的个人博客">
+<meta property="og:description" content="就在刚刚，我成功搭建了属于自己的个人博客，使用的是 Hexo + Butterfly 主题。这个过程并不算顺利，但正因为踩了很多坑，也让我对 Hexo 博客系统、本地构建以及 GitHub Pages 的部署流程有了更深入的理解。下面记录的是从零开始搭建博客的全过程，以及过程中遇到的各种问题与解决思路。 一、准备工作 我选择在本地 D 盘创建博客项目文件夹，路径如下： D:\BlogProject">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zhu-okol.github.io/img/cover.jpg">
+<meta property="article:published_time" content="2025-12-28T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-16T06:01:35.319Z">
+<meta property="article:author" content="Zhu-OKOL">
+<meta property="article:tag" content="Butterfly">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhu-okol.github.io/img/cover.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "我学会了如何搭建个人博客",
+  "url": "https://zhu-okol.github.io/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/",
+  "image": "https://zhu-okol.github.io/img/cover.jpg",
+  "datePublished": "2025-12-28T15:00:00.000Z",
+  "dateModified": "2026-08-16T06:01:35.319Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhu-OKOL",
+      "url": "https://zhu-okol.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/Zhu-OKOL/img/favicon.png"><link rel="canonical" href="https://zhu-okol.github.io/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/Zhu-OKOL/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/Zhu-OKOL/',
+  algolia: undefined,
+  localSearch: {"path":"/Zhu-OKOL/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '我学会了如何搭建个人博客',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/Zhu-OKOL/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/Zhu-OKOL/img/cover.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/Zhu-OKOL/"><span class="site-name">Zhu-OKOL的个人博客</span></a><a class="nav-page-title" href="/Zhu-OKOL/"><span class="site-name">我学会了如何搭建个人博客</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">我学会了如何搭建个人博客</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-28T15:00:00.000Z" title="发表于 2025-12-28 23:00:00">2025-12-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-16T06:01:35.319Z" title="更新于 2026-08-16 14:01:35">2026-08-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9D%82%E9%A1%B9/">杂项</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>就在刚刚，我成功搭建了属于自己的个人博客，使用的是 Hexo + Butterfly 主题。这个过程并不算顺利，但正因为踩了很多坑，也让我对 Hexo 博客系统、本地构建以及 GitHub Pages 的部署流程有了更深入的理解。下面记录的是从零开始搭建博客的全过程，以及过程中遇到的各种问题与解决思路。</p>
+<p>一、准备工作</p>
+<p>我选择在本地 D 盘创建博客项目文件夹，路径如下：</p>
+<p>D:\BlogProjects</p>
+<p>在 Windows 系统中，命令行默认位于 C 盘，因此在执行 Hexo 相关命令前，必须先手动切换盘符，否则所有操作都会在错误路径下执行。正确的步骤是：</p>
+<p>D:<br>cd D:\BlogProjects</p>
+<p>在安装 Hexo 之前，需要确保已经正确安装 Node.js 和 npm，并且版本能够正常使用。</p>
+<p>二、初始化 Hexo</p>
+<p>在一个空目录中执行以下命令：</p>
+<p>hexo init .<br>npm install</p>
+<p>Hexo 会自动生成基础目录结构，包括配置文件、文章目录、主题目录等。如果当前目录不为空，hexo init 会直接报错，因此需要提前清空文件夹，或将原有内容备份。</p>
+<p>三、安装 Butterfly 主题</p>
+<p>进入 themes 目录：</p>
+<p>cd themes</p>
+<p>克隆 Butterfly 主题仓库：</p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly.git">https://github.com/jerryc127/hexo-theme-butterfly.git</a> butterfly</p>
+<p>返回博客根目录，修改 _config.yml，将主题设置为：</p>
+<p>theme: butterfly</p>
+<p>随后安装主题依赖：</p>
+<p>npm install hexo-renderer-pug hexo-renderer-sass –save</p>
+<p>在后续实践中发现，hexo-butterfly 插件并不是必须安装的，否则可能引发插件加载错误。</p>
+<p>四、新建第一篇文章</p>
+<p>使用 Hexo 提供的命令创建文章：</p>
+<p>hexo new “我学会了如何搭建个人博客”</p>
+<p>Hexo 会在以下路径生成 Markdown 文件：</p>
+<p>D:\BlogProjects\source_posts\我学会了如何搭建个人博客.md</p>
+<p>五、编辑文章内容</p>
+<p>打开生成的 Markdown 文件，开始编写内容，主要包括：</p>
+<ol>
+<li>博客搭建的整体流程</li>
+<li>Hexo 的基本使用方式</li>
+<li>主题配置与本地预览</li>
+<li>实际遇到的问题和解决过程</li>
+</ol>
+<p>六、本地生成与预览</p>
+<p>在博客根目录执行以下命令：</p>
+<p>hexo clean<br>hexo generate<br>hexo server</p>
+<p>随后在浏览器中访问：</p>
+<p><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a></p>
+<p>如果项目配置了 root（例如 &#x2F;Zhu-OKOL&#x2F;），则访问地址会变为：</p>
+<p><a target="_blank" rel="noopener" href="http://localhost:4000/Zhu-OKOL/">http://localhost:4000/Zhu-OKOL/</a></p>
+<p>此时可以在本地完整预览博客的样式和内容。</p>
+<p>七、部署到 GitHub Pages</p>
+<p>为了让博客可以在公网访问，需要将生成的静态文件部署到 GitHub Pages。</p>
+<p>首先安装部署插件：</p>
+<p>npm install hexo-deployer-git –save</p>
+<p>然后在 _config.yml 中配置部署信息：</p>
+<p>deploy:<br>  type: git<br>  repo: <a target="_blank" rel="noopener" href="https://github.com/%E7%94%A8%E6%88%B7%E5%90%8D/%E4%BB%93%E5%BA%93%E5%90%8D.git">https://github.com/用户名/仓库名.git</a><br>  branch: main</p>
+<p>对于项目页形式的 GitHub Pages，还需要额外配置：</p>
+<p>url: <a target="_blank" rel="noopener" href="https://username.github.io/">https://username.github.io</a><br>root: &#x2F;仓库名&#x2F;</p>
+<p>完成配置后，执行：</p>
+<p>hexo clean<br>hexo generate<br>hexo deploy</p>
+<p>部署完成后，即可通过：</p>
+<p><a target="_blank" rel="noopener" href="https://username.github.io/%E4%BB%93%E5%BA%93%E5%90%8D/">https://username.github.io/仓库名/</a></p>
+<p>访问博客。</p>
+<p>八、后续更新博客的正确流程</p>
+<p>以后每次更新博客，只需要：</p>
+<ol>
+<li>编写或修改 source&#x2F;_posts 下的 Markdown 文件</li>
+<li>在博客根目录执行：</li>
+</ol>
+<p>hexo clean<br>hexo generate<br>hexo deploy</p>
+<p>本地电脑只负责生成和上传，网页本身会由 GitHub Pages 自动托管，不需要电脑一直开着。</p>
+<p>九、自动部署脚本（deploy.bat）</p>
+<p>为了减少重复输入命令的麻烦，可以在博客根目录创建 deploy.bat 文件，内容如下：</p>
+<p>@echo off<br>echo &#x3D;&#x3D;&#x3D;<mark> Hexo Deploy Start </mark>&#x3D;&#x3D;&#x3D;<br>hexo clean<br>hexo generate<br>hexo deploy<br>echo &#x3D;&#x3D;&#x3D;<mark> Hexo Deploy Finished </mark>&#x3D;&#x3D;&#x3D;<br>pause</p>
+<p>以后只需要双击该文件，就可以一键完成清理、生成和部署。</p>
+<hr>
+<p>搭建个人博客过程中遇到的挫折整理</p>
+<p>一、Hexo 主题插件加载失败（EISDIR 报错）</p>
+<p>在执行 hexo clean、hexo generate 或 hexo deploy 时，控制台频繁出现：</p>
+<p>ERROR Plugin load failed: hexo-butterfly<br>Error: EISDIR: illegal operation on a directory, read</p>
+<p>这个错误并不会中断生成流程，但会在每一步操作前反复出现，严重影响使用体验。最终发现原因是误安装了 hexo-butterfly 插件，而 Butterfly 实际上是主题而非标准 Hexo 插件。卸载该插件后问题彻底消失。</p>
+<p>二、跨盘符操作不熟悉</p>
+<p>最初在 C 盘打开命令行，却在 D 盘存放博客项目，忘记先输入 D:，导致多次在错误目录下执行 Hexo 命令，引发路径相关错误。</p>
+<p>三、版本兼容与依赖问题</p>
+<p>Node.js、Hexo 以及主题依赖之间存在版本兼容问题，一些报错信息并不直观，只能通过不断尝试和查阅文档解决。</p>
+<p>四、文章显示为“无标题”</p>
+<p>创建文章后页面显示“无标题”，最终确认是 Markdown 文件 front-matter 格式不规范，或者主题未正确读取标题字段。</p>
+<p>五、默认作者信息未修改</p>
+<p>Hexo 默认作者名为 John Doe，头像为默认图片，需要手动修改 _config.yml 才能显示个人信息。</p>
+<p>六、本地正常但 GitHub Pages 显示异常</p>
+<p>本地 hexo server 显示完全正常，但部署后 CSS 和 JS 丢失，所有链接 404。根本原因是未配置 root，导致资源路径与项目页地址不匹配。</p>
+<p>七、GitHub Pages 初次部署失败</p>
+<p>首次部署时 Git 提示未设置用户信息，必须手动配置：</p>
+<p>git config –global user.name<br>git config –global user.email</p>
+<p>否则无法完成推送。</p>
+<p>八、页面部署成功但无任何美化</p>
+<p>即使 Pages 显示部署成功，页面依然是纯文本样式。需要修正 root 配置并重新 clean、generate、deploy 才能解决。</p>
+<p>九、License 选择的困惑</p>
+<p>创建仓库时不清楚 MIT、CC 等许可证的区别，虽然可以后期修改，但仍需要额外学习相关概念。</p>
+<p>十、LF &#x2F; CRLF 警告干扰判断</p>
+<p>部署过程中出现大量换行符警告，虽然不影响使用，但在初期容易被误认为是严重错误。</p>
+<p>十一、deploy.bat 黑框一闪而过</p>
+<p>最初双击 deploy.bat 后窗口瞬间关闭，无法看到报错信息。通过添加 pause 才能正常观察执行过程。</p>
+<p>十二、本地 server 地址变化导致误判</p>
+<p>在配置 root 后，本地 server 地址变为 &#x2F;Zhu-OKOL&#x2F;，如果仍访问根路径，会误以为博客无法启动。</p>
+<hr>
+<p>心得体会</p>
+<p>这次博客搭建过程让我深刻体会到，技术实践中最耗费时间的并不是“写代码”，而是理解工具的工作方式并解决各种环境与配置问题。从 Hexo 初始化到主题安装，再到 GitHub Pages 部署，每一步都可能因为一个细节而出错。</p>
+<p>通过不断排查问题，我逐渐理解了 Hexo 的生成逻辑、主题与插件的区别、本地路径与线上路径的关系，也掌握了使用 Git 管理和部署静态网站的完整流程。虽然过程曲折，但每一次问题被解决之后，都会带来明显的成长和成就感。</p>
+<p>最终，这个博客不仅是一个展示平台，更是一段完整的学习记录。它让我意识到，技术能力正是在一次次踩坑、修复和总结中慢慢积累起来的。</p>
+<h2 id="更新说明（2026-07）"><a href="#更新说明（2026-07）" class="headerlink" title="更新说明（2026-07）"></a>更新说明（2026-07）</h2><p>博客工程现已整合进 Obsidian 库（Zhu-OKOL-vault&#x2F;Blog）。笔记写好后，在 frontmatter 中加上 published: true，运行 Blog 目录下的“发布到博客.bat”即可一键发布，不再需要手动改格式和图片路径。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io">Zhu-OKOL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">https://zhu-okol.github.io/2025/12/28/%E6%88%91%E5%AD%A6%E4%BC%9A%E4%BA%86%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhu-okol.github.io" target="_blank">Zhu-OKOL的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/Zhu-OKOL/tags/%E5%8D%9A%E5%AE%A2/">博客</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/Butterfly/">Butterfly</a></div><div class="post-share"><div class="social-share" data-image="/Zhu-OKOL/img/cover.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Zhu-OKOL/2026/01/11/%E7%AC%AC1%E7%AB%A0%EF%BC%9A%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/" title="200smart学习 第1章：硬件介绍"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC1%E7%AB%A0%EF%BC%9A%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/file-20260111165450153.png" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">200smart学习 第1章：硬件介绍</div></div><div class="info-2"><div class="info-item-1">200smart产品介绍产品分类 CPU 扩展模块：扩展cpu的io点数，通常为8个io点数及以上，体积大 信号板：扩展cpu的io点数，通常为数字量2个，模拟量1个，体积小     产品特点 机型丰富，更多选择：单体I&#x2F;O点数最高可达60点；分标准型和经济型  选件扩展，精确定制：信号板可扩展通讯接口（485）；不额外占用电控柜空间；降低用户拓展成本  高速芯片，性能卓越：基本指令执行时间可达0.15us  以太互联，经济便携：本体标配以太网接口；普通网线即可进行程序下载；可以与其他CPU模块、触摸屏、计算机进行通讯  三轴脉冲，运动自如： 最多集成3路高速脉冲输出，频率高达100kHz，支持PWM&#x2F;PTO输出方式及多种运动模式；有向导设置功能  通用SD卡，快速更新：使用通用Micro SD卡实现程序更新和PLC固件升级：方便远程服务支持  软件友好，编程高效：小巧精干，更多向导，无缝集成  完美整合，无缝集成：即以上内容      CPUCPU硬件简介 CPU类别 R-继电器（Relays） T-晶体管（Transistor）     CPU支持的功能 ...</div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2024/02/29/C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E9%AA%8C%EF%BC%88%E6%A0%A1%E5%86%85%E8%AF%BE%E7%A8%8B%EF%BC%89/" title="C语言程序设计实验（校内课程）"><img class="cover" src="/Zhu-OKOL/assets/c_programming/lab01_04c.jpg" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">C语言程序设计实验（校内课程）</div></div><div class="info-2"><div class="info-item-1">实验01：C语言集成开发环境一、实验信息1. 课程名称：C语言程序设计 2. 实验名称：实验01：C语言集成开发环境 3. 完成时间：2024年2月29日 二、实验目的1. 熟悉 Visual Studio 开发环境 2. 熟悉 Visual C++ 6.0 开发环境 3. 熟悉 Dev-C++ 开发环境 4. 掌握 C 语言程序的编辑、调试及运行过程 5. 熟悉集成开发环境中常见的错误提示信息 三、实验环境1. 中文 Windows 11 操作系统 四、实验要求请将每一题的程序及运行结果完整截图粘贴在程序及运行结果下面。截图应保证清晰完整，大小适中。 五、实验内容与代码1 输出学生的学号和姓名 输出示例： 学号：06011126   姓名：王晨     （虚构，并非实际存在的人） 程序代码： 1234567891011121314#include &lt;stdio.h&gt;int main(void)&#123;    printf(&quot;学号：06011126\n&quot;);    printf(&quot;姓名：王晨\n&quot;);    return 0...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Zhu-OKOL</div><div class="author-info-description"></div><div class="site-data"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhu-OKOL"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E%EF%BC%882026-07%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">更新说明（2026-07）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子 PLC 编程资料整理（官方/权威来源）"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）">西门子 PLC 编程资料整理（官方/权威来源）</a><time datetime="2026-07-26T04:00:00.000Z" title="发表于 2026-07-26 12:00:00">2026-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子PLC编程：数制与基本数据类型 — 学习笔记"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记">西门子PLC编程：数制与基本数据类型 — 学习笔记</a><time datetime="2026-07-21T04:00:00.000Z" title="发表于 2026-07-21 12:00:00">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出"><img src="/Zhu-OKOL/assets/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/file-20260312173417780.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第10章：PWM输出"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出">200smart学习 第10章：PWM输出</a><time datetime="2026-03-23T08:00:00.000Z" title="发表于 2026-03-23 16:00:00">2026-03-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令"><img src="/Zhu-OKOL/assets/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/file-20260203145138761.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第9章：进阶指令"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令">200smart学习 第9章：进阶指令</a><time datetime="2026-02-23T07:00:00.000Z" title="发表于 2026-02-23 15:00:00">2026-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础"><img src="/Zhu-OKOL/assets/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/file-20260129171637182.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第8章：进阶基础"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础">200smart学习 第8章：进阶基础</a><time datetime="2026-01-30T07:00:00.000Z" title="发表于 2026-01-30 15:00:00">2026-01-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/Zhu-OKOL/img/cover.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Zhu-OKOL</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/Zhu-OKOL/js/utils.js?v=5.5.3"></script><script src="/Zhu-OKOL/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/Zhu-OKOL/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

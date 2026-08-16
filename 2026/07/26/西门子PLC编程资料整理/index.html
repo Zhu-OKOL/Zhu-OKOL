@@ -1,0 +1,504 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>西门子 PLC 编程资料整理（官方/权威来源） | Zhu-OKOL的个人博客</title><meta name="author" content="Zhu-OKOL"><meta name="copyright" content="Zhu-OKOL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="西门子 PLC 编程资料整理（官方&#x2F;权威来源） 整理时间：2026-07-26用途：作为后续”西门子PLC编程指导”任务的权威资料库。所有核心条目均来自西门子官方（Siemens Industry Online Support &#x2F; 西门子（中国）工业支持中心）或其官方发布的 PDF 文档。   一、官方资料总入口   入口 网址 说明    西门子工业在线支持（全球站） htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西门子 PLC 编程资料整理（官方&#x2F;权威来源）">
+<meta property="og:url" content="https://zhu-okol.github.io/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Zhu-OKOL的个人博客">
+<meta property="og:description" content="西门子 PLC 编程资料整理（官方&#x2F;权威来源） 整理时间：2026-07-26用途：作为后续”西门子PLC编程指导”任务的权威资料库。所有核心条目均来自西门子官方（Siemens Industry Online Support &#x2F; 西门子（中国）工业支持中心）或其官方发布的 PDF 文档。   一、官方资料总入口   入口 网址 说明    西门子工业在线支持（全球站） htt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zhu-okol.github.io/img/cover.jpg">
+<meta property="article:published_time" content="2026-07-26T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-16T06:01:35.521Z">
+<meta property="article:author" content="Zhu-OKOL">
+<meta property="article:tag" content="PLC">
+<meta property="article:tag" content="S7-1200">
+<meta property="article:tag" content="S7-1500">
+<meta property="article:tag" content="西门子">
+<meta property="article:tag" content="资料整理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhu-okol.github.io/img/cover.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "西门子 PLC 编程资料整理（官方/权威来源）",
+  "url": "https://zhu-okol.github.io/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/",
+  "image": "https://zhu-okol.github.io/img/cover.jpg",
+  "datePublished": "2026-07-26T04:00:00.000Z",
+  "dateModified": "2026-08-16T06:01:35.521Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhu-OKOL",
+      "url": "https://zhu-okol.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/Zhu-OKOL/img/favicon.png"><link rel="canonical" href="https://zhu-okol.github.io/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/Zhu-OKOL/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/Zhu-OKOL/',
+  algolia: undefined,
+  localSearch: {"path":"/Zhu-OKOL/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '西门子 PLC 编程资料整理（官方/权威来源）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/Zhu-OKOL/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/Zhu-OKOL/img/cover.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/Zhu-OKOL/"><span class="site-name">Zhu-OKOL的个人博客</span></a><a class="nav-page-title" href="/Zhu-OKOL/"><span class="site-name">西门子 PLC 编程资料整理（官方/权威来源）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">西门子 PLC 编程资料整理（官方/权威来源）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-26T04:00:00.000Z" title="发表于 2026-07-26 12:00:00">2026-07-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-16T06:01:35.521Z" title="更新于 2026-08-16 14:01:35">2026-08-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/PLC/">PLC</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/PLC/%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/">资料整理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="西门子-PLC-编程资料整理（官方-权威来源）"><a href="#西门子-PLC-编程资料整理（官方-权威来源）" class="headerlink" title="西门子 PLC 编程资料整理（官方&#x2F;权威来源）"></a>西门子 PLC 编程资料整理（官方&#x2F;权威来源）</h1><blockquote>
+<p>整理时间：2026-07-26<br>用途：作为后续”西门子PLC编程指导”任务的权威资料库。所有核心条目均来自西门子官方（Siemens Industry Online Support &#x2F; 西门子（中国）工业支持中心）或其官方发布的 PDF 文档。</p>
+</blockquote>
+<hr>
+<h2 id="一、官方资料总入口"><a href="#一、官方资料总入口" class="headerlink" title="一、官方资料总入口"></a>一、官方资料总入口</h2><table>
+<thead>
+<tr>
+<th>入口</th>
+<th>网址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>西门子工业在线支持（全球站）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/">https://support.industry.siemens.com</a></td>
+<td>手册、下载、FAQ、应用示例、官方库的唯一权威来源；按”条目号（Entry ID）”检索最准确</td>
+</tr>
+<tr>
+<td>西门子（中国）工业支持中心</td>
+<td><a target="_blank" rel="noopener" href="https://www.ad.siemens.com.cn/">https://www.ad.siemens.com.cn</a></td>
+<td>中文门户：找答案、学习平台、下载中心、专题视频课程（权威中文一手资料）</td>
+</tr>
+<tr>
+<td>中国支持中心·PLC 编程专题</td>
+<td><a target="_blank" rel="noopener" href="https://www.ad.siemens.com.cn/topicportal/index_44.html">https://www.ad.siemens.com.cn/topicportal/index_44.html</a></td>
+<td>官方解读《S7-1200 编程指南》《S7-1200 安全编程指南》、TIA 博途库、可复用程序编写等专题</td>
+</tr>
+<tr>
+<td>中国支持中心·S7-1200 学习专题</td>
+<td><a target="_blank" rel="noopener" href="https://www.ad.siemens.com.cn/topicportal/index_46.html">https://www.ad.siemens.com.cn/topicportal/index_46.html</a></td>
+<td>“S7-1200 跟我学”（基于 TIA Portal V17 + 固件 V4.5）、安全编程介绍、博途新特性</td>
+</tr>
+<tr>
+<td>技术支持请求</td>
+<td><a target="_blank" rel="noopener" href="https://www.siemens.com/industry/supportrequest">https://www.siemens.com/industry/supportrequest</a></td>
+<td>官方技术支持中心</td>
+</tr>
+<tr>
+<td>SITRAIN 工业培训</td>
+<td><a target="_blank" rel="noopener" href="https://www.siemens.com/sitrain">https://www.siemens.com/sitrain</a></td>
+<td>西门子全球官方培训课程</td>
+</tr>
+</tbody></table>
+<p>检索技巧：在 support.industry.siemens.com 直接搜索下表中的 <strong>Entry ID</strong>（如 81318674），可直达文档页并选择中英文版本下载。</p>
+<hr>
+<h2 id="二、核心官方文档（编程类，按重要度排序）"><a href="#二、核心官方文档（编程类，按重要度排序）" class="headerlink" title="二、核心官方文档（编程类，按重要度排序）"></a>二、核心官方文档（编程类，按重要度排序）</h2><h3 id="2-1-编程规范类（最重要的两份纲领性文件）"><a href="#2-1-编程规范类（最重要的两份纲领性文件）" class="headerlink" title="2.1 编程规范类（最重要的两份纲领性文件）"></a>2.1 编程规范类（最重要的两份纲领性文件）</h3><table>
+<thead>
+<tr>
+<th>文档</th>
+<th>Entry ID &#x2F; 链接</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>《S7-1200&#x2F;1500 编程指南》</strong>（Programming Guideline）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/81318674">https://support.industry.siemens.com/cs/ww/en/view/81318674</a> （中文：…&#x2F;81318674&#x2F;zh）</td>
+<td>官方编程”圣经”：优化块、符号寻址、程序结构化、可复用块、数据类型与指令、库、性能建议、SCL 技巧。V1.0(2013) 起持续更新</td>
+</tr>
+<tr>
+<td><strong>《S7-1200&#x2F;1500 编程风格指南》</strong>（Programming Styleguide）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/109478084">https://support.industry.siemens.com/cs/ww/en/view/109478084</a></td>
+<td>统一命名规范（变量&#x2F;块命名）、SCL 代码格式标准，使程序统一、易读、易维护</td>
+</tr>
+<tr>
+<td>《S7-1200&#x2F;1500 安全编程指南》（Safety Programming Guideline，故障安全&#x2F;F-CPU）</td>
+<td><a target="_blank" rel="noopener" href="https://assets.new.siemens.com/siemens/assets/api/uuid:1a7ce755-79a1-494e-ae14-5e5f72c29205/safety-programming-guideline-for-simatic-s7-1200-and-1500.pdf">https://assets.new.siemens.com/siemens/assets/api/uuid:1a7ce755-79a1-494e-ae14-5e5f72c29205/safety-programming-guideline-for-simatic-s7-1200-and-1500.pdf</a></td>
+<td>上述两份指南在故障安全（F 程序）方面的补充：F-CPU 选型、PROFIsafe、安全程序运行时间优化、钝化等</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-系统手册与入门指南（硬件-软件基础）"><a href="#2-2-系统手册与入门指南（硬件-软件基础）" class="headerlink" title="2.2 系统手册与入门指南（硬件 + 软件基础）"></a>2.2 系统手册与入门指南（硬件 + 软件基础）</h3><table>
+<thead>
+<tr>
+<th>文档</th>
+<th>Entry ID &#x2F; 编号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S7-1200 使用入门（Getting Started）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/39644875">https://support.industry.siemens.com/cs/ww/en/view/39644875</a></td>
+<td>第一个项目：建项目、硬件组态、基础编程</td>
+</tr>
+<tr>
+<td>S7-1500 使用入门（Getting Started）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/78027451">https://support.industry.siemens.com/cs/ww/en/view/78027451</a></td>
+<td>同上，面向 S7-1500</td>
+</tr>
+<tr>
+<td>S7-1200 系统手册</td>
+<td>编号 6ES7298-8FA30-8BH0（在支持站检索）</td>
+<td>CPU 规格、存储区、I&#x2F;O、通信、技术数据</td>
+</tr>
+<tr>
+<td>S7-1500 系统手册</td>
+<td>编号 6ES7590-1AF30-0AA0 系列</td>
+<td>硬件与 CPU 规格</td>
+</tr>
+<tr>
+<td>STEP 7 (TIA Portal) 手册合集</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/ps/14673/man">https://support.industry.siemens.com/cs/ww/en/ps/14673/man</a></td>
+<td>TIA Portal 全部手册的产品页</td>
+</tr>
+<tr>
+<td>S7-1200(F) 手册合集</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/ps/13683/man">https://support.industry.siemens.com/cs/ww/en/ps/13683/man</a></td>
+<td></td>
+</tr>
+<tr>
+<td>S7-1500(F) 手册合集</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/ps/13716/man">https://support.industry.siemens.com/cs/ww/en/ps/13716/man</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ET 200SP CPU 手册合集</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/ps/13888/man">https://support.industry.siemens.com/cs/ww/en/ps/13888/man</a></td>
+<td>分布式控制器</td>
+</tr>
+<tr>
+<td>TIA Portal 最重要文档与链接总览</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/65601780">https://support.industry.siemens.com/cs/ww/en/view/65601780</a></td>
+<td>官方维护的”文档导航页”，找资料先查这里</td>
+</tr>
+<tr>
+<td>S7-1200&#x2F;S7-1500 编程语言对照表（国际助记符）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/86630375">https://support.industry.siemens.com/cs/ww/en/view/86630375</a></td>
+<td>指令在不同语言&#x2F;助记符下的对照</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-SCL（结构化文本）专项"><a href="#2-3-SCL（结构化文本）专项" class="headerlink" title="2.3 SCL（结构化文本）专项"></a>2.3 SCL（结构化文本）专项</h3><table>
+<thead>
+<tr>
+<th>文档</th>
+<th>编号&#x2F;出处</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>《使用 SCL 编程》（Programming with SCL）</td>
+<td>出版物编号 67157426（支持站检索 “SCL programming”）</td>
+<td>SCL 完整语言参考：语法、运算符、示例</td>
+</tr>
+<tr>
+<td>《S7-SCL for S7-300&#x2F;400》</td>
+<td>编号 6ES7811-2CC04-0BA5</td>
+<td>经典 STEP 7 V5.x 时代 SCL 手册（16 章），概念同样适用于博途</td>
+</tr>
+<tr>
+<td>TIA Portal 在线帮助</td>
+<td>软件内 F1 &#x2F; <a target="_blank" rel="noopener" href="https://docs.tia.siemens.cloud/">https://docs.tia.siemens.cloud</a></td>
+<td>S7-1200&#x2F;1500 的 SCL 以博途帮助系统为准</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="三、官方程序库（直接复用，站在巨人肩膀上）"><a href="#三、官方程序库（直接复用，站在巨人肩膀上）" class="headerlink" title="三、官方程序库（直接复用，站在巨人肩膀上）"></a>三、官方程序库（直接复用，站在巨人肩膀上）</h2><table>
+<thead>
+<tr>
+<th>库</th>
+<th>Entry ID</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LGF — 通用函数库（Library of General Functions）</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/109479728">https://support.industry.siemens.com/cs/ww/en/view/109479728</a></td>
+<td>官方通用功能块（位逻辑、定时、计数、比较之外的常用函数）</td>
+</tr>
+<tr>
+<td>LPD — PLC 数据类型库</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/109482396">https://support.industry.siemens.com/cs/ww/en/view/109482396</a></td>
+<td>官方预定义 PLC 数据类型（UDT）</td>
+</tr>
+<tr>
+<td>LBC — 基本控制库</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/109792175">https://support.industry.siemens.com/cs/ww/en/view/109792175</a></td>
+<td>CM（控制模块）层级标准化程序块</td>
+</tr>
+<tr>
+<td>LBP — 基本过程库</td>
+<td><a target="_blank" rel="noopener" href="https://support.industry.siemens.com/cs/ww/en/view/109749508">https://support.industry.siemens.com/cs/ww/en/view/109749508</a></td>
+<td>过程控制方向标准块</td>
+</tr>
+</tbody></table>
+<p>使用建议：开发程序块时遵守《编程指南》+《风格指南》，优先复用 LBC&#x2F;LBP&#x2F;LGF 中的 CM 级块，可显著提升标准化程度和开发效率。</p>
+<hr>
+<h2 id="四、官方编程核心建议速览（摘自《S7-1200-1500-编程指南》）"><a href="#四、官方编程核心建议速览（摘自《S7-1200-1500-编程指南》）" class="headerlink" title="四、官方编程核心建议速览（摘自《S7-1200&#x2F;1500 编程指南》）"></a>四、官方编程核心建议速览（摘自《S7-1200&#x2F;1500 编程指南》）</h2><ol>
+<li><strong>使用优化的块</strong>（Optimized blocks）：S7-1200&#x2F;1500 默认优化块访问，存储效率与访问速度更优。</li>
+<li><strong>符号化编程</strong>：用符号寻址替代绝对地址，提高可读性与可维护性。</li>
+<li><strong>程序结构清晰化</strong>：合理使用 OB&#x2F;FB&#x2F;FC&#x2F;DB；用多个循环 Main OB 对工厂部件分组。</li>
+<li><strong>多重实例</strong>：定时器&#x2F;计数器（TON、TOF 等）以多重实例方式调用，减少实例 DB 数量。</li>
+<li><strong>块的可复用性</strong>：把块视为封装的功能，只通过接口参数交换数据；避免在块内访问全局 DB、全局变量、单一背景 DB。</li>
+<li><strong>数据用 ARRAY 和 STRUCT&#x2F;PLC 数据类型（UDT）组织</strong>，避免使用 ANY 指针——改用 VARIANT、ARRAY 和结构体（VARIANT 带类型检查，可早期发现错误）。</li>
+<li><strong>不用位存储器（M），改用全局数据块</strong>（S7-1200 的 M 区默认非保持，上传&#x2F;下载会丢失）。</li>
+<li><strong>用库存储程序元素</strong>：项目库&#x2F;全局库 + 类型概念，配合版本控制。</li>
+<li><strong>“下载而不重新初始化”</strong>：仅适用于优化块，RUN 模式下扩展块接口且保留现有变量实际值（内存预留默认 100 字节，最大 2 MB）。</li>
+<li><strong>新指令优先</strong>：MOVE_BLK_VARIANT、Serialize&#x2F;Deserialize（S7-1500 及 S7-1200 FW4.1+）。</li>
+</ol>
+<p>SCL 技巧（同文档）：使用调用模板、REGION 关键字结构化代码、正确使用 FOR&#x2F;WHILE&#x2F;REPEAT 循环、不手动操作 FOR 循环计数器、善用 CASE。</p>
+<hr>
+<h2 id="五、编程语言概览（IEC-61131-3）"><a href="#五、编程语言概览（IEC-61131-3）" class="headerlink" title="五、编程语言概览（IEC 61131-3）"></a>五、编程语言概览（IEC 61131-3）</h2><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>缩写</th>
+<th>适用场景</th>
+<th>学习曲线</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>梯形图</td>
+<td>LAD</td>
+<td>电气工程师、布尔逻辑、安全回路、顺控</td>
+<td>低（推荐入门）</td>
+</tr>
+<tr>
+<td>功能块图</td>
+<td>FBD</td>
+<td>过程控制、信号流</td>
+<td>中</td>
+</tr>
+<tr>
+<td>结构化控制语言</td>
+<td>SCL（&#x3D;ST）</td>
+<td>复杂算法、数组&#x2F;数据处理、数学运算、可复用 FB</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>语句表</td>
+<td>STL（AWL）</td>
+<td>维护 S7-300&#x2F;400 旧项目；不支持部分 S7-1500 新特性（优化块等），新项目不建议</td>
+<td>高</td>
+</tr>
+<tr>
+<td>顺序功能图</td>
+<td>GRAPH（≈SFC）</td>
+<td>顺序控制、状态机（比自己写逻辑更可靠）</td>
+<td>中</td>
+</tr>
+<tr>
+<td>CEM &#x2F; CFC</td>
+<td>—</td>
+<td>TIA V17+ 新编辑器（因果矩阵&#x2F;连续功能图）</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<p>语言支持要点：SCL 需固件支持——S7-1200 自 V2.0+（博途 V11 SP2+）、S7-1500 自博途 V12 起；同一项目可混用语言，但单个块只能用一种语言；块间可互相调用。</p>
+<hr>
+<h2 id="六、软件与版本"><a href="#六、软件与版本" class="headerlink" title="六、软件与版本"></a>六、软件与版本</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TIA Portal（博途）</td>
+<td>统一工程平台，集成 STEP 7（PLC）+ WinCC（HMI）+ 驱动配置；V13 起取代经典 STEP 7 V5.x</td>
+</tr>
+<tr>
+<td>当前主流版本</td>
+<td>V17（CEM&#x2F;CFC、OPC UA 增强）→ V18 → V19（AI 集成、边缘连接）；S7-1200 固件最新 V4.5+</td>
+</tr>
+<tr>
+<td>版本选择原则</td>
+<td>Basic 版仅支持 S7-1200（LAD&#x2F;FBD）；SCL、S7-1500、GRAPH 需 Professional 版</td>
+</tr>
+<tr>
+<td>试用</td>
+<td>官网注册可下载 21 天全功能试用（建议用企业邮箱注册）</td>
+</tr>
+<tr>
+<td>PLCSIM</td>
+<td>随 TIA Portal 提供的软件仿真 PLC，无硬件即可离线测试程序（学习必备）</td>
+</tr>
+<tr>
+<td>经典 STEP 7 V5.6&#x2F;V5.7</td>
+<td>仅用于维护 S7-300&#x2F;400 旧系统；与博途是不同平台，项目需用迁移工具转换（参见应用说明 109748788）</td>
+</tr>
+<tr>
+<td>S7-200 SMART</td>
+<td>用独立软件 STEP 7-Micro&#x2F;WIN SMART，不属于博途体系</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="七、初学者常见坑（官方-FAQ-与社区高频问题）"><a href="#七、初学者常见坑（官方-FAQ-与社区高频问题）" class="headerlink" title="七、初学者常见坑（官方 FAQ 与社区高频问题）"></a>七、初学者常见坑（官方 FAQ 与社区高频问题）</h2><ul>
+<li>忘记给 PLC 和编程电脑（PG&#x2F;PC）分配同一网段 IP 地址。</li>
+<li>未做硬件组态就下载程序。</li>
+<li>数据类型混用（Bool 与 Int 混淆）。</li>
+<li>M 存储区默认非保持——上传&#x2F;下载或断电后 M 值丢失，需用全局 DB 或设置保持区。</li>
+<li>输入信号抖动：软件加 10 ms 滤波，必要时硬件并联电容。</li>
+<li>调试三件套：强制表（模拟现场信号）、交叉引用（查信号关联）、诊断缓冲区（故障定位）。</li>
+</ul>
+<hr>
+<h2 id="八、学习路径建议（基于官方资源）"><a href="#八、学习路径建议（基于官方资源）" class="headerlink" title="八、学习路径建议（基于官方资源）"></a>八、学习路径建议（基于官方资源）</h2><ol>
+<li><strong>入门</strong>：S7-1200 使用入门（39644875）+ 中国支持中心”S7-1200 跟我学”视频课 → 完成第一个项目（启保停、正反转互锁）。</li>
+<li><strong>基础指令</strong>：定时器（TON&#x2F;TOF&#x2F;TP）、计数器（CTU&#x2F;CTD&#x2F;CTUD）、边沿检测（P&#x2F;N）、置位&#x2F;复位、MOV、比较、NORM_X&#x2F;SCALE_X 模拟量标定。</li>
+<li><strong>结构化</strong>：OB&#x2F;FB&#x2F;FC&#x2F;DB、多重实例、接口参数、UDT、ARRAY。</li>
+<li><strong>规范</strong>：通读《编程指南》（81318674）+《风格指南》（109478084）。</li>
+<li><strong>进阶</strong>：SCL、GRAPH 顺控、模拟量与 PID、通信（PROFINET&#x2F;OPC UA&#x2F;Modbus）、HMI 集成、运动控制（PTO&#x2F;工艺对象）。</li>
+<li><strong>复用与工程化</strong>：官方库（LGF&#x2F;LPD&#x2F;LBC&#x2F;LBP）、项目库&#x2F;全局库、版本控制。</li>
+<li><strong>安全（可选）</strong>：《安全编程指南》+ F-CPU、PROFIsafe。</li>
+</ol>
+<hr>
+<h2 id="九、来源可靠性说明"><a href="#九、来源可靠性说明" class="headerlink" title="九、来源可靠性说明"></a>九、来源可靠性说明</h2><ul>
+<li>本资料以西门子官方站点（support.industry.siemens.com、assets.new.siemens.com、cache.industry.siemens.com、<a target="_blank" rel="noopener" href="http://www.ad.siemens.com.cn)发布的文档与页面为准,权威等级最高./">www.ad.siemens.com.cn）发布的文档与页面为准，权威等级最高。</a></li>
+<li>部分背景信息（版本对比、学习建议）参考了行业知识库（如 Industrial Monitor Direct）与官方文档中的引用关系，已在正文中标注区分。</li>
+<li>第三方下载站（如 CSDN 文库、技成培训 FTP）存在的官方 PDF 镜像（如《S7-1200&#x2F;1500 编程指南》中文版）内容真实但非官方渠道，建议最终以上述官方链接下载的版本为准。</li>
+<li>文档与软件均有版本演进，使用时请核对自己所用 TIA Portal 版本（V13–V19）与 CPU 固件版本对应的文档版本。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io">Zhu-OKOL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/">https://zhu-okol.github.io/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhu-okol.github.io" target="_blank">Zhu-OKOL的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/Zhu-OKOL/tags/%E8%A5%BF%E9%97%A8%E5%AD%90/">西门子</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/PLC/">PLC</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/">资料整理</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/S7-1200/">S7-1200</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/S7-1500/">S7-1500</a></div><div class="post-share"><div class="social-share" data-image="/Zhu-OKOL/img/cover.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"><img class="cover" src="/Zhu-OKOL/img/cover.jpg" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">西门子PLC编程：数制与基本数据类型 — 学习笔记</div></div><div class="info-2"><div class="info-item-1">西门子PLC编程：数制与基本数据类型 — 学习笔记 📚 课程主题：数制与基本数据类型（整数数据类型）🏭 适用平台：西门子 S7-1200 &#x2F; S7-1500（TIA Portal）📅 整理时间：2026-07-21   一、核心问题：位序列与整数的区别在西门子PLC编程中，位序列（Bit String）和整数（Integer）是两类本质不同的数据类型。虽然它们在底层都以二进制形式存储，但使用目的、操作指令和表示方式截然不同。    对比维度 位序列（Bit String） 整数（Integer）    用途 位的集合，用于控制字、状态字、错误代码、标志位等 用于数学计算（计数、运算、标定等）   操作指令 与（AND）、或（OR）、异或（XOR）、取反（NOT）、移位（SHL&#x2F;SHR）等 加（+）、减（-）、乘（*）、除（&#x2F;）、取模（MOD）等   拆分合并 作为位的集合，通常需要拆分&#x2F;合并使用（如提取某一位状态） 位的拆分合并没有数学意义   表示方式 一般使用**二进制（2#）或十六进制（16#）**表示 一般使用十进制表示   ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"><img class="cover" src="/Zhu-OKOL/img/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-21</div><div class="info-item-2">西门子PLC编程：数制与基本数据类型 — 学习笔记</div></div><div class="info-2"><div class="info-item-1">西门子PLC编程：数制与基本数据类型 — 学习笔记 📚 课程主题：数制与基本数据类型（整数数据类型）🏭 适用平台：西门子 S7-1200 &#x2F; S7-1500（TIA Portal）📅 整理时间：2026-07-21   一、核心问题：位序列与整数的区别在西门子PLC编程中，位序列（Bit String）和整数（Integer）是两类本质不同的数据类型。虽然它们在底层都以二进制形式存储，但使用目的、操作指令和表示方式截然不同。    对比维度 位序列（Bit String） 整数（Integer）    用途 位的集合，用于控制字、状态字、错误代码、标志位等 用于数学计算（计数、运算、标定等）   操作指令 与（AND）、或（OR）、异或（XOR）、取反（NOT）、移位（SHL&#x2F;SHR）等 加（+）、减（-）、乘（*）、除（&#x2F;）、取模（MOD）等   拆分合并 作为位的集合，通常需要拆分&#x2F;合并使用（如提取某一位状态） 位的拆分合并没有数学意义   表示方式 一般使用**二进制（2#）或十六进制（16#）**表示 一般使用十进制表示   ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Zhu-OKOL</div><div class="author-info-description"></div><div class="site-data"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhu-OKOL"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A5%BF%E9%97%A8%E5%AD%90-PLC-%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%EF%BC%88%E5%AE%98%E6%96%B9-%E6%9D%83%E5%A8%81%E6%9D%A5%E6%BA%90%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">西门子 PLC 编程资料整理（官方&#x2F;权威来源）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%98%E6%96%B9%E8%B5%84%E6%96%99%E6%80%BB%E5%85%A5%E5%8F%A3"><span class="toc-number">1.1.</span> <span class="toc-text">一、官方资料总入口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%EF%BC%88%E7%BC%96%E7%A8%8B%E7%B1%BB%EF%BC%8C%E6%8C%89%E9%87%8D%E8%A6%81%E5%BA%A6%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">二、核心官方文档（编程类，按重要度排序）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83%E7%B1%BB%EF%BC%88%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E4%B8%A4%E4%BB%BD%E7%BA%B2%E9%A2%86%E6%80%A7%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 编程规范类（最重要的两份纲领性文件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%B3%BB%E7%BB%9F%E6%89%8B%E5%86%8C%E4%B8%8E%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%EF%BC%88%E7%A1%AC%E4%BB%B6-%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 系统手册与入门指南（硬件 + 软件基础）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-SCL%EF%BC%88%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%87%E6%9C%AC%EF%BC%89%E4%B8%93%E9%A1%B9"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 SCL（结构化文本）专项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%98%E6%96%B9%E7%A8%8B%E5%BA%8F%E5%BA%93%EF%BC%88%E7%9B%B4%E6%8E%A5%E5%A4%8D%E7%94%A8%EF%BC%8C%E7%AB%99%E5%9C%A8%E5%B7%A8%E4%BA%BA%E8%82%A9%E8%86%80%E4%B8%8A%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">三、官方程序库（直接复用，站在巨人肩膀上）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%98%E6%96%B9%E7%BC%96%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%BB%BA%E8%AE%AE%E9%80%9F%E8%A7%88%EF%BC%88%E6%91%98%E8%87%AA%E3%80%8AS7-1200-1500-%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">四、官方编程核心建议速览（摘自《S7-1200&#x2F;1500 编程指南》）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88%EF%BC%88IEC-61131-3%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">五、编程语言概览（IEC 61131-3）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%89%88%E6%9C%AC"><span class="toc-number">1.6.</span> <span class="toc-text">六、软件与版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%88%9D%E5%AD%A6%E8%80%85%E5%B8%B8%E8%A7%81%E5%9D%91%EF%BC%88%E5%AE%98%E6%96%B9-FAQ-%E4%B8%8E%E7%A4%BE%E5%8C%BA%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">七、初学者常见坑（官方 FAQ 与社区高频问题）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84%E5%BB%BA%E8%AE%AE%EF%BC%88%E5%9F%BA%E4%BA%8E%E5%AE%98%E6%96%B9%E8%B5%84%E6%BA%90%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">八、学习路径建议（基于官方资源）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%9D%A5%E6%BA%90%E5%8F%AF%E9%9D%A0%E6%80%A7%E8%AF%B4%E6%98%8E"><span class="toc-number">1.9.</span> <span class="toc-text">九、来源可靠性说明</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子 PLC 编程资料整理（官方/权威来源）"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）">西门子 PLC 编程资料整理（官方/权威来源）</a><time datetime="2026-07-26T04:00:00.000Z" title="发表于 2026-07-26 12:00:00">2026-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子PLC编程：数制与基本数据类型 — 学习笔记"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记">西门子PLC编程：数制与基本数据类型 — 学习笔记</a><time datetime="2026-07-21T04:00:00.000Z" title="发表于 2026-07-21 12:00:00">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出"><img src="/Zhu-OKOL/assets/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/file-20260312173417780.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第10章：PWM输出"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出">200smart学习 第10章：PWM输出</a><time datetime="2026-03-23T08:00:00.000Z" title="发表于 2026-03-23 16:00:00">2026-03-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令"><img src="/Zhu-OKOL/assets/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/file-20260203145138761.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第9章：进阶指令"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令">200smart学习 第9章：进阶指令</a><time datetime="2026-02-23T07:00:00.000Z" title="发表于 2026-02-23 15:00:00">2026-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础"><img src="/Zhu-OKOL/assets/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/file-20260129171637182.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第8章：进阶基础"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础">200smart学习 第8章：进阶基础</a><time datetime="2026-01-30T07:00:00.000Z" title="发表于 2026-01-30 15:00:00">2026-01-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/Zhu-OKOL/img/cover.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Zhu-OKOL</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/Zhu-OKOL/js/utils.js?v=5.5.3"></script><script src="/Zhu-OKOL/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/Zhu-OKOL/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>

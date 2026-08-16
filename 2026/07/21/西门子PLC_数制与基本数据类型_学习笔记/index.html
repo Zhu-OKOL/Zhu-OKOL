@@ -1,0 +1,633 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>西门子PLC编程：数制与基本数据类型 — 学习笔记 | Zhu-OKOL的个人博客</title><meta name="author" content="Zhu-OKOL"><meta name="copyright" content="Zhu-OKOL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="西门子PLC编程：数制与基本数据类型 — 学习笔记 📚 课程主题：数制与基本数据类型（整数数据类型）🏭 适用平台：西门子 S7-1200 &#x2F; S7-1500（TIA Portal）📅 整理时间：2026-07-21   一、核心问题：位序列与整数的区别在西门子PLC编程中，位序列（Bit String）和整数（Integer）是两类本质不同的数据类型。虽然它们在底层都以二进制形式存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西门子PLC编程：数制与基本数据类型 — 学习笔记">
+<meta property="og:url" content="https://zhu-okol.github.io/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Zhu-OKOL的个人博客">
+<meta property="og:description" content="西门子PLC编程：数制与基本数据类型 — 学习笔记 📚 课程主题：数制与基本数据类型（整数数据类型）🏭 适用平台：西门子 S7-1200 &#x2F; S7-1500（TIA Portal）📅 整理时间：2026-07-21   一、核心问题：位序列与整数的区别在西门子PLC编程中，位序列（Bit String）和整数（Integer）是两类本质不同的数据类型。虽然它们在底层都以二进制形式存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zhu-okol.github.io/img/cover.jpg">
+<meta property="article:published_time" content="2026-07-21T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-16T06:01:35.363Z">
+<meta property="article:author" content="Zhu-OKOL">
+<meta property="article:tag" content="1200">
+<meta property="article:tag" content="PLC">
+<meta property="article:tag" content="SCL">
+<meta property="article:tag" content="数制">
+<meta property="article:tag" content="数据类型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhu-okol.github.io/img/cover.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "西门子PLC编程：数制与基本数据类型 — 学习笔记",
+  "url": "https://zhu-okol.github.io/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/",
+  "image": "https://zhu-okol.github.io/img/cover.jpg",
+  "datePublished": "2026-07-21T04:00:00.000Z",
+  "dateModified": "2026-08-16T06:01:35.363Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhu-OKOL",
+      "url": "https://zhu-okol.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/Zhu-OKOL/img/favicon.png"><link rel="canonical" href="https://zhu-okol.github.io/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/Zhu-OKOL/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/Zhu-OKOL/',
+  algolia: undefined,
+  localSearch: {"path":"/Zhu-OKOL/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '西门子PLC编程：数制与基本数据类型 — 学习笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/Zhu-OKOL/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/Zhu-OKOL/img/cover.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/Zhu-OKOL/"><span class="site-name">Zhu-OKOL的个人博客</span></a><a class="nav-page-title" href="/Zhu-OKOL/"><span class="site-name">西门子PLC编程：数制与基本数据类型 — 学习笔记</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/profile/"><i class="fa-fw fas fa-user"></i><span> 个人主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw /archives/"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Zhu-OKOL/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/Zhu-OKOL/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/Zhu-OKOL/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">西门子PLC编程：数制与基本数据类型 — 学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-21T04:00:00.000Z" title="发表于 2026-07-21 12:00:00">2026-07-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-16T06:01:35.363Z" title="更新于 2026-08-16 14:01:35">2026-08-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/PLC/">PLC</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/Zhu-OKOL/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/PLC/1200/">1200</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="西门子PLC编程：数制与基本数据类型-—-学习笔记"><a href="#西门子PLC编程：数制与基本数据类型-—-学习笔记" class="headerlink" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"></a>西门子PLC编程：数制与基本数据类型 — 学习笔记</h1><blockquote>
+<p>📚 <strong>课程主题</strong>：数制与基本数据类型（整数数据类型）<br>🏭 <strong>适用平台</strong>：西门子 S7-1200 &#x2F; S7-1500（TIA Portal）<br>📅 <strong>整理时间</strong>：2026-07-21</p>
+</blockquote>
+<hr>
+<h2 id="一、核心问题：位序列与整数的区别"><a href="#一、核心问题：位序列与整数的区别" class="headerlink" title="一、核心问题：位序列与整数的区别"></a>一、核心问题：位序列与整数的区别</h2><p>在西门子PLC编程中，位序列（Bit String）和整数（Integer）是两类本质不同的数据类型。虽然它们在底层都以二进制形式存储，但使用目的、操作指令和表示方式截然不同。</p>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>位序列（Bit String）</th>
+<th>整数（Integer）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>用途</strong></td>
+<td>位的集合，用于控制字、状态字、错误代码、标志位等</td>
+<td>用于数学计算（计数、运算、标定等）</td>
+</tr>
+<tr>
+<td><strong>操作指令</strong></td>
+<td>与（AND）、或（OR）、异或（XOR）、取反（NOT）、移位（SHL&#x2F;SHR）等</td>
+<td>加（+）、减（-）、乘（*）、除（&#x2F;）、取模（MOD）等</td>
+</tr>
+<tr>
+<td><strong>拆分合并</strong></td>
+<td>作为位的集合，通常需要拆分&#x2F;合并使用（如提取某一位状态）</td>
+<td>位的拆分合并没有数学意义</td>
+</tr>
+<tr>
+<td><strong>表示方式</strong></td>
+<td>一般使用**二进制（2#）<strong>或</strong>十六进制（16#）**表示</td>
+<td>一般使用<strong>十进制</strong>表示</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、位序列数据类型详解"><a href="#二、位序列数据类型详解" class="headerlink" title="二、位序列数据类型详解"></a>二、位序列数据类型详解</h2><h3 id="2-1-位序列类型族"><a href="#2-1-位序列类型族" class="headerlink" title="2.1 位序列类型族"></a>2.1 位序列类型族</h3><p>位序列（Bit String）是一组无符号的定长数据类型，用于表示位模式而非数值。TIA Portal 中主要包括以下类型：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>关键字</th>
+<th>大小</th>
+<th>范围（无符号）</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>布尔</strong></td>
+<td>BOOL</td>
+<td>1 位</td>
+<td>0 或 1</td>
+<td>单个数字量 I&#x2F;O 点（如 I0.0, Q0.1）</td>
+</tr>
+<tr>
+<td><strong>字节</strong></td>
+<td>BYTE</td>
+<td>8 位</td>
+<td>0 ~ 255</td>
+<td>压缩的标志字节、串行协议字符</td>
+</tr>
+<tr>
+<td><strong>字</strong></td>
+<td>WORD</td>
+<td>16 位</td>
+<td>0 ~ 65,535</td>
+<td>位模式寄存器、状态字、无符号计数器</td>
+</tr>
+<tr>
+<td><strong>双字</strong></td>
+<td>DWORD</td>
+<td>32 位</td>
+<td>0 ~ 4,294,967,295</td>
+<td>状态字对、大型位模式寄存器</td>
+</tr>
+<tr>
+<td><strong>长字</strong></td>
+<td>LWORD</td>
+<td>64 位</td>
+<td>0 ~ 2⁶⁴ - 1</td>
+<td>时间戳、大型计数器（仅 S7-1500）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>关键理解</strong>：位序列的本质是”位的容器”，关注的是<strong>每一位的独立状态</strong>，而非整体数值大小。</p>
+</blockquote>
+<h3 id="2-2-内存映射与字节序"><a href="#2-2-内存映射与字节序" class="headerlink" title="2.2 内存映射与字节序"></a>2.2 内存映射与字节序</h3><p>西门子PLC采用<strong>小端（Little-Endian）</strong>、面向字节的内存约定：</p>
+<ul>
+<li><strong>低字节</strong> 占用等于字地址的地址</li>
+<li><strong>高字节</strong> 占用下一个地址</li>
+</ul>
+<p><strong>示例：WORD 在 MW20 的位映射</strong></p>
+<table>
+<thead>
+<tr>
+<th>字位</th>
+<th>位地址</th>
+<th>所属字节</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%X0</td>
+<td>M20.0</td>
+<td>低字节（MB20）</td>
+<td>整个 WORD 的 LSB</td>
+</tr>
+<tr>
+<td>%X1</td>
+<td>M20.1</td>
+<td>低字节</td>
+<td>—</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>低字节</td>
+<td>—</td>
+</tr>
+<tr>
+<td>%X7</td>
+<td>M20.7</td>
+<td>低字节</td>
+<td>低字节的 MSB</td>
+</tr>
+<tr>
+<td>%X8</td>
+<td>M21.0</td>
+<td>高字节（MB21）</td>
+<td>高字节的 LSB</td>
+</tr>
+<tr>
+<td>%X9</td>
+<td>M21.1</td>
+<td>高字节</td>
+<td>—</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>高字节</td>
+<td>—</td>
+</tr>
+<tr>
+<td>%X15</td>
+<td>M21.7</td>
+<td>高字节</td>
+<td>整个 WORD 的 MSB</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <strong>注意</strong>：MW20 由 MB20（低字节）和 MB21（高字节）组成。若 VW100 &#x3D; 2（二进制 <code>00000000 00000010</code>），则 VB100 &#x3D; 0（高字节），VB101 &#x3D; 2（低字节）。</p>
+</blockquote>
+<h3 id="2-3-位访问语法"><a href="#2-3-位访问语法" class="headerlink" title="2.3 位访问语法"></a>2.3 位访问语法</h3><h4 id="S7-1500-S7-1200（固件-V4-0-）"><a href="#S7-1500-S7-1200（固件-V4-0-）" class="headerlink" title="S7-1500 &#x2F; S7-1200（固件 V4.0+）"></a>S7-1500 &#x2F; S7-1200（固件 V4.0+）</h4><p>支持直接的结构化位片（Bit-Slice）访问：</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取位</span></span><br><span class="line">bReady := &quot;StatusWord&quot;.<span class="number">%</span>X0;   <span class="comment">// 读取第0位（LSB）</span></span><br><span class="line">bFault := &quot;StatusWord&quot;.<span class="number">%</span>X7;   <span class="comment">// 读取第7位</span></span><br><span class="line">bBit9  := &quot;StatusWord&quot;.<span class="number">%</span>X8;   <span class="comment">// 读取第8位（高字节LSB）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 写入位</span></span><br><span class="line">&quot;StatusWord&quot;.<span class="number">%</span>X15 := TRUE;    <span class="comment">// 设置最高位（MSB）作为故障标志</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="旧固件替代方案（S7-1200-V1-0-V3-x）"><a href="#旧固件替代方案（S7-1200-V1-0-V3-x）" class="headerlink" title="旧固件替代方案（S7-1200 V1.0~V3.x）"></a>旧固件替代方案（S7-1200 V1.0~V3.x）</h4><ol>
+<li><strong>直接位内存地址</strong>：若绑定到 <code>%MW20</code>，直接读写 <code>%M20.0</code> ~ <code>%M21.7</code></li>
+<li><strong>AT 覆盖</strong>：在 DB 中声明 <code>AT</code> 覆盖结构</li>
+</ol>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 AT 覆盖</span></span><br><span class="line"><span class="keyword">TYPE</span> &quot;UDT_BitView16&quot;</span><br><span class="line">  STRUCT</span><br><span class="line">    bits : <span class="keyword">ARRAY</span>[<span class="number">0</span>..<span class="number">15</span>] <span class="keyword">OF</span> BOOL;  <span class="comment">// bit 0 = LSB</span></span><br><span class="line">  END_STRUCT;</span><br><span class="line">END_TYPE</span><br><span class="line"></span><br><span class="line">DATA_BLOCK &quot;DB_BitView&quot;</span><br><span class="line">  STRUCT</span><br><span class="line">    rawWord : WORD;</span><br><span class="line">    bitView AT rawWord : &quot;UDT_BitView16&quot;;</span><br><span class="line">  END_STRUCT;</span><br><span class="line">END_DATA_BLOCK</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">&quot;DB_BitView&quot;.bitView.bits[<span class="number">3</span>] := TRUE;  <span class="comment">// 修改第3位</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-位操作指令（字逻辑）"><a href="#2-4-位操作指令（字逻辑）" class="headerlink" title="2.4 位操作指令（字逻辑）"></a>2.4 位操作指令（字逻辑）</h3><figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 置位第5位（不触动其他位）</span></span><br><span class="line">&quot;StatusWord&quot; := &quot;StatusWord&quot; <span class="keyword">OR</span> <span class="number">16</span><span class="string">#0020</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 清零第5位</span></span><br><span class="line">&quot;StatusWord&quot; := &quot;StatusWord&quot; <span class="keyword">AND</span> (WORD<span class="string">#16</span>#FFFF XOR <span class="number">16</span><span class="string">#0020</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 翻转第5位</span></span><br><span class="line">&quot;StatusWord&quot; := &quot;StatusWord&quot; XOR <span class="number">16</span><span class="string">#0020</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试第5位</span></span><br><span class="line">bBit5 := (&quot;StatusWord&quot; <span class="keyword">AND</span> <span class="number">16</span><span class="string">#0020</span>) &lt;&gt; <span class="number">16</span><span class="string">#0</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、整数数据类型详解"><a href="#三、整数数据类型详解" class="headerlink" title="三、整数数据类型详解"></a>三、整数数据类型详解</h2><h3 id="3-1-整数类型族"><a href="#3-1-整数类型族" class="headerlink" title="3.1 整数类型族"></a>3.1 整数类型族</h3><p>整数类型用于数学运算，分为<strong>有符号</strong>和<strong>无符号</strong>两类：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>关键字</th>
+<th>大小</th>
+<th>范围（有符号）</th>
+<th>范围（无符号）</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>短整数</strong></td>
+<td>SINT</td>
+<td>8 位</td>
+<td>-128 ~ +127</td>
+<td>—</td>
+<td>状态标志、小计数器</td>
+</tr>
+<tr>
+<td><strong>无符号短整数</strong></td>
+<td>USINT</td>
+<td>8 位</td>
+<td>—</td>
+<td>0 ~ 255</td>
+<td>ASCII字符、布尔数组</td>
+</tr>
+<tr>
+<td><strong>整数</strong></td>
+<td>INT</td>
+<td>16 位</td>
+<td>-32,768 ~ +32,767</td>
+<td>—</td>
+<td>通用计数器、模拟量标定（原始值0-27648）</td>
+</tr>
+<tr>
+<td><strong>无符号整数</strong></td>
+<td>UINT</td>
+<td>16 位</td>
+<td>—</td>
+<td>0 ~ 65,535</td>
+<td>定时器预设值、内存指针</td>
+</tr>
+<tr>
+<td><strong>双整数</strong></td>
+<td>DINT</td>
+<td>32 位</td>
+<td>-2,147,483,648 ~ +2,147,483,647</td>
+<td>—</td>
+<td>高速计数器、大型累加器</td>
+</tr>
+<tr>
+<td><strong>无符号双整数</strong></td>
+<td>UDINT</td>
+<td>32 位</td>
+<td>—</td>
+<td>0 ~ 4,294,967,295</td>
+<td>时间戳（毫秒）、滴答计数</td>
+</tr>
+<tr>
+<td><strong>长整数</strong></td>
+<td>LINT</td>
+<td>64 位</td>
+<td>-9,223,372,036,854,775,808 ~ +9,223,372,036,854,775,807</td>
+<td>—</td>
+<td>系统诊断（仅 S7-1500）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>关键理解</strong>：有符号整数的最高位为符号位（0&#x3D;正，1&#x3D;负），负数采用<strong>二进制补码</strong>表示（正数取反再加1）。</p>
+</blockquote>
+<h3 id="3-2-INT-的结构（16位有符号整数）"><a href="#3-2-INT-的结构（16位有符号整数）" class="headerlink" title="3.2 INT 的结构（16位有符号整数）"></a>3.2 INT 的结构（16位有符号整数）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">位 15  | 位 14 ~ 位 0</span><br><span class="line"> 符号位  |   数值位（15位）</span><br><span class="line">   0/1   |  0 ~ 32767</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>位 15 &#x3D; 0：正数（0 ~ 32767）</li>
+<li>位 15 &#x3D; 1：负数（-32768 ~ -1，补码表示）</li>
+</ul>
+<h3 id="3-3-数学运算指令"><a href="#3-3-数学运算指令" class="headerlink" title="3.3 数学运算指令"></a>3.3 数学运算指令</h3><p>整数支持标准算术运算：</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nResult := nValue1 + nValue2;   <span class="comment">// 加法</span></span><br><span class="line">nResult := nValue1 - nValue2;   <span class="comment">// 减法</span></span><br><span class="line">nResult := nValue1 * nValue2;   <span class="comment">// 乘法</span></span><br><span class="line">nResult := nValue1 / nValue2;   <span class="comment">// 除法（整数除法）</span></span><br><span class="line">nRemainder := nValue1 <span class="keyword">MOD</span> nValue2;  <span class="comment">// 取模（余数）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、位序列-vs-整数：深入对比"><a href="#四、位序列-vs-整数：深入对比" class="headerlink" title="四、位序列 vs 整数：深入对比"></a>四、位序列 vs 整数：深入对比</h2><h3 id="4-1-核心区别总结"><a href="#4-1-核心区别总结" class="headerlink" title="4.1 核心区别总结"></a>4.1 核心区别总结</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>位序列（WORD&#x2F;DWORD）</th>
+<th>整数（INT&#x2F;DINT）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>语义</strong></td>
+<td>“将此视为位模式”</td>
+<td>“将此视为有符号&#x2F;无符号数值”</td>
+</tr>
+<tr>
+<td><strong>最高位含义</strong></td>
+<td>普通数据位（无符号）</td>
+<td>符号位（有符号）</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>状态字、控制字、错误代码、通信数据包</td>
+<td>计数、测量值、PID运算、数学公式</td>
+</tr>
+<tr>
+<td><strong>位拆分</strong></td>
+<td>有意义（提取单个标志位）</td>
+<td>无意义（破坏数值语义）</td>
+</tr>
+<tr>
+<td><strong>进制表示</strong></td>
+<td>十六进制（16#）或二进制（2#）</td>
+<td>十进制</td>
+</tr>
+<tr>
+<td><strong>类型转换</strong></td>
+<td>需显式转换（WORD_TO_INT等）</td>
+<td>需显式转换（INT_TO_WORD等）</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-类型转换注意事项"><a href="#4-2-类型转换注意事项" class="headerlink" title="4.2 类型转换注意事项"></a>4.2 类型转换注意事项</h3><p>TIA Portal <strong>不会自动转换</strong>位序列和整数类型，必须显式转换：</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">nSigned : INT;</span><br><span class="line">wRaw    : WORD;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ❌ 错误：隐式转换不被允许</span></span><br><span class="line">nSigned := wRaw;   <span class="comment">// 编译错误！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ 正确：显式转换</span></span><br><span class="line">nSigned := WORD_TO_INT(wRaw);   <span class="comment">// WORD → INT</span></span><br><span class="line">wRaw    := INT_TO_WORD(nSigned); <span class="comment">// INT → WORD</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <strong>陷阱</strong>：当 WORD 值 &gt; 16#7FFF（32767）时，转换为 INT 会得到负数（因为最高位被解释为符号位）。例如：WORD#16#8000 → INT &#x3D; -32768。</p>
+</blockquote>
+<h3 id="4-3-WORD-vs-UINT-的区别"><a href="#4-3-WORD-vs-UINT-的区别" class="headerlink" title="4.3 WORD vs UINT 的区别"></a>4.3 WORD vs UINT 的区别</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>WORD</th>
+<th>UINT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大小</td>
+<td>16位</td>
+<td>16位</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>0 ~ 65535</td>
+<td>0 ~ 65535</td>
+</tr>
+<tr>
+<td><strong>语义</strong></td>
+<td>“位模式&#x2F;寄存器”</td>
+<td>“非负整数”</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>状态字、原始寄存器值</td>
+<td>算术运算中的非负计数器</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 在 TIA Portal 中，WORD 和 UINT 是<strong>不同类型</strong>，编译器在某些严格模式下会标记类型不匹配。选择依据：<strong>表示位模式用 WORD，表示非负整数用 UINT</strong>。</p>
+</blockquote>
+<hr>
+<h2 id="五、数制表示法"><a href="#五、数制表示法" class="headerlink" title="五、数制表示法"></a>五、数制表示法</h2><p>TIA Portal 支持多种数制字面量：</p>
+<table>
+<thead>
+<tr>
+<th>表示法</th>
+<th>前缀</th>
+<th>示例</th>
+<th>十进制值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>二进制</strong></td>
+<td><code>2#</code></td>
+<td><code>2#1010</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>十进制</strong></td>
+<td>无前缀</td>
+<td><code>10</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>十六进制</strong></td>
+<td><code>16#</code></td>
+<td><code>16#A</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>八进制</strong></td>
+<td><code>8#</code></td>
+<td><code>8#12</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>BCD</strong></td>
+<td><code>BCD#</code></td>
+<td><code>BCD#10</code></td>
+<td>10（用于旧式BCD I&#x2F;O）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>📝 <strong>注意</strong>：TIA Portal 不支持 C 风格的 <code>0x</code> 前缀。十六进制请始终使用 <code>16#</code>。</p>
+</blockquote>
+<hr>
+<h2 id="六、实际应用示例"><a href="#六、实际应用示例" class="headerlink" title="六、实际应用示例"></a>六、实际应用示例</h2><h3 id="6-1-位序列应用：状态字解析"><a href="#6-1-位序列应用：状态字解析" class="headerlink" title="6.1 位序列应用：状态字解析"></a>6.1 位序列应用：状态字解析</h3><figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VAR</span></span><br><span class="line">    StatusWord : WORD;          <span class="comment">// 设备状态字（位序列）</span></span><br><span class="line">    bReady     : BOOL;          <span class="comment">// 就绪标志（位0）</span></span><br><span class="line">    bRunning   : BOOL;          <span class="comment">// 运行标志（位1）</span></span><br><span class="line">    bFault     : BOOL;          <span class="comment">// 故障标志（位7）</span></span><br><span class="line">    bEmergency : BOOL;          <span class="comment">// 急停标志（位15）</span></span><br><span class="line">END_VAR</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取状态位</span></span><br><span class="line">bReady     := &quot;StatusWord&quot;.<span class="number">%</span>X0;</span><br><span class="line">bRunning   := &quot;StatusWord&quot;.<span class="number">%</span>X1;</span><br><span class="line">bFault     := &quot;StatusWord&quot;.<span class="number">%</span>X7;</span><br><span class="line">bEmergency := &quot;StatusWord&quot;.<span class="number">%</span>X15;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置运行标志（不影响其他位）</span></span><br><span class="line">&quot;StatusWord&quot; := &quot;StatusWord&quot; <span class="keyword">OR</span> <span class="number">16</span><span class="string">#0002</span>;  <span class="comment">// 置位bit1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-整数应用：计数与运算"><a href="#6-2-整数应用：计数与运算" class="headerlink" title="6.2 整数应用：计数与运算"></a>6.2 整数应用：计数与运算</h3><figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VAR</span></span><br><span class="line">    nCounter   : INT;           <span class="comment">// 计数器（整数）</span></span><br><span class="line">    nSetpoint  : INT := <span class="number">100</span>;    <span class="comment">// 设定值</span></span><br><span class="line">    nActual    : INT;           <span class="comment">// 实际值</span></span><br><span class="line">    nError     : INT;           <span class="comment">// 误差</span></span><br><span class="line">END_VAR</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数学运算</span></span><br><span class="line">nCounter := nCounter + <span class="number">1</span>;       <span class="comment">// 计数器递增</span></span><br><span class="line">nError   := nSetpoint - nActual; <span class="comment">// 计算误差</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较运算</span></span><br><span class="line"><span class="keyword">IF</span> nError &gt; <span class="number">10</span> <span class="keyword">THEN</span></span><br><span class="line">    <span class="comment">// 误差过大，报警处理</span></span><br><span class="line">END_IF;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-3-混合使用：从模拟量读取"><a href="#6-3-混合使用：从模拟量读取" class="headerlink" title="6.3 混合使用：从模拟量读取"></a>6.3 混合使用：从模拟量读取</h3><figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VAR</span></span><br><span class="line">    wRawInput  : WORD;          <span class="comment">// 模拟量原始输入（位序列，0-27648）</span></span><br><span class="line">    nScaled    : INT;           <span class="comment">// 标定后的工程值（整数）</span></span><br><span class="line">END_VAR</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将位序列转换为整数进行数学运算</span></span><br><span class="line">nScaled := WORD_TO_INT(wRawInput);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 进行线性标定（如 0-27648 → 0-100°C）</span></span><br><span class="line">nScaled := (nScaled * <span class="number">100</span>) / <span class="number">27648</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、常见错误与避坑指南"><a href="#七、常见错误与避坑指南" class="headerlink" title="七、常见错误与避坑指南"></a>七、常见错误与避坑指南</h2><h3 id="7-1-错误类型对照表"><a href="#7-1-错误类型对照表" class="headerlink" title="7.1 错误类型对照表"></a>7.1 错误类型对照表</h3><table>
+<thead>
+<tr>
+<th>错误现象</th>
+<th>根本原因</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编译错误：无法将 WORD 赋值给 INT</td>
+<td>类型不匹配，无隐式转换</td>
+<td>使用 <code>WORD_TO_INT()</code> 显式转换</td>
+</tr>
+<tr>
+<td>HMI 读取无符号值显示为负数</td>
+<td>HMI 将有符号&#x2F;无符号类型混淆</td>
+<td>将 HMI 标签配置为无符号类型，或在PLC中转换</td>
+</tr>
+<tr>
+<td>位片访问返回错误值</td>
+<td>字节序不匹配（大端 vs 小端）</td>
+<td>使用 SWAP 指令交换字节序</td>
+</tr>
+<tr>
+<td>WORD 值 &gt; 32767 转 INT 变负数</td>
+<td>补码解释导致符号翻转</td>
+<td>语义上非负时使用 UINT，而非 INT</td>
+</tr>
+<tr>
+<td>地址交叉（如 DW0 与 DW2）</td>
+<td>双字由连续字组成，地址重叠</td>
+<td>确保地址间隔至少为数据类型大小</td>
+</tr>
+</tbody></table>
+<h3 id="7-2-字节序与通信"><a href="#7-2-字节序与通信" class="headerlink" title="7.2 字节序与通信"></a>7.2 字节序与通信</h3><p>当 WORD 通过 PROFINET、Modbus TCP 等通信时，线缆上的字节序可能是<strong>大端（Big-Endian）</strong>，而西门子内存是<strong>小端</strong>。在位片访问前需使用 <strong>SWAP</strong> 指令规范化：</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接收到的 Modbus 数据（大端）</span></span><br><span class="line">wReceived : WORD := <span class="number">16</span>#A5B6;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 交换字节序后位片才正确</span></span><br><span class="line">wSwapped := SWAP(wReceived);  <span class="comment">// 结果：16#B6A5</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-地址不重叠原则"><a href="#7-3-地址不重叠原则" class="headerlink" title="7.3 地址不重叠原则"></a>7.3 地址不重叠原则</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MB0  →  BYTE（占用 MB0）</span><br><span class="line">MW0  →  WORD（占用 MB0, MB1）</span><br><span class="line">MD0  →  DWORD（占用 MB0, MB1, MB2, MB3）</span><br><span class="line"></span><br><span class="line">❌ 错误：MD0 和 MW2 存在地址交叉（MB2, MB3 重叠）</span><br><span class="line">✅ 正确：MD0 和 MW4 无交叉</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="八、思维导图：数据类型选择决策"><a href="#八、思维导图：数据类型选择决策" class="headerlink" title="八、思维导图：数据类型选择决策"></a>八、思维导图：数据类型选择决策</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">需要存储数据？</span><br><span class="line">    ├── 是单个开关量？ → BOOL（1位）</span><br><span class="line">    ├── 是多位标志集合？</span><br><span class="line">    │       ├── 8位  → BYTE</span><br><span class="line">    │       ├── 16位 → WORD</span><br><span class="line">    │       ├── 32位 → DWORD</span><br><span class="line">    │       └── 64位 → LWORD（S7-1500）</span><br><span class="line">    └── 是数值用于计算？</span><br><span class="line">            ├── 需要负数？</span><br><span class="line">            │       ├── 8位  → SINT</span><br><span class="line">            │       ├── 16位 → INT</span><br><span class="line">            │       ├── 32位 → DINT</span><br><span class="line">            │       └── 64位 → LINT（S7-1500）</span><br><span class="line">            └── 仅非负数？</span><br><span class="line">                    ├── 8位  → USINT</span><br><span class="line">                    ├── 16位 → UINT</span><br><span class="line">                    ├── 32位 → UDINT</span><br><span class="line">                    └── 64位 → ULINT（S7-1500）</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="九、参考资源"><a href="#九、参考资源" class="headerlink" title="九、参考资源"></a>九、参考资源</h2><ul>
+<li>西门子 TIA Portal 帮助文档 — 数据类型</li>
+<li>西门子 S7-1500 系统手册（位片访问章节）</li>
+<li>西门子 S7-1200&#x2F;1500 编程指南</li>
+</ul>
+<hr>
+<blockquote>
+<p>🎯 <strong>学习要点回顾</strong>：</p>
+<ol>
+<li>位序列 &#x3D; 位的容器，关注每一位的独立状态；整数 &#x3D; 数值，关注整体大小和数学运算</li>
+<li>位序列用二进制&#x2F;十六进制表示，整数用十进制表示</li>
+<li>位序列支持位操作指令（AND&#x2F;OR&#x2F;XOR&#x2F;移位），整数支持算术指令（加减乘除）</li>
+<li>位序列可以拆分合并（有意义），整数的位拆分无意义</li>
+<li>TIA Portal 类型检查严格，位序列与整数之间必须显式转换</li>
+</ol>
+</blockquote>
+<hr>
+<p><em>本笔记基于西门子官方文档及课程资料整理，供学习参考使用。</em></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io">Zhu-OKOL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhu-okol.github.io/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://zhu-okol.github.io/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhu-okol.github.io" target="_blank">Zhu-OKOL的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/Zhu-OKOL/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/PLC/">PLC</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/1200/">1200</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/%E6%95%B0%E5%88%B6/">数制</a><a class="post-meta__tags" href="/Zhu-OKOL/tags/SCL/">SCL</a></div><div class="post-share"><div class="social-share" data-image="/Zhu-OKOL/img/cover.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）"><img class="cover" src="/Zhu-OKOL/img/cover.jpg" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">西门子 PLC 编程资料整理（官方/权威来源）</div></div><div class="info-2"><div class="info-item-1">西门子 PLC 编程资料整理（官方&#x2F;权威来源） 整理时间：2026-07-26用途：作为后续”西门子PLC编程指导”任务的权威资料库。所有核心条目均来自西门子官方（Siemens Industry Online Support &#x2F; 西门子（中国）工业支持中心）或其官方发布的 PDF 文档。   一、官方资料总入口   入口 网址 说明    西门子工业在线支持（全球站） https://support.industry.siemens.com 手册、下载、FAQ、应用示例、官方库的唯一权威来源；按”条目号（Entry ID）”检索最准确   西门子（中国）工业支持中心 https://www.ad.siemens.com.cn 中文门户：找答案、学习平台、下载中心、专题视频课程（权威中文一手资料）   中国支持中心·PLC 编程专题 https://www.ad.siemens.com.cn/topicportal/index_44.html 官方解读《S7-1200 编程指南》《S7-1200 安全编程指南》、TIA 博途库、可复用程序编写等专题   中国支...</div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/file-20260312173417780.png" onerror="onerror=null;src='/Zhu-OKOL/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">200smart学习 第10章：PWM输出</div></div><div class="info-2"><div class="info-item-1">PWM基础介绍 PWM：脉冲宽度调制，是一种周期固定、宽度可调的方波     PWM配置向导1、选择脉冲发生  PWM0，用于在Q0.0上产生脉冲 PWM1，用于在Q0.1上产生脉冲 PWM2，用于在Q0.3上产生脉冲注：ST20只有两路高速脉冲输出     2、更改PWM通过名称 3、组态PWM通道输出时基 4、生成项目组件 PWM指令 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方&#x2F;权威来源）"><img class="cover" src="/Zhu-OKOL/img/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-26</div><div class="info-item-2">西门子 PLC 编程资料整理（官方&#x2F;权威来源）</div></div><div class="info-2"><div class="info-item-1">西门子 PLC 编程资料整理（官方&#x2F;权威来源） 整理时间：2026-07-26用途：作为后续”西门子PLC编程指导”任务的权威资料库。所有核心条目均来自西门子官方（Siemens Industry Online Support &#x2F; 西门子（中国）工业支持中心）或其官方发布的 PDF 文档。   一、官方资料总入口   入口 网址 说明    西门子工业在线支持（全球站） https://support.industry.siemens.com 手册、下载、FAQ、应用示例、官方库的唯一权威来源；按”条目号（Entry ID）”检索最准确   西门子（中国）工业支持中心 https://www.ad.siemens.com.cn 中文门户：找答案、学习平台、下载中心、专题视频课程（权威中文一手资料）   中国支持中心·PLC 编程专题 https://www.ad.siemens.com.cn/topicportal/index_44.html 官方解读《S7-1200 编程指南》《S7-1200 安全编程指南》、TIA 博途库、可复用程序编写等专题   中国支...</div></div></div></a><a class="pagination-related" href="/Zhu-OKOL/2026/01/12/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" title="200smart学习 第2章：编程基础介绍"><img class="cover" src="/Zhu-OKOL/assets/%E7%AC%AC2%E7%AB%A0%EF%BC%9A%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/file-20260111173535596.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-12</div><div class="info-item-2">200smart学习 第2章：编程基础介绍</div></div><div class="info-2"><div class="info-item-1">编程语言   类型 名称 使用情况    LAD 梯形图 最多   FBD 功能块 一般   STL 语句表 很少        存储器类型 数据格式 三种数据格式：二进制，十进制，十六进制  注意：200smart的浮点数精确到小数点后6位。因此输入浮点常数时，最多只能指定6位小数。计算高精度数据时，计算结果可能不准确。  数据访问三种指令操作数寻址方式：  直接：使用存储区标识符、数据大小、地址来访问数据 （I0.0） 符号：使用字母数字字符组合来访问数据 （启动按钮） 间接：间接寻址使用指针访问存储器中的数据     数据访问_直接 数据访问_符号 数据类型关系 CPU IO地址 </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/Zhu-OKOL/img/myavatar.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Zhu-OKOL</div><div class="author-info-description"></div><div class="site-data"><a href="/Zhu-OKOL/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/Zhu-OKOL/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/Zhu-OKOL/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhu-OKOL"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%EF%BC%9A%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%94-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">西门子PLC编程：数制与基本数据类型 — 学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%EF%BC%9A%E4%BD%8D%E5%BA%8F%E5%88%97%E4%B8%8E%E6%95%B4%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">一、核心问题：位序列与整数的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%8D%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text">二、位序列数据类型详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BD%8D%E5%BA%8F%E5%88%97%E7%B1%BB%E5%9E%8B%E6%97%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 位序列类型族</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E4%B8%8E%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 内存映射与字节序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%BD%8D%E8%AE%BF%E9%97%AE%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 位访问语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#S7-1500-S7-1200%EF%BC%88%E5%9B%BA%E4%BB%B6-V4-0-%EF%BC%89"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">S7-1500 &#x2F; S7-1200（固件 V4.0+）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A7%E5%9B%BA%E4%BB%B6%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%EF%BC%88S7-1200-V1-0-V3-x%EF%BC%89"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">旧固件替代方案（S7-1200 V1.0~V3.x）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E4%BD%8D%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4%EF%BC%88%E5%AD%97%E9%80%BB%E8%BE%91%EF%BC%89"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 位操作指令（字逻辑）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%95%B4%E6%95%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.3.</span> <span class="toc-text">三、整数数据类型详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%97%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 整数类型族</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-INT-%E7%9A%84%E7%BB%93%E6%9E%84%EF%BC%8816%E4%BD%8D%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 INT 的结构（16位有符号整数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 数学运算指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BD%8D%E5%BA%8F%E5%88%97-vs-%E6%95%B4%E6%95%B0%EF%BC%9A%E6%B7%B1%E5%85%A5%E5%AF%B9%E6%AF%94"><span class="toc-number">1.4.</span> <span class="toc-text">四、位序列 vs 整数：深入对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 核心区别总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 类型转换注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-WORD-vs-UINT-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 WORD vs UINT 的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%95%B0%E5%88%B6%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.5.</span> <span class="toc-text">五、数制表示法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.6.</span> <span class="toc-text">六、实际应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E4%BD%8D%E5%BA%8F%E5%88%97%E5%BA%94%E7%94%A8%EF%BC%9A%E7%8A%B6%E6%80%81%E5%AD%97%E8%A7%A3%E6%9E%90"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 位序列应用：状态字解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E6%95%B4%E6%95%B0%E5%BA%94%E7%94%A8%EF%BC%9A%E8%AE%A1%E6%95%B0%E4%B8%8E%E8%BF%90%E7%AE%97"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 整数应用：计数与运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E6%B7%B7%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%9A%E4%BB%8E%E6%A8%A1%E6%8B%9F%E9%87%8F%E8%AF%BB%E5%8F%96"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 混合使用：从模拟量读取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E4%B8%8E%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="toc-number">1.7.</span> <span class="toc-text">七、常见错误与避坑指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E9%94%99%E8%AF%AF%E7%B1%BB%E5%9E%8B%E5%AF%B9%E7%85%A7%E8%A1%A8"><span class="toc-number">1.7.1.</span> <span class="toc-text">7.1 错误类型对照表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E5%AD%97%E8%8A%82%E5%BA%8F%E4%B8%8E%E9%80%9A%E4%BF%A1"><span class="toc-number">1.7.2.</span> <span class="toc-text">7.2 字节序与通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E5%9C%B0%E5%9D%80%E4%B8%8D%E9%87%8D%E5%8F%A0%E5%8E%9F%E5%88%99"><span class="toc-number">1.7.3.</span> <span class="toc-text">7.3 地址不重叠原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9%E5%86%B3%E7%AD%96"><span class="toc-number">1.8.</span> <span class="toc-text">八、思维导图：数据类型选择决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%8F%82%E8%80%83%E8%B5%84%E6%BA%90"><span class="toc-number">1.9.</span> <span class="toc-text">九、参考资源</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子 PLC 编程资料整理（官方/权威来源）"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/26/%E8%A5%BF%E9%97%A8%E5%AD%90PLC%E7%BC%96%E7%A8%8B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="西门子 PLC 编程资料整理（官方/权威来源）">西门子 PLC 编程资料整理（官方/权威来源）</a><time datetime="2026-07-26T04:00:00.000Z" title="发表于 2026-07-26 12:00:00">2026-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记"><img src="/Zhu-OKOL/img/cover.jpg" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="西门子PLC编程：数制与基本数据类型 — 学习笔记"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/07/21/%E8%A5%BF%E9%97%A8%E5%AD%90PLC_%E6%95%B0%E5%88%B6%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="西门子PLC编程：数制与基本数据类型 — 学习笔记">西门子PLC编程：数制与基本数据类型 — 学习笔记</a><time datetime="2026-07-21T04:00:00.000Z" title="发表于 2026-07-21 12:00:00">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出"><img src="/Zhu-OKOL/assets/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/file-20260312173417780.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第10章：PWM输出"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/03/23/%E7%AC%AC10%E7%AB%A0%EF%BC%9APWM%E8%BE%93%E5%87%BA/" title="200smart学习 第10章：PWM输出">200smart学习 第10章：PWM输出</a><time datetime="2026-03-23T08:00:00.000Z" title="发表于 2026-03-23 16:00:00">2026-03-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令"><img src="/Zhu-OKOL/assets/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/file-20260203145138761.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第9章：进阶指令"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/02/23/%E7%AC%AC9%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E6%8C%87%E4%BB%A4/" title="200smart学习 第9章：进阶指令">200smart学习 第9章：进阶指令</a><time datetime="2026-02-23T07:00:00.000Z" title="发表于 2026-02-23 15:00:00">2026-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础"><img src="/Zhu-OKOL/assets/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/file-20260129171637182.png" onerror="this.onerror=null;this.src='/Zhu-OKOL/img/404.jpg'" alt="200smart学习 第8章：进阶基础"/></a><div class="content"><a class="title" href="/Zhu-OKOL/2026/01/30/%E7%AC%AC8%E7%AB%A0%EF%BC%9A%E8%BF%9B%E9%98%B6%E5%9F%BA%E7%A1%80/" title="200smart学习 第8章：进阶基础">200smart学习 第8章：进阶基础</a><time datetime="2026-01-30T07:00:00.000Z" title="发表于 2026-01-30 15:00:00">2026-01-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/Zhu-OKOL/img/cover.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Zhu-OKOL</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/Zhu-OKOL/js/utils.js?v=5.5.3"></script><script src="/Zhu-OKOL/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.7/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/Zhu-OKOL/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>
